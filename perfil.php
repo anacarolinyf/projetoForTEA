@@ -84,14 +84,16 @@ while ($favorito = $resultadoFavoritos->fetch_assoc()) {
 $profissionais = [];
 
 $sqlProfissionais = "
-    SELECT *
-    FROM profissionais
-    WHERE ativo = 1
-    ORDER BY nome ASC
+    SELECT p.*, c.ultimo_contato
+    FROM contatos_profissionais c
+    INNER JOIN profissionais p ON p.id = c.profissional_id
+    WHERE c.usuario_id = ?
+    ORDER BY c.ultimo_contato DESC
 ";
 
-
 $stmtProfissionais = $conexao->prepare($sqlProfissionais);
+
+$stmtProfissionais->bind_param("i", $usuarioId);
 
 $stmtProfissionais->execute();
 
@@ -101,6 +103,16 @@ while ($profissional = $resultadoProfissionais->fetch_assoc()) {
 
     $profissionais[] = $profissional;
 
+}
+
+
+function iconeFavorito($tipo) {
+    switch ($tipo) {
+        case 'profissional': return 'fa-user-doctor';
+        case 'material':     return 'fa-book-open';
+        case 'lei':          return 'fa-scale-balanced';
+        default:             return 'fa-heart';
+    }
 }
 
 ?>
@@ -125,6 +137,9 @@ while ($profissional = $resultadoProfissionais->fetch_assoc()) {
 
     <link rel="stylesheet"
           href="css/perfil.css">
+
+    <link rel="stylesheet"
+          href="css/perfil_blocos.css">
 
     <link rel="icon"
           type="image"
@@ -396,6 +411,46 @@ while ($profissional = $resultadoProfissionais->fetch_assoc()) {
 
 
 
+                <?php if (count($favoritos) > 0): ?>
+
+                <div class="pb-grid">
+
+                    <?php foreach ($favoritos as $fav): ?>
+
+                        <?php
+                        $favTipo   = $fav['tipo'] ?? '';
+                        $favTitulo = $fav['titulo'] ?? 'Sem título';
+                        $favEspec  = $fav['especialidade'] ?? '';
+                        $favUrl    = $fav['url'] ?? '#';
+                        ?>
+
+                        <a class="pb-fav"
+                           href="<?= htmlspecialchars($favUrl) ?>">
+
+                            <div class="pb-fav-icone">
+                                <i class="fa-solid <?= iconeFavorito($favTipo) ?>"></i>
+                            </div>
+
+                            <div class="pb-info">
+                                <span class="pb-tipo">
+                                    <?= htmlspecialchars(ucfirst($favTipo)) ?>
+                                </span>
+                                <h3><?= htmlspecialchars($favTitulo) ?></h3>
+                                <?php if ($favEspec !== ''): ?>
+                                    <small><?= htmlspecialchars($favEspec) ?></small>
+                                <?php endif; ?>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right pb-seta"></i>
+
+                        </a>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            <?php else: ?>
+
                 <div class="estado-vazio">
 
                     <i class="fa-regular fa-heart"></i>
@@ -410,6 +465,8 @@ while ($profissional = $resultadoProfissionais->fetch_assoc()) {
                     </p>
 
                 </div>
+
+            <?php endif; ?>
 
 
 
@@ -441,58 +498,53 @@ while ($profissional = $resultadoProfissionais->fetch_assoc()) {
             <?php if (count($profissionais) > 0): ?>
 
 
-                <div class="lista-profissionais">
-
+                <div class="pb-grid">
 
                     <?php foreach ($profissionais as $profissional): ?>
 
+                        <?php
+                        $zap = preg_replace('/[^0-9]/', '', $profissional['whatsapp'] ?? '');
+                        ?>
 
-                        <div class="profissional-card">
+                        <article class="pb-card">
 
-
-                            <div class="profissional-icone">
-
-                                <i class="fa-solid fa-user-doctor"></i>
-
+                            <div class="pb-avatar">
+                                <?php if (!empty($profissional['foto'])): ?>
+                                    <img src="<?= htmlspecialchars($profissional['foto']) ?>"
+                                         alt="Foto de <?= htmlspecialchars($profissional['nome']) ?>">
+                                <?php else: ?>
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                <?php endif; ?>
                             </div>
 
+                            <div class="pb-info">
+                                <h3><?= htmlspecialchars($profissional['nome']) ?></h3>
 
-                            <div class="profissional-info">
+                                <?php if (!empty($profissional['especialidade'])): ?>
+                                    <span class="pb-tag">
+                                        <?= htmlspecialchars($profissional['especialidade']) ?>
+                                    </span>
+                                <?php endif; ?>
 
-                                <h3>
-
-                                    <?= htmlspecialchars(
-                                        $profissional['nome']
-                                    ) ?>
-
-                                </h3>
-
-
-                                <p>
-
-                                    <?= htmlspecialchars(
-                                        $profissional['especialidade']
-                                    ) ?>
-
-                                </p>
-
-
+                                <small>
+                                    Último contato:
+                                    <?= date('d/m/Y', strtotime($profissional['ultimo_contato'])) ?>
+                                </small>
                             </div>
 
+                            <?php if ($zap !== ''): ?>
+                                <a href="contato_profissional.php?id=<?= (int) $profissional['id'] ?>"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="pb-botao">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                    Conversar novamente
+                                </a>
+                            <?php endif; ?>
 
-                            <a href="chat.php?medico=<?= $profissional['id'] ?>"
-                               class="botao-conversar">
-
-                                Conversar novamente
-
-                            </a>
-
-
-                        </div>
-
+                        </article>
 
                     <?php endforeach; ?>
-
 
                 </div>
 

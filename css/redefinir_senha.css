@@ -1,0 +1,178 @@
+/* =========================================
+   REDEFINIR SENHA - ForTEA
+   Para trocar as cores da tela, mude só as
+   variáveis abaixo.
+========================================= */
+
+:root {
+    --cor-principal: #2454A6;
+    --cor-principal-escura: #2454A6;
+    --cor-fundo: #f4f1ff;
+    --cor-texto: #2d2d2d;
+    --cor-texto-suave: #6b6b7b;
+    --cor-borda: #ddd6f7;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+/* ===== PÁGINA ===== */
+
+.pagina-recuperacao {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+/* ===== CAIXA ===== */
+
+.caixa-recuperacao {
+    width: 100%;
+    max-width: 440px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: 0 10px 30px rgba(124, 92, 255, 0.15);
+}
+
+.logo-recuperacao {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--cor-principal);
+    margin-bottom: 20px;
+}
+
+.caixa-recuperacao h1 {
+    margin: 0 0 8px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.subtitulo {
+    margin: 0 0 24px;
+    text-align: center;
+    color: var(--cor-texto-suave);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.subtitulo strong {
+    color: var(--cor-texto);
+    word-break: break-all;
+}
+
+/* ===== MENSAGENS ===== */
+
+.mensagem {
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+    line-height: 1.4;
+}
+
+.mensagem.erro {
+    background: #ffeaea;
+    color: #b42318;
+    border: 1px solid #f5c2c0;
+}
+
+.mensagem.sucesso {
+    background: #e6f7ee;
+    color: #1f7a4d;
+    border: 1px solid #b7e4cb;
+}
+
+/* ===== CAMPOS ===== */
+
+.campo {
+    margin-bottom: 18px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.campo input {
+    width: 100%;
+    padding: 13px 14px;
+    font-size: 1rem;
+    border: 1.5px solid var(--cor-borda);
+    border-radius: 12px;
+    background: #fbfaff;
+    color: var(--cor-texto);
+    outline: none;
+    transition: 0.2s;
+}
+
+.campo input:focus {
+    border-color: var(--cor-principal);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.15);
+}
+
+/* campo do código de 6 números */
+#codigo {
+    text-align: center;
+    font-size: 1.6rem;
+    letter-spacing: 10px;
+    font-weight: 700;
+}
+
+/* ===== BOTÃO ===== */
+
+.botao {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: var(--cor-principal);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.botao:hover {
+    background: var(--cor-principal-escura);
+    transform: translateY(-1px);
+}
+
+/* ===== LINK VOLTAR ===== */
+
+.voltar {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: var(--cor-principal);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.voltar:hover {
+    text-decoration: underline;
+}
+
+/* ===== CELULAR ===== */
+
+@media (max-width: 480px) {
+    .caixa-recuperacao {
+        padding: 28px 20px;
+    }
+}

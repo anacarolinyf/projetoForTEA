@@ -21,6 +21,26 @@ require_once "PHPMailer/src/SMTP.php";
 $erro = '';
 $sucesso = '';
 
+// Enquanto estiver testando no XAMPP, deixe true para ver o erro real do e-mail.
+// Quando o site for publicado, troque para false.
+$modoDesenvolvimento = true;
+
+
+// "Solicitar outro código": limpa a recuperação e volta para a etapa do e-mail
+if (isset($_GET['reiniciar'])) {
+
+    unset(
+        $_SESSION['recuperacao_usuario_id'],
+        $_SESSION['recuperacao_email'],
+        $_SESSION['recuperacao_verificada'],
+        $_SESSION['recuperacao_id'],
+        $_SESSION['etapa_recuperacao']
+    );
+
+    header("Location: redefinir_senha.php");
+    exit;
+}
+
 
 // Define a etapa atual
 $etapa = $_SESSION['etapa_recuperacao'] ?? 'email';
@@ -262,7 +282,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
 
                 } catch (Exception $e) {
 
-                    $erro = "Erro ao enviar e-mail: " . $mail->ErrorInfo;
+                    error_log("Erro PHPMailer (recuperação de senha): " . $mail->ErrorInfo);
+
+                    if ($modoDesenvolvimento) {
+                        $erro = "Erro ao enviar e-mail: " . $mail->ErrorInfo;
+                    } else {
+                        $erro = "Não foi possível enviar o e-mail agora. Tente novamente em alguns minutos.";
+                    }
                 }
             }
         }
@@ -645,7 +671,7 @@ $etapa = $_SESSION['etapa_recuperacao'] ?? $etapa ?? 'email';
             </form>
 
 
-            <a href="redefinir_senha.php" class="voltar">
+            <a href="redefinir_senha.php?reiniciar=1" class="voltar">
                 Solicitar outro código
             </a>
 

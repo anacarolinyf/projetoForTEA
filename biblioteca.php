@@ -248,7 +248,7 @@ while ($profissional = $resultadoProfissionais->fetch_assoc()) {
                                     <?php if (!empty($whatsapp)): ?>
 
                                         <a
-                                            href="https://wa.me/<?= htmlspecialchars($whatsapp) ?>"
+                                            href="contato_profissional.php?id=<?= (int) $profissional['id'] ?>"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             class="btn-whatsapp"
