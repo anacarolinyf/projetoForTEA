@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/09/2026 às 04:57
+-- Tempo de geração: 19/10/2026 às 02:18
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -20,6 +20,79 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `fortea`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `checklist_jornada`
+--
+
+CREATE TABLE `checklist_jornada` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `etapa_atual` varchar(60) NOT NULL DEFAULT 'buscando_informacoes',
+  `atualizado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `checklist_jornada`
+--
+
+INSERT INTO `checklist_jornada` (`id`, `usuario_id`, `etapa_atual`, `atualizado_em`) VALUES
+(1, 5, 'autonomia', '2026-10-19 00:12:33');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `checklist_tarefas`
+--
+
+CREATE TABLE `checklist_tarefas` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `etapa` varchar(60) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `status` enum('pendente','concluido','andamento','ajuda','nao_aplica') NOT NULL DEFAULT 'pendente',
+  `personalizada` tinyint(1) NOT NULL DEFAULT 0,
+  `criada_em` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `checklist_tarefas`
+--
+
+INSERT INTO `checklist_tarefas` (`id`, `usuario_id`, `etapa`, `titulo`, `status`, `personalizada`, `criada_em`) VALUES
+(1, 5, 'buscando_informacoes', 'Conhecer o que é o Transtorno do Espectro Autista', 'concluido', 0, '2026-10-18 23:14:43'),
+(2, 5, 'buscando_informacoes', 'Buscar informações em fontes confiáveis', 'concluido', 0, '2026-10-18 23:14:43'),
+(3, 5, 'buscando_informacoes', 'Conhecer os direitos das pessoas autistas', 'concluido', 0, '2026-10-18 23:14:43'),
+(4, 5, 'buscando_informacoes', 'Anotar as principais dúvidas', 'concluido', 0, '2026-10-18 23:14:43'),
+(5, 5, 'buscando_informacoes', 'Identificar serviços de apoio disponíveis', 'concluido', 0, '2026-10-18 23:14:43'),
+(6, 5, 'investigando_sinais', 'Registrar situações e comportamentos observados', 'pendente', 0, '2026-10-18 23:14:43'),
+(7, 5, 'investigando_sinais', 'Anotar dúvidas sobre o desenvolvimento', 'pendente', 0, '2026-10-18 23:14:43'),
+(8, 5, 'investigando_sinais', 'Conversar com profissionais de saúde ou educação', 'pendente', 0, '2026-10-18 23:14:43'),
+(9, 5, 'investigando_sinais', 'Pesquisar como funciona a avaliação diagnóstica', 'pendente', 0, '2026-10-18 23:14:43'),
+(10, 5, 'investigando_sinais', 'Organizar informações importantes para a consulta', 'pendente', 0, '2026-10-18 23:14:43'),
+(11, 5, 'diagnostico_recente', 'Organizar os documentos e relatórios disponíveis', 'pendente', 0, '2026-10-18 23:14:43'),
+(12, 5, 'diagnostico_recente', 'Conversar com os profissionais responsáveis pelo acompanhamento', 'pendente', 0, '2026-10-18 23:14:43'),
+(13, 5, 'diagnostico_recente', 'Conhecer os direitos garantidos por lei', 'pendente', 0, '2026-10-18 23:14:43'),
+(14, 5, 'diagnostico_recente', 'Pesquisar serviços de apoio na minha região', 'pendente', 0, '2026-10-18 23:14:43'),
+(15, 5, 'diagnostico_recente', 'Anotar dúvidas para as próximas consultas', 'pendente', 0, '2026-10-18 23:14:43'),
+(16, 5, 'acompanhamento', 'Organizar os compromissos de acompanhamento', 'pendente', 0, '2026-10-18 23:14:43'),
+(17, 5, 'acompanhamento', 'Registrar necessidades e avanços observados', 'pendente', 0, '2026-10-18 23:14:43'),
+(18, 5, 'acompanhamento', 'Conversar com a equipe de acompanhamento', 'pendente', 0, '2026-10-18 23:14:43'),
+(19, 5, 'acompanhamento', 'Identificar adaptações que ajudam na rotina', 'pendente', 0, '2026-10-18 23:14:43'),
+(20, 5, 'acompanhamento', 'Reavaliar as necessidades de apoio periodicamente', 'pendente', 0, '2026-10-18 23:14:43'),
+(21, 5, 'autonomia', 'Identificar interesses e preferências pessoais', 'concluido', 0, '2026-10-18 23:14:43'),
+(22, 5, 'autonomia', 'Estabelecer objetivos adequados às necessidades individuais', 'pendente', 0, '2026-10-18 23:14:43'),
+(23, 5, 'autonomia', 'Buscar estratégias para facilitar a rotina', 'pendente', 0, '2026-10-18 23:14:43'),
+(24, 5, 'autonomia', 'Incentivar a participação nas decisões do dia a dia', 'pendente', 0, '2026-10-18 23:14:43'),
+(25, 5, 'autonomia', 'Identificar formas de promover bem-estar e inclusão', 'concluido', 0, '2026-10-18 23:14:43'),
+(26, 5, 'familia_cuidador', 'Identificar pessoas e serviços que podem oferecer apoio', 'pendente', 0, '2026-10-18 23:14:43'),
+(27, 5, 'familia_cuidador', 'Dividir responsabilidades sempre que possível', 'pendente', 0, '2026-10-18 23:14:43'),
+(28, 5, 'familia_cuidador', 'Reservar momentos para descanso e autocuidado', 'pendente', 0, '2026-10-18 23:14:43'),
+(29, 5, 'familia_cuidador', 'Buscar grupos de acolhimento e troca de experiências', 'pendente', 0, '2026-10-18 23:14:43'),
+(30, 5, 'familia_cuidador', 'Anotar dúvidas e necessidades da família', 'pendente', 0, '2026-10-18 23:14:43'),
+(32, 5, 'diagnostico_recente', 'Organizar documentos e relatórios disponíveis', 'pendente', 0, '2026-10-18 23:30:33');
 
 -- --------------------------------------------------------
 
@@ -135,7 +208,8 @@ INSERT INTO `preferencias_usuario` (`id`, `usuario_id`, `modo_escuro`, `reduzir_
 (0, 4, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-09-22 01:14:50'),
 (0, 4, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-09-22 01:28:34'),
 (0, 4, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-09-22 02:23:30'),
-(0, 5, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-09-23 02:48:01');
+(0, 5, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-09-23 02:48:01'),
+(0, 5, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-19 00:12:55');
 
 -- --------------------------------------------------------
 
@@ -271,8 +345,16 @@ CREATE TABLE `trajetoria_registros` (
   `profissional` varchar(150) DEFAULT NULL,
   `local` varchar(150) DEFAULT NULL,
   `descricao` text DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `trajetoria_registros`
+--
+
+INSERT INTO `trajetoria_registros` (`id`, `usuario_id`, `titulo`, `tipo`, `data_registro`, `profissional`, `local`, `descricao`, `foto`, `criado_em`) VALUES
+(7, 5, '09', 'Reunião', '2026-10-19', '', '', 'rghdhtsf', 'uploads/trajetoria/registro_5_09d1e9faf87c97a6.jpg', '2026-10-18 23:57:23');
 
 -- --------------------------------------------------------
 
@@ -304,6 +386,20 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `data_cadastro`, `foto`)
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `checklist_jornada`
+--
+ALTER TABLE `checklist_jornada`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario_unico` (`usuario_id`);
+
+--
+-- Índices de tabela `checklist_tarefas`
+--
+ALTER TABLE `checklist_tarefas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_usuario_etapa` (`usuario_id`,`etapa`);
 
 --
 -- Índices de tabela `favoritos`
@@ -350,6 +446,18 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de tabela `checklist_jornada`
+--
+ALTER TABLE `checklist_jornada`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de tabela `checklist_tarefas`
+--
+ALTER TABLE `checklist_tarefas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
 -- AUTO_INCREMENT de tabela `recuperacao_senha`
 --
 ALTER TABLE `recuperacao_senha`
@@ -371,7 +479,7 @@ ALTER TABLE `trajetoria_itens`
 -- AUTO_INCREMENT de tabela `trajetoria_registros`
 --
 ALTER TABLE `trajetoria_registros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
