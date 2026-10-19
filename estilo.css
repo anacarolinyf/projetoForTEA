@@ -1,4 +1,7 @@
-/* configurações  */
+
+/* =========================================================
+   1. CONFIGURAÇÕES GERAIS
+========================================================= */
 
 * {
     margin: 0;
@@ -8,6 +11,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 150px;
 }
 
 :root {
@@ -27,25 +31,35 @@ html {
     --card-bg: #ffffff;
 
     --border: #e2e8f0;
-
     --border-radius: 12px;
 
     --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+    --azul: #3467EB;
+    --azul-escuro: #21479B;
+    --azul-claro: #EAF2FF;
+    --verde: #4CAF50;
+    --fundo: #F7F9FC;
+    --texto: #374151;
+    --suave: #667085;
+    --branco: #fff;
+    --borda: #E4E9F2;
+    --sombra: 0 12px 30px rgba(33, 71, 155, .08);
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #FAFBF7;
-    color: #475569;
+    background: var(--bg-light);
+    color: var(--text);
     line-height: 1.6;
     padding-top: 134px;
     overflow-x: hidden;
 }
 
 img {
+    display: block;
     max-width: 100%;
     height: auto;
-    display: block;
 }
 
 a,
@@ -54,16 +68,42 @@ input {
     transition: 0.3s ease;
 }
 
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
 
-/* HEADER  */
+button {
+    cursor: pointer;
+}
+
+main {
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.container {
+    width: 90%;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   2. CABEÇALHO
+========================================================= */
 
 header {
-    background: #21479b;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 9999;
+
+    background: #21479B;
     box-shadow: 0 7px 10px rgba(0, 0, 0, 0.08);
 }
 
@@ -77,14 +117,16 @@ header a {
 }
 
 
-/* logo e topo */
+/* Área superior */
 
 .topo {
     width: min(1200px, 92%);
-    margin: auto;
+    margin: 0 auto;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     padding: 4px 0;
 }
 
@@ -106,16 +148,19 @@ header a {
 }
 
 
-/* barra de pesquisa */
+/* Barra de pesquisa */
 
 .pesquisa input {
     width: 260px;
+    max-width: 100%;
+
     padding: 11px 18px;
-    border: none;
-    outline: none;
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.12);
+
     border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    outline: none;
+
+    background: rgba(255, 255, 255, 0.12);
     color: #fff;
 }
 
@@ -129,41 +174,55 @@ header a {
 }
 
 
-/* menu principal  */
+/* Menu principal */
 
 .menu {
-    background: #21479b;
+    background: #21479B;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .menu ul {
     width: min(1200px, 92%);
-    margin: auto;
-    list-style: none;
+    margin: 0 auto;
+
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 28px;
+
     padding: 14px 0;
+
+    list-style: none;
 }
 
 .menu a {
     position: relative;
+
+    display: inline-block;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
     color: #fff;
     text-decoration: none;
     font-weight: 600;
-    padding: 8px 12px;
-    border-radius: 8px;
 }
 
 .menu a::after {
     content: "";
+
     position: absolute;
     left: 50%;
     bottom: -6px;
+
     width: 0;
     height: 3px;
+
     border-radius: 50px;
     background: #8a92ff;
+
     transform: translateX(-50%);
     transition: 0.3s;
 }
@@ -177,12 +236,14 @@ header a {
 }
 
 
-/* submenu  */
+/* Submenu da Biblioteca */
 
 .menu-dropdown {
     position: relative;
+
     display: flex;
     align-items: center;
+
     height: 100%;
 }
 
@@ -193,16 +254,12 @@ header a {
 }
 
 .menu-dropdown > .biblioteca-link {
-    display: flex;
-    align-items: center;
     height: 100%;
     padding: 0;
     margin: 0;
+
     line-height: normal;
 }
-
-
-/* Setinha */
 
 .biblioteca-link::after {
     content: "⌄";
@@ -210,28 +267,24 @@ header a {
     transition: transform 0.2s ease;
 }
 
-
-/* Caixa */
-
 .submenu-biblioteca {
     position: absolute;
     top: calc(100% + 15px);
     left: 50%;
 
-    transform: translateX(-50%) translateY(-8px);
-
     width: 220px;
+    padding: 8px 0;
 
-    background: #ffffff;
     border-radius: 8px;
+    background: #fff;
 
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-
-    padding: 8px 0;
 
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+
+    transform: translateX(-50%) translateY(-8px);
 
     transition:
         opacity 0.2s ease,
@@ -240,33 +293,26 @@ header a {
     z-index: 1000;
 }
 
-
-/* Setinha superior */
-
 .submenu-biblioteca::before {
     content: "";
-    position: absolute;
 
+    position: absolute;
     top: -7px;
     left: 50%;
-
-    transform: translateX(-50%) rotate(45deg);
 
     width: 14px;
     height: 14px;
 
-    background: #ffffff;
+    background: #fff;
+
+    transform: translateX(-50%) rotate(45deg);
 }
-
-
-/* Links */
 
 .submenu-biblioteca a {
     display: block;
     padding: 13px 18px;
 
     color: #333 !important;
-
     font-size: 14px;
     text-decoration: none;
 
@@ -277,11 +323,8 @@ header a {
 
 .submenu-biblioteca a:hover {
     background: #eef4ff;
-    color: #21479b !important;
+    color: #21479B !important;
 }
-
-
-/* Abrir submenu */
 
 .menu-dropdown:hover .submenu-biblioteca {
     opacity: 1;
@@ -291,20 +334,19 @@ header a {
     transform: translateX(-50%) translateY(0);
 }
 
-
-/* Girar seta */
-
 .menu-dropdown:hover .biblioteca-link::after {
     transform: rotate(180deg);
 }
 
 
-/* botoes */
+/* =========================================================
+   3. BOTÕES GERAIS
+========================================================= */
 
 .botoes {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
+    gap: 15px;
 }
 
 .btn-principal,
@@ -317,8 +359,8 @@ header a {
 
     border-radius: 10px;
 
-    text-decoration: none;
     font-weight: 600;
+    text-decoration: none;
 }
 
 .btn-principal {
@@ -341,14 +383,34 @@ header a {
     transform: translateY(-3px);
 }
 
+.btn-guia {
+    padding: 18px 28px;
 
-/* hero  */
+    border-radius: 14px;
+
+    background: #21479B;
+    color: #fff;
+
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: 0.3s;
+}
+
+.btn-guia:hover {
+    background: #17397f;
+}
+
+
+/* =========================================================
+   4. BANNER PRINCIPAL DA HOME
+========================================================= */
 
 .hero {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     gap: 70px;
 
     padding: 90px 8%;
@@ -362,35 +424,36 @@ header a {
 
 .hero-texto {
     flex: 1;
+    min-width: 0;
 }
 
 .hero-texto h1 {
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    line-height: 1.2;
+    margin-bottom: 20px;
 
     color: #21479B;
 
-    margin-bottom: 20px;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.2;
 }
 
 .hero-texto p {
-    font-size: 1.08rem;
-
     margin-bottom: 35px;
 
     color: #475569;
+    font-size: 1.08rem;
 }
 
 .hero-imagem {
     flex: 1;
+    min-width: 0;
 
     display: flex;
     justify-content: center;
 }
 
 .hero-imagem img {
-    max-width: 500px;
     width: 100%;
+    max-width: 500px;
 
     border-radius: 20px;
 
@@ -405,9 +468,8 @@ header a {
 
 .hero-beneficios {
     display: flex;
-    gap: 30px;
-
     flex-wrap: wrap;
+    gap: 30px;
 
     margin-top: 35px;
 }
@@ -415,11 +477,9 @@ header a {
 .hero-beneficios div {
     display: flex;
     align-items: center;
-
     gap: 8px;
 
     color: #334155;
-
     font-weight: 500;
 }
 
@@ -429,17 +489,16 @@ header a {
 }
 
 
-/* cards gerais */
+/* =========================================================
+   5. CARDS GERAIS
+========================================================= */
 
 .cards,
 .cards-info,
 .cards-niveis,
 .cards-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(250px, 1fr));
-
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
 }
 
@@ -452,58 +511,52 @@ header a {
 .card,
 .info-card,
 .nivel-card {
-    background: #fff;
-
-    border-radius: 18px;
-
-    border: 1px solid #e2e8f0;
-
     padding: 30px;
 
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+
+    background: #fff;
+
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+
+    text-align: center;
 
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
-
-    text-align: center;
 }
 
 .card:hover {
     transform: translateY(-8px);
 
-    box-shadow:
-        0 18px 35px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.12);
 }
 
 .card i {
-    font-size: 2.7rem;
+    margin-bottom: 20px;
 
     color: #3467EB;
-
-    margin-bottom: 20px;
+    font-size: 2.7rem;
 }
 
 .card h3 {
+    min-height: 28px;
     margin-bottom: 10px;
 
     color: #21479B;
-
-    min-height: 28px;
 }
 
 .card p {
-    color: #475569;
-
-    line-height: 1.6;
-
-    text-align: left;
-
     width: 100%;
+
+    color: #475569;
+    line-height: 1.6;
+    text-align: left;
 }
 
 
-/* Cores dos ícones dos cards */
+/* Cores dos ícones */
 
 .card:nth-child(1) i {
     color: #F5C542;
@@ -522,16 +575,21 @@ header a {
 }
 
 
-/* sobre o projeto- pag inicial  */
+/* =========================================================
+   FIM DA PARTE 1
+   A próxima parte começa em "SOBRE O PROJETO — HOME".
+========================================================= */
+
+
+/* =========================================================
+   6. SEÇÃO SOBRE O PROJETO — PÁGINA INICIAL
+========================================================= */
 
 .sobre-projeto {
     display: grid;
-
     grid-template-columns: 2fr 1fr;
-
-    gap: 60px;
-
     align-items: center;
+    gap: 60px;
 
     padding: 90px 8%;
 
@@ -539,99 +597,82 @@ header a {
 }
 
 .sobre-projeto h2 {
-    font-size: 2.2rem;
+    margin-bottom: 20px;
 
     color: #21479B;
-
-    margin-bottom: 20px;
+    font-size: 2.2rem;
 }
 
 .sobre-projeto p {
-    color: #475569;
-
-    line-height: 1.8;
-
     margin-bottom: 30px;
+
+    color: #475569;
+    line-height: 1.8;
 }
 
 .sobre-projeto .icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 150px;
     height: 150px;
 
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
+    border-radius: 50%;
     background: #6776ff70;
 
-    border-radius: 50%;
-
-    box-shadow:
-        0 8px 20px rgba(43, 63, 175, 0.15);
+    box-shadow: 0 8px 20px rgba(43, 63, 175, 0.15);
 }
 
 .sobre-projeto .icone i {
-    font-size: 75px;
-
     color: #2b3faf;
-
-    opacity: 1;
+    font-size: 75px;
 }
 
 
-/* diagnostico pag inicial */
+/* =========================================================
+   7. DIAGNÓSTICO — PÁGINA INICIAL
+========================================================= */
 
 .diagnostico {
     max-width: 1200px;
-
     margin: 60px auto;
-
     padding: 35px 30px;
 
-    background: #eef4ff;
-
     border-radius: 22px;
+    background: #eef4ff;
 }
 
 .diagnostico-topo h2 {
-    color: #21479B;
-
-    font-size: 2rem;
-
     margin-bottom: 8px;
+
+    color: #21479B;
+    font-size: 2rem;
 }
 
 .diagnostico-topo p {
-    color: #5f6b82;
-
     margin-bottom: 35px;
 
+    color: #5f6b82;
     font-size: 1rem;
 }
 
 .passos {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 15px;
 }
 
 .passo {
-    width: 135px;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 
-    text-decoration: none;
+    width: 135px;
 
     color: #21479B;
+    text-decoration: none;
 
     transition: 0.25s;
 }
@@ -641,30 +682,25 @@ header a {
 }
 
 .icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 72px;
     height: 72px;
-
-    background: #fff;
+    margin-bottom: 14px;
 
     border-radius: 50%;
+    background: #fff;
 
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    box-shadow:
-        0 10px 25px rgba(33, 71, 155, 0.10);
-
-    margin-bottom: 14px;
+    box-shadow: 0 10px 25px rgba(33, 71, 155, 0.10);
 
     transition: 0.3s;
 }
 
 .icone i {
-    font-size: 28px;
-
     color: #21479B;
+    font-size: 28px;
 }
 
 .passo:hover .icone {
@@ -676,351 +712,325 @@ header a {
 }
 
 .numero {
-    font-size: 15px;
-
-    font-weight: 700;
-
     margin-bottom: 10px;
+
+    font-size: 15px;
+    font-weight: 700;
 }
 
 .titulo-passo {
     display: flex;
-
-    justify-content: center;
     align-items: center;
-
-    text-align: center;
+    justify-content: center;
 
     min-height: 56px;
-
     padding: 10px 12px;
 
     border: 2px solid #8b6cf2;
-
     border-radius: 14px;
 
     background: #fff;
 
     font-size: 14px;
-
     font-weight: 600;
-
     line-height: 18px;
+    text-align: center;
 
     transition: 0.3s;
 }
 
 .passo:hover .titulo-passo {
-    background: #21479B;
-
-    color: #fff;
-
     border-color: #21479B;
+    background: #21479B;
+    color: #fff;
 }
 
 .seta {
     color: #b4bfdc;
-
     font-size: 26px;
 }
 
-.btn-guia {
-    background: #21479B;
 
-    color: #fff;
+/* =========================================================
+   8. PÁGINA SOBRE — BANNER PRINCIPAL
+========================================================= */
 
-    text-decoration: none;
+/* O seletor .sobre-banner.reveal se aplica ao banner da
+   página Sobre sem alterar o banner da Educação Inclusiva. */
 
-    padding: 18px 28px;
-
-    border-radius: 14px;
-
-    font-weight: 600;
-
-    transition: 0.3s;
-
-    white-space: nowrap;
-}
-
-.btn-guia:hover {
-    background: #17397f;
-}
-
-
-/* PAG SOBRE */
-
-.sobre-home {
-    padding: 70px 8%;
-
-    text-align: center;
-}
-
-.sobre-banner {
+.sobre-banner.reveal {
     position: relative;
+    isolation: isolate;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: clamp(30px, 5vw, 76px);
+
+    width: 100%;
+    max-width: none;
+    min-height: 440px;
+
+    margin: 0;
+    padding: clamp(48px, 6vw, 82px) clamp(24px, 5.6vw, 90px);
 
     overflow: hidden;
+
+    border-radius: 0;
+    box-shadow: none;
 
     background: linear-gradient(
         135deg,
         #F8FBFF,
         #EAF2FF
     );
-
-    border-radius: 30px;
-
-    margin: 0 auto;
-
-    box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.08);
-
-    padding: 50px;
 }
 
-.sobre-banner::before {
+.sobre-banner.reveal::before {
     content: "";
 
     position: absolute;
+    z-index: -1;
 
     width: 420px;
     height: 420px;
 
-    border-radius: 50%;
-
-    background: rgba(52, 103, 235, 0.08);
-
-    right: -120px;
     top: -120px;
+    right: -120px;
+
+    border-radius: 50%;
+    background: rgba(52, 103, 235, 0.08);
 }
 
-.sobre-banner::after {
+.sobre-banner.reveal::after {
     content: "";
 
     position: absolute;
+    z-index: -1;
 
     width: 250px;
     height: 250px;
 
-    border-radius: 50%;
-
-    background: rgba(96, 165, 250, 0.15);
-
-    left: -80px;
     bottom: -80px;
+    left: -80px;
+
+    border-radius: 50%;
+    background: rgba(96, 165, 250, 0.15);
 }
 
-.sobre-texto,
-.sobre-imagem {
-    flex: 1;
+.sobre-banner.reveal .sobre-texto {
+    flex: 1 1 50%;
+    min-width: 0;
+    max-width: 650px;
 
     position: relative;
-
-    z-index: 2;
+    z-index: 1;
 }
 
-.sobre-texto h1 {
-    font-size: 3rem;
+.sobre-banner.reveal .sobre-texto h1 {
+    margin: 0 0 22px;
 
     color: #21479B;
 
-    margin-bottom: 25px;
+    font-size: clamp(2rem, 3.5vw, 3.15rem);
+    line-height: 1.22;
+    letter-spacing: -0.8px;
+
+    overflow-wrap: break-word;
 }
 
-.sobre-texto p {
+.sobre-banner.reveal .sobre-texto p {
+    max-width: 650px;
+    margin: 0;
+
     color: #475569;
 
-    font-size: 18px;
-
+    font-size: clamp(1rem, 1.25vw, 1.15rem);
     line-height: 1.8;
 }
 
-.sobre-imagem {
+.sobre-banner.reveal .sobre-imagem {
     display: flex;
-
+    align-items: center;
     justify-content: center;
+
+    flex: 1 1 46%;
+    min-width: 0;
+    max-width: 560px;
+
+    position: relative;
+    z-index: 1;
 }
 
-.sobre-imagem img {
-    width: 100%;
+.sobre-banner.reveal .sobre-imagem img {
+    display: block;
 
-    max-width: 520px;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+
+    aspect-ratio: 1.25 / 1;
+    object-fit: cover;
 
     border-radius: 20px;
 
-    box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
 
-    transition: 1s;
+    transition: transform 0.3s ease;
 }
 
-.sobre-imagem img:hover {
-    transform: scale(1.03) rotate(-1deg);
+.sobre-banner.reveal .sobre-imagem img:hover {
+    transform: translateY(-4px);
 }
 
 
-/*  conteudo pag sobre */
+/* =========================================================
+   9. CONTEÚDO DA PÁGINA SOBRE
+========================================================= */
 
 .conteudo-tea {
     display: flex;
-
+    align-items: flex-start;
     gap: 45px;
 
     padding: 70px 8%;
-
-    align-items: flex-start;
 }
 
 .conteudo-principal {
     flex: 1;
-
     min-width: 0;
 }
 
 .conteudo-principal section {
     margin-bottom: 70px;
+    scroll-margin-top: 155px;
 }
 
 .conteudo-principal h2 {
-    color: #21479B;
-
-    font-size: 2rem;
-
     margin-bottom: 20px;
+
+    color: #21479B;
+    font-size: 2rem;
 }
 
 .conteudo-principal p {
-    color: #475569;
-
-    line-height: 1.8;
-
     margin-bottom: 16px;
+
+    color: #475569;
+    line-height: 1.8;
 }
 
 
-/* menu lateral*/
+/* Menu lateral */
 
 .menu-lateral {
-    width: 280px;
+    position: sticky;
+    top: 180px;
 
     flex-shrink: 0;
-
-    background: #fff;
-
-    border: 1px solid #E5E7EB;
-
-    border-radius: 16px;
+    width: 280px;
 
     padding: 30px;
 
-    position: sticky;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
 
-    top: 180px;
+    background: #fff;
 
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 
-    transition: 0.4s;
+    transition: 0.3s;
 }
 
 .menu-lateral h3 {
-    color: #21479B;
-
     margin-bottom: 18px;
+    color: #21479B;
 }
 
 .menu-lateral a {
     display: block;
 
-    text-decoration: none;
-
-    color: #475569;
-
-    padding: 12px 0;
+    padding: 12px 10px;
 
     border-bottom: 1px solid #F1F5F9;
-
     border-radius: 10px;
+
+    color: #475569;
+    text-decoration: none;
 
     transition: 0.3s;
 }
 
 .menu-lateral a:hover {
+    padding-left: 16px;
     color: #3467EB;
-
-    padding-left: 10px;
 }
 
 .menu-lateral a.active {
-    background: #EAF2FF;
+    padding-left: 16px;
 
+    background: #EAF2FF;
     color: #21479B;
 
-    font-weight: bold;
-
-    padding-left: 18px;
+    font-weight: 700;
 }
 
 
-/* tooltip */
+/* =========================================================
+   10. TERMOS EXPLICATIVOS
+========================================================= */
 
 .tooltip-termo {
-    display: inline;
-
     position: relative;
 
-    color: #21479B;
+    display: inline;
 
+    color: #21479B;
     font-weight: 600;
 
-    cursor: pointer;
-
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .tooltip-text {
     display: none;
 
     position: absolute;
+    z-index: 1000;
 
     left: 50%;
     bottom: 120%;
 
-    transform: translateX(-50%);
-
     width: 300px;
-
     max-width: 90vw;
-
-    background: #fff;
 
     padding: 16px;
 
     border-radius: 12px;
 
+    background: #fff;
     color: #475569;
 
+    font-size: 0.9rem;
     line-height: 1.6;
 
-    font-size: 0.9rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 
-    box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.12);
-
-    z-index: 1000;
+    transform: translateX(-50%);
 }
 
 .tooltip-text::after {
     content: "";
 
     position: absolute;
-
-    left: 50%;
     top: 100%;
-
-    transform: translateX(-50%);
+    left: 50%;
 
     border: 8px solid transparent;
-
     border-top-color: #fff;
+
+    transform: translateX(-50%);
 }
 
 .tooltip-termo.active .tooltip-text {
@@ -1028,28 +1038,26 @@ header a {
 }
 
 
-/* timeline */
+/* =========================================================
+   11. LINHA DO TEMPO
+========================================================= */
 
 .primeiros-sinais {
     max-width: 900px;
 }
 
 .timeline {
-    margin-top: 40px;
-
     position: relative;
+    margin-top: 40px;
 }
 
 .timeline::before {
     content: "";
 
     position: absolute;
-
+    top: 20px;
+    bottom: 40px;
     left: 27px;
-
-    top: 200px;
-
-    bottom: 250px;
 
     width: 3px;
 
@@ -1057,69 +1065,62 @@ header a {
 }
 
 .timeline-item {
-    display: flex;
+    position: relative;
 
+    display: flex;
+    align-items: flex-start;
     gap: 22px;
 
     margin-bottom: 40px;
-
-    position: relative;
-
-    transition: 0.4s;
-
     padding: 15px;
 
     border-radius: 18px;
+
+    transition: 0.3s;
 }
 
 .timeline-item:hover {
     background: #F8FBFF;
-
-    transform: translateX(10px);
+    transform: translateX(5px);
 }
 
 .circulo {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
     width: 56px;
     height: 56px;
-
-    min-width: 56px;
 
     border-radius: 50%;
 
     background: #EAF2FF;
-
     color: #21479B;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
 
     font-size: 22px;
 
-    position: relative;
-
-    z-index: 2;
-
-    transition: 0.4s;
+    transition: 0.3s;
 }
 
 .timeline-item:hover .circulo {
-    transform: scale(1.15);
-
     background: #21479B;
-
     color: #fff;
+
+    transform: scale(1.08);
 }
 
 .timeline-conteudo {
     flex: 1;
+    min-width: 0;
 }
 
 .timeline-conteudo h3 {
-    color: #21479B;
-
     margin-bottom: 8px;
+    color: #21479B;
 }
 
 .timeline-conteudo p {
@@ -1127,62 +1128,59 @@ header a {
 }
 
 
-/* aviso da pag sobre */
+/* =========================================================
+   12. AVISO IMPORTANTE
+========================================================= */
 
 .aviso-importante {
     display: flex;
-
+    align-items: flex-start;
     gap: 15px;
 
-    align-items: flex-start;
-
     margin: 35px 0;
-
     padding: 22px;
 
     border-left: 6px solid #3467EB;
+    border-radius: 14px;
 
     background: #EAF2FF;
 
-    border-radius: 14px;
-
-    box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
 }
 
 .icone-aviso {
-    font-size: 28px;
+    flex-shrink: 0;
 
     color: #3467EB;
+    font-size: 28px;
 }
 
 .texto-aviso h4 {
-    color: #21479B;
-
     margin-bottom: 8px;
 
+    color: #21479B;
     font-size: 1.15rem;
 }
 
 .texto-aviso p {
     margin: 0;
-
     line-height: 1.7;
 }
 
 
-/* diagnostico do tea */
+/* =========================================================
+   13. DIAGNÓSTICO DO TEA — PÁGINA SOBRE
+========================================================= */
 
 .diagnostico-tea {
     padding: 70px 0;
 }
 
 .diagnostico-tea .titulo {
-    text-align: center;
-
     max-width: 850px;
-
     margin: 0 auto 45px;
+
+    text-align: center;
 }
 
 .diagnostico-tea .titulo h2 {
@@ -1195,27 +1193,21 @@ header a {
 
 .diagnostico-passos {
     display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 25px;
 }
 
 .diagnostico-card {
     display: flex;
-
     align-items: flex-start;
-
     gap: 20px;
 
     padding: 25px;
 
-    background: #ffffff;
-
     border-radius: 18px;
+    background: #fff;
 
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
 
     transition:
         transform 0.3s ease,
@@ -1224,113 +1216,99 @@ header a {
 
 .diagnostico-card:hover {
     transform: translateY(-5px);
-
-    box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
 }
 
 .diagnostico-icone {
-    min-width: 60px;
-
-    width: 60px;
-    height: 60px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
 
-    border-radius: 50%;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
 
+    border-radius: 50%;
     background: #EAF2FF;
 }
 
 .diagnostico-icone i {
-    font-size: 25px;
-
     color: #3467EB;
+    font-size: 25px;
+}
+
+.diagnostico-conteudo {
+    min-width: 0;
 }
 
 .diagnostico-conteudo span {
     display: block;
-
-    font-size: 13px;
-
-    font-weight: 700;
+    margin-bottom: 4px;
 
     color: #3467EB;
-
-    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .diagnostico-conteudo h3 {
     margin: 0 0 10px;
 
-    font-size: 19px;
-
     color: #21479B;
+    font-size: 19px;
 }
 
 .diagnostico-conteudo p {
     margin: 0;
 
-    line-height: 1.6;
-
     color: #374151;
+    line-height: 1.6;
 }
 
 .aviso-diagnostico {
     display: flex;
-
     align-items: flex-start;
-
     gap: 18px;
 
     margin-top: 35px;
-
     padding: 22px 25px;
 
-    background: #F7F9FC;
-
     border-left: 5px solid #3467EB;
-
     border-radius: 12px;
+
+    background: #F7F9FC;
 }
 
 .icone-aviso-diagnostico {
+    flex-shrink: 0;
     min-width: 35px;
 }
 
 .icone-aviso-diagnostico i {
-    font-size: 25px;
-
     color: #3467EB;
+    font-size: 25px;
 }
 
 .aviso-diagnostico h4 {
     margin: 0 0 7px;
-
     color: #21479B;
 }
 
 .aviso-diagnostico p {
     margin: 0;
 
-    line-height: 1.6;
-
     color: #374151;
+    line-height: 1.6;
 }
 
 
-/* ======================================================
-   NÍVEIS DE SUPORTE
-====================================================== */
+/* =========================================================
+   14. NÍVEIS DE SUPORTE
+========================================================= */
 
 .niveis-suporte {
     margin-top: 50px;
 }
 
-/* Título da seção */
 .niveis-suporte .titulo {
     margin-bottom: 28px;
 }
@@ -1344,18 +1322,15 @@ header a {
     line-height: 1.6;
 }
 
-/* Cards dos níveis */
 .niveis-suporte details {
-    background: #fff;
-
-    border-radius: 14px;
+    margin-bottom: 12px;
 
     overflow: hidden;
 
-    margin-bottom: 12px;
+    border-radius: 14px;
+    background: #fff;
 
-    box-shadow:
-        0 5px 16px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.05);
 
     transition:
         transform 0.3s ease,
@@ -1364,45 +1339,34 @@ header a {
 
 .niveis-suporte details:hover {
     transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* Título clicável */
 .niveis-suporte summary {
     padding: 16px 20px;
 
-    cursor: pointer;
-
     color: #21479B;
 
+    font-size: 1rem;
     font-weight: 600;
 
-    font-size: 1rem;
-
+    cursor: pointer;
     list-style-position: inside;
 }
 
-/* Espaçamento interno dos textos */
 .niveis-suporte details p {
+    margin: 0 0 14px;
     padding: 0 20px;
 
-    margin: 0 0 14px;
-
     color: #374151;
-
-    line-height: 1.55;
-
     font-size: 0.98rem;
+    line-height: 1.55;
 }
 
-/* Último parágrafo não fica com espaço extra */
 .niveis-suporte details p:last-child {
     margin-bottom: 18px;
 }
 
-/* Cores laterais */
 .nivel1 {
     border-left: 5px solid #22C55E;
 }
@@ -1415,28 +1379,20 @@ header a {
     border-left: 5px solid #EF4444;
 }
 
-
-/* ======================================================
-   AVISO SOBRE OS NÍVEIS
-====================================================== */
-
 .info-destaque {
     margin-top: 24px;
-
     padding: 18px 20px;
 
-    background: #F7F9FC;
-
     border-left: 5px solid #3467EB;
-
     border-radius: 10px;
+
+    background: #F7F9FC;
 }
 
 .info-destaque h4 {
-    color: #21479B;
-
     margin: 0 0 8px;
 
+    color: #21479B;
     font-size: 1.05rem;
 }
 
@@ -1444,7 +1400,6 @@ header a {
     margin: 0 0 10px;
 
     color: #374151;
-
     line-height: 1.5;
 }
 
@@ -1452,1430 +1407,80 @@ header a {
     margin-bottom: 0;
 }
 
-/* CAUSAS DO TEA */
 
-.causas-tea {
-    padding: 100px 6% 65px;
-    background: transparent;
-}
-
-.causas-intro {
-    max-width: 700px;
-    margin: 0 auto 20px;
-    text-align: center;
-}
-
-.causas-container {
-    max-width: 1080px;
-    margin: 0 auto;
-}
-
-
-.causas-intro h2 {
-    margin: 0 0 12px;
-
-    color: #21479b;
-
-    font-size: 32px;
-    font-weight: 700;
-}
-
-.causas-intro p {
-    margin: 0;
-
-    color: #5b6472;
-
-    font-size: 15px;
-    line-height: 1.7;
-}
-
-
-/* ======================================================
-   CONTEÚDO EDITORIAL
-======================================================= */
-
-.causas-editorial {
-    width: 100%;
-}
-
-.causa-editorial-item {
-    display: flex;
-    align-items: flex-start;
-
-    width: 94%;
-
-    padding: 32px 0;
-
-    border-bottom: 1px solid #dfe5ee;
-}
-
-.causa-editorial-item {
-    display: flex;
-    align-items: flex-start;
-
-    width: 94%;
-
-    padding: 32px 0;
-
-    border-bottom: 1px solid #dfe5ee;
-}
-
-.causa-editorial-item.direita {
-    width: 94%;
-    margin-left: auto;
-}
-
-.causa-editorial-item:first-child {
-    padding-top: 15px;
-}
-
-
-
-
-/* ======================================================
-   NÚMERO
-======================================================= */
-
-.causa-numero {
-    width: 65px;
-
-    flex-shrink: 0;
-
-    padding-top: 1px;
-
-    color: #b8cbea;
-
-    font-size: 17px;
-    font-weight: 700;
-}
-
-
-/* ======================================================
-   TEXTO
-======================================================= */
-
-.causa-texto {
-    max-width: 670px;
-}
-
-
-/* ======================================================
-   CATEGORIA
-======================================================= */
-
-.causa-categoria {
-    display: block;
-
-    margin-bottom: 8px;
-
-    color: #3467eb;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 1.2px;
-}
-
-
-/* ======================================================
-   TÍTULO
-======================================================= */
-
-.causa-texto h3 {
-    margin: 0 0 12px;
-
-    color: #21479b;
-
-    font-size: 22px;
-    font-weight: 700;
-
-    line-height: 1.4;
-}
-
-
-/* ======================================================
-   PARÁGRAFO
-======================================================= */
-
-.causa-texto p {
-    max-width: 620px;
-
-    margin: 0;
-
-    color: #5b6472;
-
-    font-size: 15px;
-    line-height: 1.75;
-}
-
-
-/* ======================================================
-   RESPONSIVO
-======================================================= */
-
-@media (max-width: 900px) {
-
-    .causa-editorial-item {
-        width: 95%;
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    .causas-tea {
-        padding: 55px 6% 60px;
-    }
-
-    .causas-intro {
-        margin-bottom: 35px;
-    }
-
-    .causas-intro h2 {
-        font-size: 28px;
-    }
-
-    .causas-intro p {
-        font-size: 14px;
-    }
-
-    .causa-editorial-item,
-    .causa-editorial-item.direita {
-        display: block;
-
-        width: 100%;
-
-        margin: 0;
-
-        padding: 32px 0;
-    }
-
-    .causa-numero {
-        width: auto;
-
-        margin-bottom: 8px;
-
-        font-size: 15px;
-    }
-
-    .causa-categoria {
-        margin-bottom: 8px;
-    }
-
-    .causa-texto h3 {
-        font-size: 20px;
-    }
-
-    .causa-texto p {
-        font-size: 14px;
-    }
-
-}
-
-/* ======================================================
-   CTA / FECHAMENTO FINAL
-======================================================= */
-
-.cta-final {
-    position: relative;
-
-    width: 100%;
-    min-height: 78vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 90px 6%;
-
-    box-sizing: border-box;
-
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(214, 228, 255, 0.12),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(214, 228, 255, 0.10),
-            transparent 25%
-        ),
-        #21479b;
-
-    text-align: center;
-}
-
-
-/* ======================================================
-   CONTEÚDO
-======================================================= */
-
-.cta-conteudo {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-    max-width: 850px;
-
-    opacity: 0;
-    transform: translateY(35px);
-
-    transition:
-        opacity 0.9s ease,
-        transform 0.9s ease;
-}
-
-
-/* quando aparece na tela */
-
-.cta-final.visivel .cta-conteudo {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* ======================================================
-   MARCA
-======================================================= */
-
-.cta-marca {
-    display: block;
-
-    margin-bottom: 18px;
-
-    color: #d6e4ff;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    letter-spacing: 4px;
-}
-
-
-/* ======================================================
-   LINHA
-======================================================= */
-
-.cta-linha {
-    width: 55px;
-    height: 2px;
-
-    margin: 0 auto 28px;
-
-    background: #d6e4ff;
-
-    opacity: 0.8;
-}
-
-
-/* ======================================================
-   TÍTULO
-======================================================= */
-
-.cta-final h2 {
-    max-width: 850px;
-
-    margin: 0 auto 25px;
-
-    color: #ffffff;
-
-    font-size: 48px;
-    font-weight: 700;
-
-    line-height: 1.15;
-}
-
-
-/* segunda parte do título */
-
-.cta-final h2 span {
-    display: inline-block;
-
-    color: #d6e4ff;
-}
-
-
-/* ======================================================
-   TEXTO PRINCIPAL
-======================================================= */
-
-.cta-principal {
-    max-width: 680px;
-
-    margin: 0 auto;
-
-    color: #ffffff;
-
-    font-size: 18px;
-    line-height: 1.8;
-}
-
-
-/* ======================================================
-   TEXTO SECUNDÁRIO
-======================================================= */
-
-.cta-secundario {
-    max-width: 650px;
-
-    margin: 22px auto 0;
-
-    color: #dce7fa;
-
-    font-size: 15px;
-    line-height: 1.75;
-}
-
-
-/* ======================================================
-   BOTÃO
-======================================================= */
-
-.cta-botao {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 10px;
-
-    margin-top: 36px;
-
-    padding: 14px 25px;
-
-    background: #ffffff;
-    color: #21479b;
-
-    border-radius: 30px;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    text-decoration: none;
-
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-
-.cta-botao i {
-    font-size: 13px;
-
-    transition: transform 0.25s ease;
-}
-
-
-.cta-botao:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 12px 28px rgba(0, 0, 0, 0.18);
-}
-
-
-.cta-botao:hover i {
-    transform: translateX(4px);
-}
-
-
-/* ======================================================
-   ELEMENTOS DECORATIVOS
-======================================================= */
-
-.cta-decoracao {
-    position: absolute;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(255, 255, 255, 0.10);
-
-    pointer-events: none;
-}
-
-
-/* círculo maior */
-
-.cta-decoracao-1 {
-    width: 420px;
-    height: 420px;
-
-    top: -190px;
-    left: -150px;
-}
-
-
-/* círculo menor */
-
-.cta-decoracao-2 {
-    width: 280px;
-    height: 280px;
-
-    right: -100px;
-    bottom: -100px;
-}
-
-
-/* ======================================================
-   RESPONSIVIDADE
-======================================================= */
-
-@media (max-width: 900px) {
-
-    .cta-final {
-        min-height: 70vh;
-
-        padding: 80px 7%;
-    }
-
-    .cta-final h2 {
-        font-size: 40px;
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    .cta-final {
-        min-height: 70vh;
-        margin-bottom: 0%;
-        padding: 70px 8%;
-    }
-
-    .cta-marca {
-        font-size: 11px;
-
-        letter-spacing: 3px;
-    }
-
-    .cta-final h2 {
-        font-size: 32px;
-
-        line-height: 1.2;
-    }
-
-    .cta-principal {
-        font-size: 16px;
-
-        line-height: 1.7;
-    }
-
-    .cta-secundario {
-        font-size: 14px;
-    }
-
-    .cta-botao {
-        padding: 13px 21px;
-
-        font-size: 13px;
-    }
-
-    .cta-decoracao-1 {
-        width: 250px;
-        height: 250px;
-
-        top: -120px;
-        left: -120px;
-    }
-
-    .cta-decoracao-2 {
-        width: 180px;
-        height: 180px;
-
-        right: -80px;
-        bottom: -80px;
-    }
-
-}
-
-.cta-final {
-    margin-bottom: 0 !important;
-}
-
-footer {
-    margin-top: 0 !important;
-}
-
-/* PAG FAQ*/
-
-.faq-banner {
-    padding: 55px 40px 70px;
-
-    background: #ffffff;
-}
-
-.container {
-    width: 100%;
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-}
-
-.faq-topo {
-    max-width: 900px;
-
-    margin: 0 auto 40px;
-
-    text-align: center;
-}
-
-.faq-topo h1 {
-    font-size: 2.3rem;
-
-    color: #21479B;
-
-    margin-bottom: 12px;
-
-    font-weight: 700;
-}
-
-.faq-topo h1 i {
-    margin-right: 8px;
-}
-
-.faq-topo p {
-    color: #6B7280;
-
-    font-size: 1rem;
-
-    line-height: 1.7;
-
-    margin: 0;
-}
-
-.perguntas {
-    width: 100%;
-
-    max-width: 950px;
-
-    margin: 0 auto;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 14px;
-}
-
-.accordion {
-    background: #ffffff;
-
-    border: 1px solid #E3EAF5;
-
-    border-radius: 14px;
-
-    overflow: hidden;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
-}
-
-.accordion:hover {
-    transform: translateY(-2px);
-
-    border-color: #C9D8F2;
-
-    box-shadow:
-        0 8px 22px rgba(33, 71, 155, 0.08);
-}
-
-.accordion-btn {
-    width: 100%;
-
-    border: none;
-
-    background: #ffffff;
-
-    padding: 20px 24px;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 20px;
-
-    font-size: 16px;
-
-    font-weight: 600;
-
-    color: #26364D;
-
-    transition:
-        background 0.25s ease,
-        color 0.25s ease;
-}
-
-.accordion-btn:hover {
-    background: #F8FAFE;
-}
-
-.accordion-btn::after {
-    content: "+";
-
-    min-width: 28px;
-
-    height: 28px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #EAF2FF;
-
-    color: #21479B;
-
-    font-size: 20px;
-
-    font-weight: 400;
-
-    transition: 0.3s;
-}
-
-.accordion-btn.active {
-    color: #21479B;
-
-    background: #F8FAFE;
-}
-
-.accordion-btn.active::after {
-    content: "−";
-
-    background: #21479B;
-
-    color: #ffffff;
-}
-
-.accordion-content {
-    max-height: 0;
-
-    overflow: hidden;
-
-    background: #F8FAFE;
-
-    transition:
-        max-height 0.35s ease;
-}
-
-.accordion-content p {
-    padding: 0 24px 23px;
-
-    margin: 0;
-
-    line-height: 1.8;
-
-    font-size: 15px;
-
-    color: #5B6575;
-}
-
-.accordion.destaque {
-    margin-top: 20px;
-
-    border: 1px solid #BFD1F2;
-
-    background: linear-gradient(
-        135deg,
-        #F8FBFF,
-        #EAF2FF
-    );
-
-    box-shadow:
-        0 10px 28px rgba(33, 71, 155, 0.10);
-}
-
-.accordion.destaque:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 14px 32px rgba(33, 71, 155, 0.14);
-}
-
-.accordion.destaque .accordion-btn {
-    background: transparent;
-
-    color: #21479B;
-
-    font-size: 17px;
-
-    justify-content: flex-start;
-}
-
-.accordion.destaque .accordion-btn::before {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 36px;
-    height: 36px;
-
-    margin-right: 2px;
-
-    flex-shrink: 0;
-
-    background: #ffffff;
-
-    border-radius: 50%;
-
-    font-size: 17px;
-
-    box-shadow:
-        0 3px 10px rgba(33, 71, 155, 0.10);
-}
-
-.accordion.destaque .accordion-btn::after {
-    margin-left: auto;
-}
-
-.accordion.destaque .accordion-content {
-    background: rgba(255, 255, 255, 0.45);
-}
-
-
-/* PAG EDUCAÇÃO INCLUSIVA */
-
-.container-principal {
-    max-width: 1100px;
-
-    margin: 0 auto;
-
-    padding: 40px 20px;
-}
-
-
-/* Banner da Educação Inclusiva */
-
-.container-principal .sobre-banner {
-    background: linear-gradient(
-        135deg,
-        #F8FBFF,
-        #EAF2FF
-    );
-
-    padding: 50px;
-
-    margin-bottom: 40px;
-
-    border-radius: 30px;
-
-    border-bottom: none;
-}
-
-.container-principal .primeiros-sinais {
-    max-width: 800px;
-
-    margin: 0 auto;
-}
-
-.tag-destaque {
-    display: inline-block;
-
-    background-color: #e0f2fe;
-
-    color: #0284c7;
-
-    font-size: 0.875rem;
-
-    font-weight: 600;
-
-    padding: 6px 16px;
-
-    border-radius: 20px;
-
-    margin-bottom: 15px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.5px;
-}
-
-.container-principal .sobre-banner h1 {
-    color: #21479B;
-
-    font-size: 2.2rem;
-
-    margin-bottom: 15px;
-}
-
-.texto-lg {
-    font-size: 1.125rem;
-
-    color: #64748b;
-
-    line-height: 1.7;
-}
-
-
-/* Seções */
-
-.container-principal section {
-    padding: 30px 0;
-}
-
-
-/* Título de seção */
-
-.titulo-secao {
-    font-size: 1.8rem;
-
-    color: #21479B;
-
-    text-align: center;
-
-    margin-bottom: 10px;
-}
-
-.titulo-secao h2 {
-    color: #21479B;
-}
-
-.titulo-secao p {
-    text-align: center;
-
-    color: #64748b;
-
-    max-width: 700px;
-
-    margin: 0 auto 35px;
-}
-
-
-/* Escolas */
-
-.escolas-inclusao {
-    margin-top: 20px;
-}
-
-.escolas-cards {
-    grid-template-columns:
-        repeat(auto-fit, minmax(300px, 1fr));
-
-    gap: 25px;
-}
-
-
-/* Cards da Educação */
-
-.escola-card {
-    background-color: #ffffff;
-
-    padding: 30px;
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.04);
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-
-    display: flex;
-
-    flex-direction: column;
-
-    text-align: left;
-}
-
-.escola-card:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.10);
-}
-
-.escola-card > img {
-    width: 100%;
-
-    height: 200px;
-
-    object-fit: cover;
-
-    border-radius: 12px;
-
-    margin-bottom: 20px;
-}
-
-.escola-card .card-icon {
-    flex-shrink: 0;
-}
-
-.escola-card h3 {
-    color: #21479B;
-
-    font-size: 1.3rem;
-
-    margin-bottom: 12px;
-
-    min-height: auto;
-}
-
-.escola-card p {
-    color: #475569;
-
-    font-size: 0.95rem;
-
-    line-height: 1.7;
-
-    text-align: left;
-}
-
-
-/* Ícone */
-
-.card-icon {
-    font-size: 2.2rem;
-
-    color: #3467EB;
-
-    background-color: #f0f9ff;
-
-    width: 65px;
-    height: 65px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 20px;
-}
-
-
-/* Fontes */
-
-.fontes {
-    margin-top: 40px;
-
-    padding: 35px;
-
-    background: #F7F9FC;
-
-    border-left: 5px solid #3467EB;
-
-    border-radius: 12px;
-}
-
-.fontes h2 {
-    color: #21479B;
-
-    margin-bottom: 12px;
-}
-
-.fontes p {
-    color: #475569;
-
-    line-height: 1.7;
-}
-
-
-/* PAG BIBLIOTECA */
-
-.biblioteca-page {
-    width: 100%;
-}
-
-.biblioteca-page > h1 {
-    max-width: 1200px;
-
-    margin: 40px auto 0;
-
-    padding: 0 20px;
-
-    color: #21479B;
-
-    font-size: 2.3rem;
-
-    text-align: center;
-}
-
-
-/* Seção */
-
-.profissionais-section {
-    width: 100%;
-
-    padding: 60px 0;
-
-    background: #f5f7fb;
-}
-
-.profissionais-container {
-    width: 90%;
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-}
-
-.profissionais-titulo {
-    text-align: center;
-
-    margin-bottom: 40px;
-}
-
-.profissionais-titulo h2 {
-    color: #2345b5;
-
-    font-size: 32px;
-
-    margin: 0 0 12px;
-}
-
-.profissionais-titulo p {
-    color: #555;
-
-    font-size: 16px;
-
-    max-width: 700px;
-
-    margin: 0 auto;
-
-    line-height: 1.6;
-}
-
-
-/* Grid */
-
-.profissionais-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 22px;
-
-    max-width: 1080px;
-
-    margin: 25px auto;
-}
-
-
-/* Card profissional */
-
-.profissional-card {
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-
-    background: #ffffff;
-
-    border: 1px solid #dfe6f0;
-
-    border-radius: 12px;
-
-    padding: 16px;
-
-    min-height: 240px;
-
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.05);
-}
-
-
-/* Foto */
-
-.profissional-foto {
-    flex-shrink: 0;
-
-    width: 125px;
-    height: 165px;
-
-    overflow: hidden;
-
-    border-radius: 4px;
-}
-
-.profissional-foto img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-}
-
-
-/* Sem foto */
-
-.sem-foto {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background: #f1f4f8;
-
-    color: #6b7a90;
-
-    font-size: 35px;
-}
-
-
-/* Informações */
-
-.profissional-info {
-    flex: 1;
-
-    min-width: 0;
-}
-
-.profissional-info h3 {
-    font-size: 15px;
-
-    line-height: 1.45;
-
-    margin: 0 0 5px;
-
-    color: #003b7a;
-}
-
-.profissional-especialidade {
-    display: block;
-
-    font-size: 13px;
-
-    line-height: 1.4;
-
-    color: #164ea6;
-
-    margin-bottom: 12px;
-}
-
-.profissional-info p {
-    font-size: 12px;
-
-    line-height: 1.5;
-
-    color: #6b7280;
-
-    margin: 0 0 8px;
-}
-
-.profissional-contato {
-    font-size: 12px;
-
-    line-height: 1.5;
-
-    margin-bottom: 10px;
-}
-
-.profissional-contato strong {
-    display: block;
-
-    font-size: 12px;
-}
-
-.profissional-contato span {
-    color: #555;
-}
-
-
-/* WhatsApp */
-
-.btn-whatsapp {
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 6px;
-
-    padding: 8px 11px;
-
-    background: #20c967;
-
-    color: white;
-
-    border-radius: 6px;
-
-    text-decoration: none;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    transition: 0.2s ease;
-}
-
-.btn-whatsapp i {
-    font-size: 13px;
-}
-
-.btn-whatsapp:hover {
-    transform: translateY(-1px);
-
-    background: #19b85b;
-}
-
-
-/* Sem profissionais */
-
-.sem-profissionais {
-    max-width: 600px;
-
-    margin: 30px auto;
-
-    padding: 40px;
-
-    background: #ffffff;
-
-    border-radius: 16px;
-
-    text-align: center;
-
-    box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.05);
-}
-
-.sem-profissionais i {
-    font-size: 45px;
-
-    color: #3467EB;
-
-    margin-bottom: 15px;
-}
-
-.sem-profissionais p {
-    color: #64748b;
-}
-
-
-
-/* botao de voltar pro topo */
-
-#topBtn {
-    position: fixed;
-
-    left: 25px;
-    bottom: 25px;
-
-    width: 55px;
-    height: 55px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #21479B;
-
-    color: #fff;
-
-    cursor: pointer;
-
-    font-size: 22px;
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    transition: 0.4s;
-
-    box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.15);
-
-    z-index: 10000;
-}
-
-#topBtn.show {
-    opacity: 1;
-
-    visibility: visible;
-}
-
-#topBtn:hover {
-    transform: translateY(-6px);
-
-    background: #3467EB;
-}
-
-
-/* RESPONSIVIDADE */  
+/* =========================================================
+   15. RESPONSIVIDADE DO BANNER SOBRE
+========================================================= */
 
 @media (max-width: 1000px) {
-
-    .profissionais-grid {
-        grid-template-columns: repeat(2, 1fr);
-
-        padding: 0 20px;
+    .sobre-banner.reveal {
+        gap: 32px;
+        padding: 48px 5%;
     }
 
+    .sobre-banner.reveal .sobre-texto h1 {
+        font-size: clamp(2rem, 4vw, 2.7rem);
+    }
+
+    .conteudo-tea {
+        gap: 30px;
+        padding: 55px 5%;
+    }
+
+    .menu-lateral {
+        width: 245px;
+    }
 }
 
+@media (max-width: 760px) {
+    .sobre-banner.reveal {
+        flex-direction: column;
+        align-items: stretch;
 
-@media (max-width: 900px) {
+        gap: 28px;
 
-    .causas-grid {
-        grid-template-columns: 1fr;
+        min-height: 0;
+        padding: 44px 6% 48px;
     }
 
-    .diagnostico-passos {
-        grid-template-columns: 1fr;
+    .sobre-banner.reveal .sobre-texto,
+    .sobre-banner.reveal .sobre-imagem {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: none;
     }
 
-    .contadores {
-        grid-template-columns: 1fr;
+    .sobre-banner.reveal .sobre-texto h1 {
+        max-width: 100%;
+        font-size: clamp(1.9rem, 7vw, 2.6rem);
     }
 
-    #topBtn {
-        right: 15px;
-        bottom: 15px;
+    .sobre-banner.reveal .sobre-texto p {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    .sobre-banner.reveal .sobre-imagem img {
+        width: 100%;
+        max-width: none;
+        aspect-ratio: 1.35 / 1;
+
+        border-radius: 16px;
     }
 
     .conteudo-tea {
         flex-direction: column;
+        padding: 40px 6%;
     }
 
     .menu-lateral {
-        width: 100%;
-
         position: static;
+        width: 100%;
     }
 
-    .hero {
-        flex-direction: column;
+    .conteudo-principal {
+        width: 100%;
     }
-
-    .sobre-projeto {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-
-
-@media (max-width: 768px) {
-
-    body {
-        padding-top: 134px;
-    }
-
-
-    /* Diagnóstico */
 
     .diagnostico-passos {
         grid-template-columns: 1fr;
@@ -2888,960 +1493,425 @@ footer {
     .diagnostico-tea {
         padding: 50px 0;
     }
+}
 
-
-    /* FAQ */
-
-    .faq-banner {
-        padding: 40px 18px 55px;
+@media (max-width: 480px) {
+    .sobre-banner.reveal {
+        padding: 34px 5% 38px;
     }
 
-    .faq-topo {
-        margin-bottom: 30px;
+    .sobre-banner.reveal .sobre-texto h1 {
+        font-size: 1.85rem;
+        letter-spacing: -0.4px;
     }
 
-    .faq-topo h1 {
-        font-size: 1.8rem;
+    .sobre-banner.reveal .sobre-imagem img {
+        aspect-ratio: 1.15 / 1;
     }
-
-    .faq-topo p {
-        font-size: 0.95rem;
-    }
-
-    .accordion-btn {
-        padding: 17px 18px;
-
-        font-size: 15px;
-    }
-
-    .accordion-content p {
-        padding: 0 18px 20px;
-
-        font-size: 14px;
-
-        line-height: 1.7;
-    }
-
-    .accordion.destaque .accordion-btn {
-        font-size: 15px;
-    }
-
-    .accordion.destaque .accordion-btn::before {
-        width: 32px;
-        height: 32px;
-
-        font-size: 15px;
-    }
-
-
-    /* Educação Inclusiva */
-
-    .container-principal {
-        padding: 20px 15px;
-    }
-
-    .container-principal .sobre-banner {
-        padding: 25px 20px;
-    }
-
-    .container-principal .sobre-banner h1 {
-        font-size: 1.75rem;
-    }
-
-    .texto-lg {
-        font-size: 1rem;
-    }
-
-
-    /* Sobre */
-
-    .sobre-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .sobre-imagem {
-        order: -1;
-    }
-    
-    /* Biblioteca */
-
-    .profissionais-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .profissional-card {
-        max-width: 450px;
-
-        margin: 0 auto;
-    }
-
-
-    /* Menu */
-
-    .menu ul {
-        gap: 10px;
-
-        flex-wrap: wrap;
-    }
-
-    .menu a {
-        padding: 7px 8px;
-
-        font-size: 14px;
-    }
-
-
-    /* Hero */
-
-    .hero {
-        padding: 60px 6%;
-    }
-
-
-    /* Banner */
-
-    .sobre-banner {
-        padding: 35px 25px;
-    }
-
-    .sobre-texto h1 {
-        font-size: 2.2rem;
-    }
-
-
-    /* Timeline */
 
     .timeline-item {
         gap: 15px;
+        padding: 10px 0;
     }
 
-}
-
-
-@media (max-width: 650px) {
-
-    .profissionais-grid {
-        grid-template-columns: 1fr;
+    .circulo {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        font-size: 18px;
     }
 
-    .profissional-card {
-        max-width: 450px;
-
-        margin: 0 auto;
+    .timeline::before {
+        left: 21px;
     }
 
-    .profissional-foto {
-        width: 100px;
-        height: 145px;
+    .aviso-importante,
+    .aviso-diagnostico {
+        gap: 12px;
+        padding: 18px;
     }
 
-}
-
-
-@media (max-width: 600px) {
-
-    .causas-tea {
-        padding: 60px 5%;
+    .diagnostico-card {
+        gap: 14px;
+        padding: 18px;
     }
 
-    .causas-intro h2 {
-        font-size: 30px;
+    .diagnostico-icone {
+        width: 46px;
+        height: 46px;
     }
 
-    .hero-beneficios {
-        flex-direction: column;
-
-        gap: 15px;
+    .diagnostico-icone i {
+        font-size: 20px;
     }
-
-    .botoes {
-        flex-direction: column;
-    }
-
-    .btn-principal,
-    .btn-secundario {
-        width: 100%;
-    }
-
-    .profissional-card {
-        align-items: flex-start;
-
-        flex-direction: column;
-    }
-
-    .profissional-foto {
-        width: 100%;
-        height: 220px;
-    }
-
 }
 
+/* =========================================================
+   FIM DA PARTE 2
+========================================================= */
 
-/* footer */
 
-footer {
-    background: #21479b;
-
-    border-top: 4px solid #60A5FA;
-
-    margin-top: 80px;
-}
-
-.footer-container {
-    width: min(1200px, 92%);
-
-    margin: auto;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 50px;
-
-    padding: 15px 0;
-
-    flex-wrap: wrap;
-}
-
-.footer-coluna:first-child {
-    flex: 1.5;
-}
-
-.footer-coluna {
-    flex: 1;
-
-    min-width: 220px;
-}
-
-.footer-coluna h2,
-.footer-coluna h3 {
-    color: #fff;
-
-    margin-bottom: 15px;
-}
-
-.footer-coluna p {
-    color: #DBEAFE;
-
-    line-height: 1.7;
-}
-
-.footer-coluna ul {
-    list-style: none;
-}
-
-.footer-coluna li {
-    margin-bottom: 10px;
-}
-
-.footer-coluna a {
-    text-decoration: none;
-
-    color: #DBEAFE;
-
-    transition: 0.3s;
-}
-
-.footer-coluna a:hover {
-    color: #fff;
-}
-
-.slogan {
-    margin-top: 18px;
-
-    font-weight: 600;
-}
-
-.redes {
-    display: flex;
-
-    gap: 16px;
-
-    margin-top: 15px;
-}
-
-.redes a {
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.12);
-
-    color: #fff;
-
-    transition: 0.3s;
-}
-
-.redes a:hover {
-    background: #3467EB;
-
-    transform: translateY(-4px);
-}
-
-.footer-copy {
-    text-align: center;
-
-    padding: 18px;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.footer-copy p {
-    color: #BFDBFE;
-
-    font-size: 0.9rem;
-}
-
-/* Pagina Guia */
-
-:root {
-    --azul: #3467EB;
-    --azul-escuro: #21479B;
-    --azul-claro: #EAF2FF;
-    --verde: #4CAF50;
-    --fundo: #F7F9FC;
-    --texto: #374151;
-    --suave: #667085;
-    --branco: #fff;
-    --borda: #E4E9F2;
-    --sombra: 0 12px 30px rgba(33, 71, 155, .08);
-}
-
-main {
-    background: var(--fundo);
-    color: var(--texto);
-    font-family: "Segoe UI", Tahoma, sans-serif;
-}
-
-.container {
-    width: 90%;
-    max-width: 1180px;
-    margin: auto;
-}
-
-/* Banner */
-.sobre-banner {
-    position: relative;
-    padding: 90px 0 100px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #F8FAFF 0%, #EAF2FF 100%);
-}
-
-.sobre-banner::after {
-    content: "";
-    position: absolute;
-    width: 360px;
-    height: 360px;
-    right: -120px;
-    bottom: -180px;
-    border-radius: 50%;
-    background: rgba(52, 103, 235, .08);
-}
-
-.sobre-grid {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 1.1fr .9fr;
-    align-items: center;
-    gap: 70px;
-}
-
-.primeiros-sinais h1 {
-    max-width: 650px;
-    margin: 0 0 25px;
-    color: var(--azul-escuro);
-    font-size: clamp(2.7rem, 5vw, 4.2rem);
-    line-height: 1;
-    letter-spacing: -2px;
-}
-
-.primeiros-sinais h1::before {
-    content: "GUIA PARA FAMÍLIAS";
-    display: block;
-    margin-bottom: 16px;
-    color: var(--azul);
-    font-size: .75rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-.texto-lg {
-    color: var(--suave);
-    font-size: 1rem;
-    line-height: 1.85;
-}
-
-.sobre-imagem {
-    display: flex;
-    justify-content: center;
-}
-
-.sobre-imagem img {
-    width: min(100%, 450px);
-    filter: drop-shadow(0 20px 20px rgba(33, 71, 155, .12));
-    transition: .3s;
-}
-
-.sobre-imagem img:hover {
-    transform: translateY(-8px);
-}
-
-/* Seções */
-.sinais,
-.secao-destaque {
-    padding: 90px 0;
-}
-
-.secao-destaque {
-    background: var(--branco);
-}
+/* =========================================================
+   16. TÍTULOS E SEÇÕES GERAIS
+========================================================= */
 
 .titulo-secao {
-    margin-bottom: 12px;
-    color: var(--azul-escuro);
-    font-size: 2.35rem;
-    line-height: 1.15;
+    max-width: 850px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    text-align: center;
 }
 
-.titulo-secao::after {
-    content: "";
-    display: block;
-    width: 48px;
-    height: 4px;
-    margin-top: 15px;
-    border-radius: 10px;
-    background: var(--azul);
+.titulo-secao h2 {
+    margin-bottom: 15px;
+    color: #21479B;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    line-height: 1.3;
 }
 
-.descricao {
-    max-width: 720px;
-    margin-bottom: 42px;
-    color: var(--suave);
-    line-height: 1.7;
+.titulo-secao p {
+    color: #64748b;
+    line-height: 1.8;
 }
 
-/* Cards */
-.cards-sinais,
-.grid-informacoes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+.secao-conteudo {
+    padding: 70px 8%;
 }
 
-.card-sinal,
-.card-info {
-    position: relative;
-    padding: 28px;
-    overflow: hidden;
-    border: 1px solid var(--borda);
-    border-radius: 20px;
-    background: var(--branco);
-    box-shadow: 0 5px 18px rgba(31, 45, 61, .035);
-    transition: transform .25s, box-shadow .25s, border-color .25s;
-}
-
-.card-sinal::before,
-.card-info::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--azul);
-}
-
-.card-sinal:hover,
-.card-info:hover {
-    transform: translateY(-6px);
-    border-color: #D2DDF5;
-    box-shadow: var(--sombra);
-}
-
-.card-sinal h3,
-.card-info h4 {
-    margin-bottom: 12px;
-    color: var(--azul-escuro);
-    line-height: 1.35;
-}
-
-.card-sinal p,
-.texto-card {
-    margin-bottom: 0;
-    color: var(--suave);
-    font-size: .92rem;
-    line-height: 1.7;
-}
-
-.secao-destaque .card-sinal::before {
-    background: var(--verde);
-}
-
-/* Diagnóstico */
-.painel-diagnostico {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin: 35px 0 20px;
-    padding: 32px;
-    border: 1px solid #D7E3FA;
-    border-radius: 22px;
-    background: linear-gradient(135deg, var(--azul-claro), #F8FAFF);
-}
-
-.painel-diagnostico .texto-lg {
-    margin: 0;
-    color: var(--texto);
-}
-
-.alerta-terreno {
-    margin-bottom: 50px;
-    padding: 20px 25px;
-    border-left: 4px solid var(--verde);
-    border-radius: 0 14px 14px 0;
-    background: #EDF8EE;
-}
-
-.texto-destaque {
-    margin: 0;
-    color: #35603A;
-    line-height: 1.7;
-}
-
-/* Etapas */
-.bloco-educacao {
+.secao-conteudo > h2 {
     margin-bottom: 25px;
-    padding: 32px;
-    border: 1px solid var(--borda);
-    border-radius: 22px;
-    background: var(--branco);
-    box-shadow: 0 5px 20px rgba(31, 45, 61, .035);
+    color: #21479B;
 }
 
-.cabecalho-etapa {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 28px;
-}
-
-.numero-passo {
-    display: grid;
-    place-items: center;
-    min-width: 52px;
-    height: 52px;
-    border-radius: 15px;
-    background: var(--azul);
-    color: var(--branco);
-    font-size: 1.1rem;
-    font-weight: 800;
-    box-shadow: 0 8px 18px rgba(52, 103, 235, .2);
-}
-
-.cabecalho-etapa h3 {
-    margin: 0 0 5px;
-    color: var(--azul-escuro);
-}
-
-.subtitulo-etapa {
-    margin: 0;
-    color: var(--suave);
-    font-size: .9rem;
-}
-
-.card-info {
-    background: #FCFDFE;
-}
-
-.badge {
-    display: inline-block;
-    margin-bottom: 10px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: .68rem;
-    font-weight: 800;
-}
-
-.badge.azul {
-    background: var(--azul-claro);
-    color: var(--azul-escuro);
-}
-
-.badge.verde {
-    background: #EDF8EE;
-    color: #347A39;
-}
-
-.badge.atencao {
-    background: #FFF4D6;
-    color: #916800;
-}
-
-/* Responsivo */
-@media (max-width: 850px) {
-    .sobre-grid,
-    .painel-diagnostico {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .primeiros-sinais h1 {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .cards-sinais,
-    .grid-informacoes {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .descricao {
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-@media (max-width: 550px) {
-    .sobre-banner {
-        padding: 65px 0 75px;
-    }
-
-    .sinais,
-    .secao-destaque {
-        padding: 65px 0;
-    }
-
-    .primeiros-sinais h1 {
-        font-size: 2.35rem;
-    }
-
-    .titulo-secao {
-        font-size: 2rem;
-    }
-
-    .cards-sinais,
-    .grid-informacoes {
-        grid-template-columns: 1fr;
-    }
-
-    .bloco-educacao,
-    .painel-diagnostico {
-        padding: 24px;
-    }
-}
-
-
-/* =====================================================
-   ORGANIZE SUA TRAJETÓRIA
-===================================================== */
-
-.trajetoria {
-    padding: 100px 0;
-    background: #F7F9FC;
-}
-
-.trajetoria-intro {
-    max-width: 760px;
-    margin-bottom: 55px;
-}
-
-.trajetoria-label {
-    display: block;
-    margin-bottom: 12px;
-
-    color: var(--azul);
-    font-size: .72rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-.trajetoria-intro h2 {
-    margin-bottom: 18px;
-
-    color: var(--azul-escuro);
-    font-size: 2.45rem;
-    line-height: 1.15;
-}
-
-.trajetoria-intro h2::after {
-    content: "";
-    display: block;
-
-    width: 48px;
-    height: 4px;
-
-    margin-top: 15px;
-
-    border-radius: 10px;
-    background: var(--azul);
-}
-
-.trajetoria-intro p {
-    max-width: 700px;
-
-    color: var(--suave);
-    font-size: 1rem;
+.secao-conteudo > p {
+    max-width: 850px;
+    margin-bottom: 20px;
     line-height: 1.8;
 }
 
 
-/* Conteúdo */
+/* =========================================================
+   17. FAQ — PERGUNTAS FREQUENTES
+========================================================= */
 
-.trajetoria-conteudo {
-    display: grid;
-    grid-template-columns: .8fr 1.2fr;
-    gap: 60px;
-
-    padding: 45px;
-
-    border-radius: 26px;
-
-    background: #FFFFFF;
-
-    border: 1px solid var(--borda);
-
-    box-shadow: 0 12px 35px rgba(33, 71, 155, .06);
+.faq-container {
+    width: 90%;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 50px 0 80px;
 }
 
-
-/* Texto principal */
-
-.trajetoria-texto {
-    padding: 10px 15px;
-}
-
-.trajetoria-numero {
-    display: block;
-
-    margin-bottom: 18px;
-
-    color: #B8CBEA;
-
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-.trajetoria-texto h3 {
-    max-width: 400px;
-
+.faq-container > h1 {
     margin-bottom: 15px;
-
-    color: var(--azul-escuro);
-
-    font-size: 1.8rem;
-    line-height: 1.25;
+    color: #21479B;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    text-align: center;
 }
 
-.trajetoria-texto p {
-    max-width: 420px;
-
-    margin-bottom: 25px;
-
-    color: var(--suave);
-
-    line-height: 1.75;
+.faq-container > p {
+    max-width: 700px;
+    margin: 0 auto 35px;
+    color: #64748b;
+    text-align: center;
+    line-height: 1.8;
 }
 
+.faq-item {
+    margin-bottom: 15px;
+    overflow: hidden;
 
-/* Link */
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
 
-.trajetoria-link {
-    display: inline-flex;
+    background: #fff;
+
+    box-shadow: 0 4px 14px rgba(33, 71, 155, 0.04);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.faq-item:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 8px 22px rgba(33, 71, 155, 0.08);
+}
+
+.faq-pergunta {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 
-    padding: 13px 20px;
+    width: 100%;
+    padding: 22px 24px;
 
-    border-radius: 10px;
+    border: none;
+    background: #fff;
 
-    background: var(--azul);
+    color: #21479B;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.faq-pergunta:hover {
+    background: #f8fbff;
+}
+
+.faq-pergunta i {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.faq-item.ativo .faq-pergunta i {
+    transform: rotate(180deg);
+}
+
+.faq-resposta {
+    padding: 0 24px 22px;
+    color: #475569;
+    line-height: 1.8;
+}
+
+.faq-resposta p {
+    margin-bottom: 12px;
+}
+
+.faq-resposta p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   18. RODAPÉ
+========================================================= */
+
+footer {
+    position: relative;
+    padding: 45px 8% 25px;
+
+    background: #21479B;
     color: #fff;
+}
 
+footer a {
+    color: #fff;
     text-decoration: none;
-
-    font-size: .9rem;
-    font-weight: 700;
-
-    transition: .25s;
 }
 
-.trajetoria-link:hover {
-    background: var(--azul-escuro);
-    transform: translateY(-3px);
+footer a:hover {
+    color: #bfdbfe;
 }
 
-.trajetoria-link i {
-    font-size: .75rem;
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
 
-    transition: .25s;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.trajetoria-link:hover i {
-    transform: translateX(4px);
+.footer-col {
+    min-width: 0;
 }
 
+.footer-col h3 {
+    margin-bottom: 16px;
+    color: #fff;
+    font-size: 1.1rem;
+}
 
-/* Ferramentas */
+.footer-col p {
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+}
 
-.trajetoria-ferramentas {
+.footer-col ul {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+
+    padding: 0;
+    list-style: none;
 }
 
-.ferramenta {
-    display: flex;
-    align-items: flex-start;
-    gap: 18px;
-
-    padding: 22px;
-
-    border: 1px solid #E7ECF4;
-
-    border-radius: 16px;
-
-    background: #FCFDFE;
-
-    transition: .25s;
+.footer-col li {
+    line-height: 1.6;
 }
 
-.ferramenta:hover {
-    transform: translateX(5px);
+.footer-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+}
 
-    border-color: #D2DDF5;
+.footer-bottom {
+    max-width: 1200px;
+    margin: 35px auto 0;
+    padding-top: 20px;
 
-    box-shadow: 0 8px 22px rgba(33, 71, 155, .07);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 
-/* Ícone */
+/* =========================================================
+   19. ANIMAÇÕES DE ENTRADA
+========================================================= */
 
-.ferramenta-icone {
+.reveal {
+    opacity: 1;
+    transform: none;
+}
+
+/* A animação só é ativada quando o JavaScript adiciona
+   a classe .reveal-ready ao body. */
+
+.reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+
+    transition:
+        opacity 0.65s ease,
+        transform 0.65s ease;
+}
+
+.reveal-ready .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   20. BOTÃO VOLTAR AO TOPO
+========================================================= */
+
+#topBtn {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 10000;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
-    flex-shrink: 0;
+    width: 55px;
+    height: 55px;
 
-    width: 48px;
-    height: 48px;
+    border: none;
+    border-radius: 50%;
 
-    border-radius: 14px;
+    background: #21479B;
+    color: #fff;
 
-    background: var(--azul-claro);
-    color: var(--azul);
+    font-size: 22px;
 
-    font-size: 18px;
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateY(10px);
+
+    box-shadow: 0 6px 18px rgba(33, 71, 155, 0.25);
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease,
+        transform 0.25s ease,
+        background 0.25s ease;
 }
 
-.ferramenta:nth-child(2) .ferramenta-icone {
-    background: #EDF8EE;
-    color: var(--verde);
+#topBtn.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
-.ferramenta:nth-child(3) .ferramenta-icone {
-    background: #F1EDFF;
-    color: #7655D6;
-}
-
-
-/* Texto */
-
-.ferramenta-numero {
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: #9AA8BD;
-
-    font-size: .68rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-}
-
-.ferramenta h4 {
-    margin-bottom: 5px;
-
-    color: var(--azul-escuro);
-
-    font-size: 1.05rem;
-}
-
-.ferramenta p {
-    margin: 0;
-
-    color: var(--suave);
-
-    font-size: .88rem;
-    line-height: 1.6;
+#topBtn:hover {
+    background: #3467EB;
+    transform: translateY(-3px);
 }
 
 
-/* Responsivo */
+/* =========================================================
+   21. LINKS E DESTAQUES
+========================================================= */
 
-@media (max-width: 850px) {
+.link-texto {
+    color: #3467EB;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
 
-    .trajetoria {
-        padding: 70px 0;
-    }
+.link-texto:hover {
+    color: #21479B;
+}
 
-    .trajetoria-conteudo {
-        grid-template-columns: 1fr;
-        gap: 35px;
-    }
+.texto-destaque {
+    color: #21479B;
+    font-weight: 700;
+}
 
-    .trajetoria-intro {
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-    }
+.texto-suave {
+    color: #64748b;
+}
 
-    .trajetoria-intro h2::after {
-        margin-left: auto;
-        margin-right: auto;
-    }
+.fundo-azul-claro {
+    background: #EAF2FF;
+}
 
-    .trajetoria-texto {
-        text-align: center;
-    }
-
-    .trajetoria-texto h3,
-    .trajetoria-texto p {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
+.borda-azul {
+    border: 1px solid #DBEAFE;
 }
 
 
-@media (max-width: 550px) {
+/* =========================================================
+   22. ACESSIBILIDADE E FOCO
+========================================================= */
 
-    .trajetoria {
-        padding: 60px 0;
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+    outline: 3px solid #60A5FA;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
     }
 
-    .trajetoria-intro h2 {
-        font-size: 2rem;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
-
-    .trajetoria-conteudo {
-        padding: 25px;
-        border-radius: 20px;
-    }
-
-    .ferramenta {
-        padding: 18px;
-    }
-
 }
 
 
+/* =========================================================
+   FIM DA PARTE 3
+========================================================= */
 

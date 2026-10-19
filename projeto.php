@@ -37,7 +37,7 @@
     <div class="equipe-container">
 
         <div class="equipe-titulo">
-            <span class="texto-label">Quem Somos</span>
+            <span class="texto-label">Quem somos?</span>
 
             <h2>
                 As mentes por trás do <strong>ForTEA</strong>

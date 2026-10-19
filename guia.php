@@ -1,62 +1,9 @@
 <?php
-
 session_start();
+require_once __DIR__ . "/conexao.php";
 
-require_once "conexao.php";
-
-$checklists_concluidas = 0;
-$total_checklists = 4;
-$progresso_trajetoria = 0;
-
-if (isset($_SESSION["usuario_id"])) {
-
-    $usuario_id = $_SESSION["usuario_id"];
-
-    $sql = "SELECT 
-                c.id,
-                COUNT(i.id) AS total_itens,
-                SUM(i.concluida) AS itens_concluidos
-            FROM trajetoria_checklists c
-            LEFT JOIN trajetoria_itens i
-                ON c.id = i.checklist_id
-            WHERE c.usuario_id = ?
-            GROUP BY c.id";
-
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("i", $usuario_id);
-    $stmt->execute();
-
-    $resultado_checklists = $stmt->get_result();
-
-    $total_itens = 0;
-    $total_concluidos = 0;
-
-    while ($checklist = $resultado_checklists->fetch_assoc()) {
-
-        $itens = (int) $checklist["total_itens"];
-        $concluidos = (int) $checklist["itens_concluidos"];
-
-        $total_itens += $itens;
-        $total_concluidos += $concluidos;
-
-        if ($itens > 0 && $itens == $concluidos) {
-            $checklists_concluidas++;
-        }
-    }
-
-    if ($total_itens > 0) {
-        $progresso_trajetoria = round(
-            ($total_concluidos / $total_itens) * 100
-        );
-    }
-
-    $stmt->close();
-}
-
+include __DIR__ . "/includes/header.php";
 ?>
-
-
-<?php include 'includes/header.php'; ?>
 
 <link rel="stylesheet" href="css/estilo.css">
 
@@ -433,189 +380,114 @@ if (isset($_SESSION["usuario_id"])) {
 
 
 
-<section class="trajetoria">
-
     <div class="container">
 
-        <div class="trajetoria-cabecalho">
-
-            <div>
-                <span>ORGANIZAÇÃO E ACOMPANHAMENTO</span>
-                <h2>Organize sua trajetória</h2>
-            </div>
-
+        <div class="guia-acessos-intro">
+            <span>ORGANIZAÇÃO E ACOMPANHAMENTO</span>
+            <h2>Um espaço para acompanhar sua jornada</h2>
+            <p>
+                Cada trajetória é única. Consulte informações, registre momentos
+                importantes e organize os próximos passos de acordo com suas
+                necessidades, no seu próprio ritmo.
+            </p>
         </div>
 
+        <div class="guia-acessos-grid">
 
-        <div class="trajetoria-painel">
+            <!-- MINHA TRAJETÓRIA -->
+            <article class="guia-acesso-card guia-acesso-trajetoria">
 
-            <div class="trajetoria-painel-topo">
-
-                <div class="trajetoria-titulo">
-
-                    <div class="trajetoria-icone">
-                        <i class="fas fa-route"></i>
-                    </div>
-
-                    <div>
-                        <small>MINHA TRAJETÓRIA</small>
-                        <h3>Registre o que acontece ao longo do caminho</h3>
-                    </div>
-
+                <div class="guia-acesso-icone">
+                    <i class="fas fa-route"></i>
                 </div>
 
+                <span class="guia-acesso-etiqueta">MEU CAMINHO</span>
 
-                <a href="minha-trajetoria.php" class="trajetoria-adicionar">
-
-                    <i class="fas fa-plus"></i>
-
-                    Adicionar registro
-
-                </a>
-
-            </div>
-
-
-            <div class="trajetoria-corpo">
-
-                <div class="trajetoria-info">
-
-                    <div class="trajetoria-info-item">
-
-                        <i class="fas fa-calendar-days"></i>
-
-                        <div>
-
-                            <strong>Datas importantes</strong>
-
-                            <p>
-                                Organize consultas, avaliações, reuniões e outros
-                                acontecimentos importantes.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="trajetoria-info-item">
-
-                        <i class="fas fa-notes-medical"></i>
-
-                        <div>
-
-                            <strong>Acompanhamentos</strong>
-
-                            <p>
-                                Registre informações sobre diagnóstico, terapias,
-                                profissionais e acompanhamentos.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="trajetoria-info-item">
-
-                        <i class="fas fa-school"></i>
-
-                        <div>
-
-                            <strong>Escola e rotina</strong>
-
-                            <p>
-                                Anote reuniões, observações, mudanças e situações
-                                importantes do dia a dia.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="trajetoria-checklist">
-
-                    <div class="checklist-topo">
-
-                        <div>
-
-                            <span>CHECKLISTS</span>
-
-                            <h4>Acompanhe sua trajetória</h4>
-
-                        </div>
-
-                        <i class="fas fa-list-check"></i>
-
-                    </div>
-
-
-                    <div class="progresso-info">
-
-                        <span>
-                            <?php echo $checklists_concluidas; ?>
-                            de
-                            <?php echo $total_checklists; ?>
-                            concluídas
-                        </span>
-
-                        <strong>
-                            <?php echo $progresso_trajetoria; ?>%
-                        </strong>
-
-                    </div>
-
-
-                    <div class="barra-progresso">
-
-                        <div
-                            style="width: <?php echo $progresso_trajetoria; ?>%;">
-                        </div>
-
-                    </div>
-
-
-                    <a
-                        href="minha-trajetoria.php"
-                        class="checklist-link"
-                    >
-
-                        Ver minhas checklists
-
-                        <i class="fas fa-arrow-right"></i>
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="trajetoria-nota">
-
-            <i class="fas fa-lock"></i>
-
-            <div>
-
-                <strong>Seus registros ficam vinculados à sua conta</strong>
+                <h3>Minha Trajetória</h3>
 
                 <p>
-                    Entre no ForTEA para registrar sua trajetória e acessar
-                    essas informações novamente pelo seu perfil.
+                    Guarde experiências, conquistas e momentos importantes.
+                    Registre o que aconteceu, adicione fotos e consulte suas
+                    lembranças sempre que quiser.
                 </p>
 
-            </div>
+                <ul>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Registros pessoais e experiências
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Conquistas e momentos importantes
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Histórico para consultar e editar
+                    </li>
+                </ul>
 
+                <a href="minha-trajetoria.php" class="guia-acesso-botao">
+                    Acessar minha trajetória
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+
+            </article>
+
+
+            <!-- MINHA CHECKLIST -->
+            <article class="guia-acesso-card guia-acesso-checklist">
+
+                <div class="guia-acesso-icone">
+                    <i class="fas fa-list-check"></i>
+                </div>
+
+                <span class="guia-acesso-etiqueta">MEUS PRÓXIMOS PASSOS</span>
+
+                <h3>Minha Checklist</h3>
+
+                <p>
+                    Descubra quais ações podem ajudar no seu momento atual.
+                    Escolha sua etapa, organize tarefas e acompanhe seu progresso
+                    sem precisar seguir um caminho obrigatório.
+                </p>
+
+                <ul>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Sugestões de acordo com sua etapa
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Tarefas personalizadas
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        Acompanhamento do seu progresso
+                    </li>
+                </ul>
+
+                <a href="minha-checklist.php" class="guia-acesso-botao">
+                    Organizar meus próximos passos
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+
+            </article>
+
+        </div>
+
+        <div class="guia-acessos-nota">
+            <i class="fas fa-heart"></i>
+            <p>
+                <strong>Não existe uma trajetória igual à outra.</strong>
+                Use esses espaços da maneira que fizer sentido para você.
+                Nem todas as sugestões precisam ser realizadas, e cada conquista
+                merece ser reconhecida.
+            </p>
         </div>
 
     </div>
-
 </section>
+
 
 </main>
 

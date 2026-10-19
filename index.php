@@ -110,7 +110,7 @@ $entrada = isset($_GET["entrada"]) && $_GET["entrada"] === "1";
                 <i class="fa-solid fa-school"></i>
             </div>
             <span class="numero">4</span>
-            <span class="titulo-passo">Conheça a inclusão escolar</span>
+            <span class="titulo-passo">Saiba sobre a inclusão escolar</span>
         </a>
 
         <span class="seta">

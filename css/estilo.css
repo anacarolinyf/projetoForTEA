@@ -5049,3 +5049,287 @@ header .submenu-biblioteca a:hover {
   background: #f0f4fa;
   color: #2454a6;
 }
+
+
+/* ========================================
+   ACESSOS: MINHA TRAJETÓRIA E CHECKLIST
+======================================== */
+
+.guia-acessos {
+    padding: 85px 0;
+    background: #f6f8fc;
+}
+
+.guia-acessos .container {
+    width: min(1120px, 90%);
+    margin: 0 auto;
+}
+
+.guia-acessos-intro {
+    max-width: 690px;
+    margin-bottom: 38px;
+}
+
+.guia-acessos-intro > span {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #315ba6;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.guia-acessos-intro h2 {
+    margin: 0 0 15px;
+    color: #20375d;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1.2;
+}
+
+.guia-acessos-intro p {
+    margin: 0;
+    color: #66738a;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.guia-acessos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    align-items: stretch;
+}
+
+.guia-acesso-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 32px;
+    background: #fff;
+    border: 1px solid #e5eaf2;
+    border-radius: 22px;
+    box-shadow: 0 8px 28px rgba(35, 57, 94, 0.045);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.guia-acesso-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(35, 57, 94, 0.09);
+}
+
+.guia-acesso-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 24px;
+    border-radius: 17px;
+    background: #eaf0ff;
+    color: #315ba6;
+    font-size: 1.5rem;
+}
+
+.guia-acesso-checklist .guia-acesso-icone {
+    background: #e7f5ed;
+    color: #327a55;
+}
+
+.guia-acesso-etiqueta {
+    margin-bottom: 9px;
+    color: #5473aa;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.guia-acesso-checklist .guia-acesso-etiqueta {
+    color: #327a55;
+}
+
+.guia-acesso-card h3 {
+    margin: 0 0 13px;
+    color: #243a60;
+    font-size: 1.55rem;
+    line-height: 1.3;
+}
+
+.guia-acesso-card > p {
+    margin: 0 0 22px;
+    color: #68758a;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.guia-acesso-card ul {
+    display: grid;
+    gap: 13px;
+    width: 100%;
+    margin: 0 0 28px;
+    padding: 0;
+    list-style: none;
+}
+
+.guia-acesso-card ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #4d5d74;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.guia-acesso-card ul li i {
+    flex-shrink: 0;
+    margin-top: 4px;
+    color: #4772bd;
+    font-size: 0.8rem;
+}
+
+.guia-acesso-checklist ul li i {
+    color: #36805a;
+}
+
+.guia-acesso-botao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+    min-height: 52px;
+    margin-top: auto;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: #315ba6;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: left;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.guia-acesso-botao:hover {
+    background: #244783;
+    color: #fff;
+}
+
+.guia-acesso-botao i {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.guia-acesso-botao:hover i {
+    transform: translateX(4px);
+}
+
+.guia-acesso-checklist .guia-acesso-botao {
+    background: #327a55;
+}
+
+.guia-acesso-checklist .guia-acesso-botao:hover {
+    background: #276342;
+}
+
+.guia-acessos-nota {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 28px;
+    padding: 22px 25px;
+    border: 1px solid #e4eaf3;
+    border-radius: 16px;
+    background: #fff;
+}
+
+.guia-acessos-nota > i {
+    flex-shrink: 0;
+    margin-top: 4px;
+    color: #5476b1;
+    font-size: 1.2rem;
+}
+
+.guia-acessos-nota p {
+    margin: 0;
+    color: #66738a;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.guia-acessos-nota strong {
+    color: #30496e;
+}
+
+/* TABLETS */
+
+@media (max-width: 850px) {
+    .guia-acessos {
+        padding: 65px 0;
+    }
+
+    .guia-acessos-grid {
+        gap: 18px;
+    }
+
+    .guia-acesso-card {
+        padding: 25px;
+    }
+
+    .guia-acesso-card h3 {
+        font-size: 1.35rem;
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+    .guia-acessos {
+        padding: 48px 0;
+    }
+
+    .guia-acessos .container {
+        width: 90%;
+    }
+
+    .guia-acessos-intro {
+        margin-bottom: 25px;
+    }
+
+    .guia-acessos-intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .guia-acessos-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .guia-acesso-card {
+        padding: 24px 21px;
+        border-radius: 18px;
+    }
+
+    .guia-acesso-icone {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 19px;
+    }
+
+    .guia-acesso-card h3 {
+        font-size: 1.4rem;
+    }
+
+    .guia-acesso-card > p {
+        font-size: 0.92rem;
+    }
+
+    .guia-acesso-botao {
+        font-size: 0.85rem;
+    }
+
+    .guia-acessos-nota {
+        gap: 12px;
+        padding: 18px;
+    }
+}
