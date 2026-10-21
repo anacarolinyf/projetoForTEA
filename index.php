@@ -5,8 +5,11 @@ $entrada = isset($_GET["entrada"]) && $_GET["entrada"] === "1";
 <link rel="icon" type="image" href="img/logoo.png">
 
 <main>
-    <section class="hero">
-        <div class="hero-texto">
+    <!-- Seção Hero com Imagem de Grandeza (Alternativa com tag img para garantir carregamento) -->
+    <section class="hero-com-imagem">
+        <img src="img/familiacomeco.jpg" alt="Família acolhedora" class="img-banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-conteudo">
             <h1>Informação, orientação e acolhimento para toda a família.</h1>
             <p>
                 Sabemos que cada jornada é única, por isso criamos um espaço para apoiar famílias e responsáveis com 
@@ -16,9 +19,6 @@ $entrada = isset($_GET["entrada"]) && $_GET["entrada"] === "1";
                 <a href="guia.php" class="btn-principal">Começar agora</a>
                 <a href="leis.php" class="btn-secundario">Conheça seus direitos</a>
             </div>
-        </div>
-        <div class="hero-imagem">
-            <img src="img/loginfoto.png" alt="Familiaa">
         </div>
     </section>
 
@@ -51,91 +51,87 @@ $entrada = isset($_GET["entrada"]) && $_GET["entrada"] === "1";
             <h2>Por que criamos o ForTEA?</h2>
             <p>
                 O ForTEA nasceu da necessidade de reunir em um único lugar informações confiáveis sobre o Transtorno do Espectro Autista. 
-               Nosso objetivo é oferecer orientação, apoio e recursos para famílias, educadores e pessoas com TEA, promovendo inclusão, conhecimento, qualidade de vida e uma comunicação mais acolhedora sobre o autismo.
+                Nosso objetivo é oferecer orientação, apoio e recursos para famílias, educadores e pessoas com TEA, promovendo inclusão, conhecimento, qualidade de vida e uma comunicação mais acolhedora sobre o autismo.
             </p>
-            <a href="projeto.php" class="btn-secundario">Conheça o projeto</a>
+            <a href="projeto.php" class="btn-secundario-alt">Conheça o projeto</a>
         </div>
         <div class="icone">
             <i class="fa-solid fa-heart"></i>
         </div>
     </section>
 
-<section class="diagnostico">
+    <section class="diagnostico">
+        <div class="diagnostico-topo">
+            <h2>Recebeu um diagnóstico recentemente?</h2>
+            <p>Conheça as principais etapas para iniciar essa jornada com mais confiança</p>
+        </div>
 
-    <div class="diagnostico-topo">
-        <h2>Recebeu um diagnóstico recentemente?</h2>
-        <p>Conheça as principais etapas para iniciar essa jornada com mais confiança</p>
-    </div>
+        <div class="passos">
+            <a href="sobre.php" class="passo">
+                <div class="icone">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                </div>
+                <span class="numero">1</span>
+                <span class="titulo-passo">Entenda o TEA</span>
+            </a>
 
-    <div class="passos">
+            <span class="seta">
+                <i class="fa-solid fa-chevron-right"></i>
+            </span>
 
-        <a href="sobre.php" class="passo">
-            <div class="icone">
-                <i class="fa-solid fa-puzzle-piece"></i>
-            </div>
-            <span class="numero">1</span>
-            <span class="titulo-passo">Entenda o TEA</span>
-        </a>
+            <a href="profissionais.php" class="passo">
+                <div class="icone">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <span class="numero">2</span>
+                <span class="titulo-passo">Procure apoio profissional</span>
+            </a>
 
-        <span class="seta">
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
+            <span class="seta">
+                <i class="fa-solid fa-chevron-right"></i>
+            </span>
 
-        <a href="profissionais.php" class="passo">
-            <div class="icone">
-                <i class="fa-solid fa-user-doctor"></i>
-            </div>
-            <span class="numero">2</span>
-            <span class="titulo-passo">Procure apoio profissional</span>
-        </a>
+            <a href="leis.php" class="passo">
+                <div class="icone">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+                <span class="numero">3</span>
+                <span class="titulo-passo">Conheça seus direitos</span>
+            </a>
 
-        <span class="seta">
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
+            <span class="seta">
+                <i class="fa-solid fa-chevron-right"></i>
+            </span>
 
-        <a href="leis.php" class="passo">
-            <div class="icone">
-                <i class="fa-solid fa-scale-balanced"></i>
-            </div>
-            <span class="numero">3</span>
-            <span class="titulo-passo">Conheça seus direitos</span>
-        </a>
+            <a href="educacaoinclusiva.php" class="passo">
+                <div class="icone">
+                    <i class="fa-solid fa-school"></i>
+                </div>
+                <span class="numero">4</span>
+                <span class="titulo-passo">Saiba sobre a inclusão escolar</span>
+            </a>
 
-        <span class="seta">
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
+            <span class="seta">
+                <i class="fa-solid fa-chevron-right"></i>
+            </span>
 
-        <a href="educacaoinclusiva.php" class="passo">
-            <div class="icone">
-                <i class="fa-solid fa-school"></i>
-            </div>
-            <span class="numero">4</span>
-            <span class="titulo-passo">Saiba sobre a inclusão escolar</span>
-        </a>
+            <a href="faq.php" class="passo">
+                <div class="icone">
+                   <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <span class="numero">5</span>
+                <span class="titulo-passo">Confira as dúvidas frequentes</span>
+            </a>
 
-        <span class="seta">
-            <i class="fa-solid fa-chevron-right"></i>
-        </span>
-
-        <a href="faq.php" class="passo">
-            <div class="icone">
-               <i class="fa-solid fa-circle-question"></i>
-            </div>
-            <span class="numero">5</span>
-            <span class="titulo-passo">Confira as dúvidas frequentes</span>
-        </a>
-
-        <a href="guia.php" class="btn-guia">
-            Ver guia completo
-        </a>
-
-    </div>
-</section>
+            <a href="guia.php" class="btn-guia">
+                Ver guia completo
+            </a>
+        </div>
+    </section>
 
     <?php include 'includes/footer.php'; ?>
     
-<script src="https://cdn.jsdelivr.net/npm/accessibility-widgets@latest/widget.js"></script>
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/accessibility-widgets@latest/widget.js"></script>
 </main>
 </body>
 </html>

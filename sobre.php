@@ -17,7 +17,7 @@
     </div>
 
     <div class="sobre-imagem">
-        <img src="img/familiasobre.png" loading="lazy">
+        <img src="img/familiasobre.png" alt="Família ilustrando acolhimento ao TEA" loading="lazy">
     </div>
 
 </section>
@@ -78,7 +78,7 @@
             <span class="tooltip-termo" onclick="toggleTooltip(this)">
                 sorriso social
                 <span class="tooltip-text">
-                É quando o bebê sorri espontaneamente em resposta ao rosto, à voz ou à interação com outra pessoa.
+                    É quando o bebê sorri espontaneamente em resposta ao rosto, à voz ou à interação com outra pessoa.
                 </span>
             </span>, pouca resposta às interações sociais, dificuldade em acompanhar o olhar e as expressões faciais dos cuidadores, além de menor interesse em interações com as pessoas ao seu redor.
         </p>
@@ -601,16 +601,9 @@ document.addEventListener("DOMContentLoaded", function () {
     observador.observe(cta);
 
 });
-
-
-
 </script>
 
 </main>
-
-<i class="fa-solid fa-arrow-up"></i>
-
-</button>
 
 <?php include 'includes/footer.php'; ?>
 

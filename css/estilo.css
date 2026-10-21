@@ -289,8 +289,8 @@ header .submenu-biblioteca a:hover {
 }
 
 .btn-secundario {
-    border: 2px solid #3467EB;
-    color: #3467EB;
+    border: 2px solid #62abe7;
+    color: #62abe7;
 }
 
 .btn-secundario:hover {
@@ -5358,5 +5358,110 @@ header .acoes > .menu-configuracoes {
 
 header .acoes {
   gap: 12px;
+}
+
+/* MUDANÇA NA IMAGEM DE ÍNICIO/FAMÍLIA */
+.hero-com-imagem {
+    position: relative;
+    width: 100%;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.hero-com-imagem .img-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-com-imagem .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg, 
+        rgba(0, 0, 0, 0.45) 0%, 
+        rgba(0, 0, 0, 0.65) 100%
+    );
+    z-index: 1;
+}
+
+.hero-com-imagem .hero-conteudo {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    color: #ffffff;
+}
+
+.hero-com-imagem .hero-conteudo h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hero-com-imagem .hero-conteudo p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    color: #f0f0f0;
+    text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero-com-imagem .hero-conteudo .botoes {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Responsividade para Celulares */
+@media (max-width: 768px) {
+    .hero-com-imagem {
+        min-height: 70vh;
+        padding: 40px 15px;
+    }
+
+    .hero-com-imagem .hero-conteudo h1 {
+        font-size: 2rem;
+    }
+
+    .hero-com-imagem .hero-conteudo p {
+        font-size: 1rem;
+    }
+
+    .hero-com-imagem .hero-conteudo .botoes {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* Estilização da seção inicial e imagem de destaque */
+.sobre-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 40px 20px;
+}
+
+.sobre-imagem {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
