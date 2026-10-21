@@ -853,3 +853,199 @@
     }
 
 }
+
+/* ========================================
+   FAVORITOS NO PERFIL
+======================================== */
+
+#favoritos .pb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+}
+
+.pb-fav,
+.pb-fav:visited {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 16px 18px;
+
+    background: #ffffff;
+    border: 1px solid #e3eaf5;
+    border-radius: 16px;
+
+    color: inherit;
+    text-decoration: none;
+
+    box-shadow: 0 4px 14px rgba(33, 71, 155, 0.05);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.pb-fav:hover {
+    transform: translateY(-3px);
+    border-color: #bfd1f2;
+    box-shadow: 0 10px 24px rgba(33, 71, 155, 0.12);
+}
+
+/* Ícone */
+
+.pb-fav-icone {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #eaf2ff;
+    color: #3467eb;
+
+    font-size: 1.2rem;
+
+    transition: 0.25s ease;
+}
+
+.pb-fav:hover .pb-fav-icone {
+    background: #3467eb;
+    color: #ffffff;
+}
+
+/* Textos */
+
+.pb-fav .pb-info {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.pb-fav .pb-tipo {
+    align-self: flex-start;
+
+    margin-bottom: 5px;
+    padding: 3px 10px;
+
+    border-radius: 20px;
+
+    background: #eaf2ff;
+    color: #3467eb;
+
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.pb-fav h3 {
+    margin: 0;
+
+    color: #21479b;
+
+    font-size: 0.98rem;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.pb-fav small {
+    color: #7a8799;
+
+    font-size: 0.78rem;
+    text-decoration: none;
+}
+
+/* Setinha */
+
+.pb-fav .pb-seta {
+    flex-shrink: 0;
+
+    color: #b4bfdc;
+    font-size: 0.85rem;
+
+    transition: 0.25s ease;
+}
+
+.pb-fav:hover .pb-seta {
+    color: #3467eb;
+    transform: translateX(4px);
+}
+
+/* Cores por tipo */
+
+.pb-fav-lei .pb-fav-icone,
+.pb-fav-lei .pb-tipo {
+    background: #edf8ee;
+    color: #347a39;
+}
+
+.pb-fav-lei:hover .pb-fav-icone {
+    background: #4caf50;
+    color: #ffffff;
+}
+
+.pb-fav-material .pb-fav-icone,
+.pb-fav-material .pb-tipo {
+    background: #fff4e0;
+    color: #b36b00;
+}
+
+.pb-fav-material:hover .pb-fav-icone {
+    background: #f28c28;
+    color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    #favoritos .pb-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.campo-editar {
+    position: relative;
+    width: 100%;
+}
+
+.campo-editar input {
+    width: 100%;
+    height: 46px;
+    box-sizing: border-box;
+    padding: 0 45px 0 14px;
+}
+
+.campo-editar .olho-senha {
+    position: absolute;
+    right: 12px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+
+    height: 100%;
+    width: 28px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    transform: none;
+}
+
+.campo-editar .olho-senha svg {
+    display: block;
+    flex-shrink: 0;
+}

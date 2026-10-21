@@ -774,3 +774,36 @@ body {
     }
 
 }
+
+.card-legislacao {
+    position: relative;
+    scroll-margin-top: 150px;
+}
+
+.card-legislacao .btn-favorito {
+    position: absolute;
+    top: 26px;               /* metade da altura do cabeçalho do card */
+    right: 52px;             /* fica ao lado da setinha */
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    color: #94a3b8;
+    font-size: 1.05rem;
+    padding: 6px;
+    line-height: 1;
+
+    transition: 0.2s ease;
+    z-index: 2;
+}
+
+.card-legislacao .btn-favorito:hover {
+    color: #ef4444;
+    transform: translateY(-50%) scale(1.15);
+}
+
+.card-legislacao .btn-favorito.ativo {
+    color: #ef4444;
+}

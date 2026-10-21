@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19/10/2026 às 02:18
+-- Tempo de geração: 21/10/2026 às 06:43
 -- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.0.30
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -149,6 +149,27 @@ CREATE TABLE `contatos_medicos` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `contatos_profissionais`
+--
+
+CREATE TABLE `contatos_profissionais` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `profissional_id` int(11) NOT NULL,
+  `primeiro_contato` datetime NOT NULL DEFAULT current_timestamp(),
+  `ultimo_contato` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `contatos_profissionais`
+--
+
+INSERT INTO `contatos_profissionais` (`id`, `usuario_id`, `profissional_id`, `primeiro_contato`, `ultimo_contato`) VALUES
+(1, 7, 1, '2026-10-21 01:05:06', '2026-10-21 01:05:06');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `favoritos`
 --
 
@@ -169,7 +190,12 @@ CREATE TABLE `favoritos` (
 --
 
 INSERT INTO `favoritos` (`id`, `usuario_id`, `tipo`, `item_id`, `titulo`, `url`, `medico_nome`, `especialidade`, `criado_em`) VALUES
-(0, 4, 'lei', 0, '<br />\r\n<b>Warning</b>:  Undefined variable $lei in <b>C:\\xampp\\htdocs\\TCC-2026\\leis.php</b> on line <b>45</b><br />\r\n<br />\r\n<b>Warning</b>:  Trying to access array offset on value of type null in <b>C:\\xampp\\htdocs\\TCC-2026\\leis.php</b> on line <b>45</b', 'direitos.php#lei-<br />\r\n<b>Warning</b>:  Undefined variable $lei in <b>C:\\xampp\\htdocs\\TCC-2026\\leis.php</b> on line <b>54</b><br />\r\n<br />\r\n<b>Warning</b>:  Trying to access array offset on value of type null in <b>C:\\xampp\\htdocs\\TCC-2026\\leis.php</b> on line <b>54</b><br />\r\n0', '', '', '2026-09-22 01:50:08');
+(0, 4, 'lei', 0, '<br />\r\n<b>Warning</b>:  Undefined variable $lei in <b>C:\\xampp\\htdocs\\TCC-2026\\leis.php</b> on line <b>45</b><br />\r\n<br />\r\n<b>Warning</b>:  Trying to access array offset on value of type null in <b>C:\\xampp\\htdocs\\TCC-2026\\leis.php</b> on line <b>45</b', 'direitos.php#lei-<br />\r\n<b>Warning</b>:  Undefined variable $lei in <b>C:\\xampp\\htdocs\\TCC-2026\\leis.php</b> on line <b>54</b><br />\r\n<br />\r\n<b>Warning</b>:  Trying to access array offset on value of type null in <b>C:\\xampp\\htdocs\\TCC-2026\\leis.php</b> on line <b>54</b><br />\r\n0', '', '', '2026-09-22 01:50:08'),
+(0, 7, 'lei', NULL, 'Lei do Autismo', 'leis.php#lei-12-764-2012', '', 'LEI Nº 12.764/2012', '2026-10-21 03:21:07'),
+(0, 7, 'lei', NULL, 'CIPTEA — Carteira do Autista', 'leis.php#lei-13-977-2020', '', 'LEI Nº 13.977/2020', '2026-10-21 03:21:09'),
+(0, 7, 'lei', NULL, 'Acessibilidade', 'leis.php#lei-10-098-2000', '', 'LEI Nº 10.098/2000', '2026-10-21 03:27:05'),
+(0, 7, 'profissional', NULL, 'Dr. Alexandre Nascimento Harada', 'profissionais.php#prof-1', '', 'Neurologista Pediátrico', '2026-10-21 04:04:08'),
+(0, 7, 'profissional', NULL, 'Dra. Raphaella Gomes', 'profissionais.php#prof-5', '', 'Psiquiatra', '2026-10-21 04:05:35');
 
 -- --------------------------------------------------------
 
@@ -209,7 +235,13 @@ INSERT INTO `preferencias_usuario` (`id`, `usuario_id`, `modo_escuro`, `reduzir_
 (0, 4, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-09-22 01:28:34'),
 (0, 4, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-09-22 02:23:30'),
 (0, 5, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-09-23 02:48:01'),
-(0, 5, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-19 00:12:55');
+(0, 5, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-19 00:12:55'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-21 03:10:35'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-21 03:13:49'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-21 04:07:30'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-21 04:33:40'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-21 04:34:37'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-21 04:40:40');
 
 -- --------------------------------------------------------
 
@@ -225,17 +257,24 @@ CREATE TABLE `profissionais` (
   `telefone` varchar(30) DEFAULT NULL,
   `whatsapp` varchar(30) DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
-  `ativo` tinyint(1) DEFAULT 1
+  `ativo` tinyint(1) DEFAULT 1,
+  `endereco` varchar(255) DEFAULT NULL,
+  `site` varchar(255) DEFAULT NULL,
+  `convenios` varchar(255) DEFAULT NULL,
+  `atendimento` varchar(100) DEFAULT NULL,
+  `valor_consulta` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `profissionais`
 --
 
-INSERT INTO `profissionais` (`id`, `nome`, `especialidade`, `descricao`, `telefone`, `whatsapp`, `foto`, `ativo`) VALUES
-(1, 'Dra. Raphaella Gomes', 'Psicóloga', 'Psicóloga especializada no atendimento de pessoas com Transtorno do Espectro Autista (TEA).', '(11) 99999-1111', '5511999991111', 'uploads/profissionais/raphaella-gomes.png', 1),
-(2, 'Dr. Alexandre Nascimento', 'Fonoaudiólogo', 'Fonoaudiólogo especializado em comunicação e desenvolvimento de pessoas com TEA.', '(11) 98888-2222', '5511988882222', 'uploads/profissionais/alexandre-nascimento.png', 1),
-(3, 'Dra. Gabriella Oliveira', 'Terapeuta Ocupacional', 'Terapeuta ocupacional com experiência em desenvolvimento da autonomia e habilidades sociais.', '(11) 97777-3333', '5511977773333', 'uploads/profissionais/gabriella-oliveira.png', 1);
+INSERT INTO `profissionais` (`id`, `nome`, `especialidade`, `descricao`, `telefone`, `whatsapp`, `foto`, `ativo`, `endereco`, `site`, `convenios`, `atendimento`, `valor_consulta`) VALUES
+(1, 'Dr. Alexandre Nascimento Harada', 'Neurologista Pediátrico', '', '(11) 97242-2735', '', 'uploads/profissionais/alexandre-nascimento.png', 1, 'Rua Bacaetava 191, sala 1403, Vila Gertrudes, São Paulo 04705-010', '', NULL, NULL, NULL),
+(2, 'Dr. Jorio Almino de Alencar Arrais Mota', 'Neurologista pediátrico', '', '(11) 4949-9578', '', 'uploads/profissionais/jonio-alencar.jpeg', 1, '', 'https://jorioneuro.com/', NULL, NULL, NULL),
+(3, 'Dr. Luiz Celso Pereira Vilanova', 'Neurologista', '', '(11) 3078-9515', '', 'uploads/profissionais/luiz-vilanova.jpg', 1, 'Rua Jesuíno Arruda 676 cj 124, Itaim Bibi, São Paulo 04532-082', '', NULL, NULL, NULL),
+(4, 'Dra. Gabriella Oliveira', 'Neurologista Pediátrica', '', '(11) 98813-4034', '', 'uploads/profissionais/gabriella-oliveira.png', 1, 'Avenida Água Fria 415, Santana, São Paulo 02333-000', '', NULL, NULL, NULL),
+(5, 'Dra. Raphaella Gomes', 'Psiquiatra', '', '(11) 3522-7245', '', 'uploads/profissionais/raphaella-gomes.png', 1, 'R. Teixeira da Silva, 34 - Cj.63 - Paraíso, São Paulo 04002-030', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -260,7 +299,8 @@ INSERT INTO `recuperacao_senha` (`id`, `usuario_id`, `codigo_hash`, `expira_em`,
 (1, 0, '$2y$10$QWSCxA59A957NYtYfx.VpuWCJN8ElePbM9K9bsFusagu1C4ec1Q6S', '2026-09-19 02:59:29', 1, '2026-09-18 21:49:29'),
 (2, 0, '$2y$10$YgUSLtWBuI89G3p5Gr9yBeWu9l0SffRg1AfWm9y1Wu2pGzpX1JHbm', '2026-09-19 02:59:51', 1, '2026-09-18 21:49:51'),
 (3, 0, '$2y$10$EZ8S1AFapGGjwMKAgezrteewboDqCApaWUVyYL8upaSI/eUu0wx3W', '2026-09-19 03:01:22', 1, '2026-09-18 21:51:22'),
-(4, 0, '$2y$10$q4IfJqMsnStAwiqCbl52DOx7VNdXVIO4iHt8OkNhZPLveRXNRzpjC', '2026-09-19 03:01:29', 0, '2026-09-18 21:51:29');
+(4, 0, '$2y$10$q4IfJqMsnStAwiqCbl52DOx7VNdXVIO4iHt8OkNhZPLveRXNRzpjC', '2026-09-19 03:01:29', 0, '2026-09-18 21:51:29'),
+(5, 1, '$2y$10$TFcGB.vnHGwzefNnrhFJEeUfqr0nze3SNDEf/Hkt2Vp8/oKKPNgGK', '2026-10-21 05:02:59', 0, '2026-10-20 23:52:59');
 
 -- --------------------------------------------------------
 
@@ -381,7 +421,8 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `data_cadastro`, `foto`)
 (3, 'isadora', 'isaa@gmail.com', '$2y$10$vuMNRI4VJg0wzpaBGV7JveNCSzPFlBVF31BNwa7zUr9e0mIreAPxO', '2026-09-22 00:01:19', NULL),
 (4, 'isa jans', 'isa@gmail.com', '$2y$10$lJsGC4LkhVzjqKSZFwpTme4guEdClkdty/MaTwAzC/yGJYc0xXlcK', '2026-09-22 00:09:46', NULL),
 (5, 'Heloisa', 'heloisa@gmail.com', '$2y$10$c/iV2uTwZ3wiZ.A3Enour.dklHtvncBfO6xft1o/.QUuPZ.mQ0IKu', '2026-09-23 02:09:25', 'uploads/perfis/perfil_5_1790131747.jpg'),
-(6, 'Heloisa Rodrigues', 'heloisalinda@gmail.com', '$2y$10$Q1aOlVt2uVSW9Rx0gahfgO07woW/07GQx.3PwkiZ4ioAXZddC41My', '2026-09-23 02:19:11', NULL);
+(6, 'Heloisa Rodrigues', 'heloisalinda@gmail.com', '$2y$10$Q1aOlVt2uVSW9Rx0gahfgO07woW/07GQx.3PwkiZ4ioAXZddC41My', '2026-09-23 02:19:11', NULL),
+(7, 'isa jans', 'isa05@gmail.com', '$2y$10$F/Z.L0s/MB/qoOWGfHXTHuq2ctwuUld4Jg7uPET3RKK4LrmzRbj2u', '2026-10-21 03:06:46', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -402,11 +443,24 @@ ALTER TABLE `checklist_tarefas`
   ADD KEY `idx_usuario_etapa` (`usuario_id`,`etapa`);
 
 --
+-- Índices de tabela `contatos_profissionais`
+--
+ALTER TABLE `contatos_profissionais`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario_profissional` (`usuario_id`,`profissional_id`);
+
+--
 -- Índices de tabela `favoritos`
 --
 ALTER TABLE `favoritos`
   ADD KEY `idx_favoritos_usuario_tipo` (`usuario_id`,`tipo`),
   ADD KEY `idx_favoritos_item` (`item_id`);
+
+--
+-- Índices de tabela `profissionais`
+--
+ALTER TABLE `profissionais`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `recuperacao_senha`
@@ -458,10 +512,22 @@ ALTER TABLE `checklist_tarefas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
+-- AUTO_INCREMENT de tabela `contatos_profissionais`
+--
+ALTER TABLE `contatos_profissionais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `profissionais`
+--
+ALTER TABLE `profissionais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de tabela `recuperacao_senha`
 --
 ALTER TABLE `recuperacao_senha`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `trajetoria_checklists`
@@ -485,7 +551,7 @@ ALTER TABLE `trajetoria_registros`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restrições para tabelas despejadas

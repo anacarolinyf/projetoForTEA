@@ -115,6 +115,9 @@ function iconeFavorito($tipo) {
     }
 }
 
+
+require_once "includes/header.php";
+
 ?>
 
 
@@ -133,13 +136,13 @@ function iconeFavorito($tipo) {
     <title>Meu perfil - ForTEA</title>
 
     <link rel="stylesheet"
-          href="css/estilo.css">
+          href="css/estilo.css?v=<?= @filemtime(__DIR__ . '/css/estilo.css') ?>">
 
     <link rel="stylesheet"
-          href="css/perfil.css">
+          href="css/perfil.css?v=<?= @filemtime(__DIR__ . '/css/perfil.css') ?>">
 
     <link rel="stylesheet"
-          href="css/perfil_blocos.css">
+          href="css/perfil_blocos.css?v=<?= @filemtime(__DIR__ . '/css/perfil_blocos.css') ?>">
 
     <link rel="icon"
           type="image"
@@ -148,8 +151,336 @@ function iconeFavorito($tipo) {
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-</head>
 
+    <!-- =========================
+         ESTILO DOS FAVORITOS
+         (fica aqui para não depender de cache nem de outro CSS)
+         ========================= -->
+
+    <style>
+
+    #favoritos .pb-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 16px;
+        margin-top: 22px;
+    }
+
+    #favoritos .pb-fav,
+    #favoritos .pb-fav:visited {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        padding: 16px 18px;
+
+        background: #ffffff;
+        border: 1px solid #e3eaf5;
+        border-radius: 16px;
+
+        color: inherit;
+        text-decoration: none;
+
+        box-shadow: 0 4px 14px rgba(33, 71, 155, 0.05);
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            border-color 0.25s ease;
+    }
+
+    #favoritos .pb-fav:hover {
+        transform: translateY(-3px);
+        border-color: #bfd1f2;
+        box-shadow: 0 10px 24px rgba(33, 71, 155, 0.12);
+    }
+
+    /* Ícone */
+
+    #favoritos .pb-fav-icone {
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        background: #eaf2ff;
+        color: #3467eb;
+
+        font-size: 1.2rem;
+
+        transition: 0.25s ease;
+    }
+
+    #favoritos .pb-fav:hover .pb-fav-icone {
+        background: #3467eb;
+        color: #ffffff;
+    }
+
+    /* Textos */
+
+    #favoritos .pb-fav .pb-info {
+        flex: 1;
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    #favoritos .pb-fav .pb-tipo {
+        align-self: flex-start;
+
+        margin-bottom: 5px;
+        padding: 3px 10px;
+
+        border-radius: 20px;
+
+        background: #eaf2ff;
+        color: #3467eb;
+
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+    }
+
+    #favoritos .pb-fav h3 {
+        margin: 0;
+
+        color: #21479b;
+
+        font-size: 0.98rem;
+        line-height: 1.35;
+        text-decoration: none;
+    }
+
+    #favoritos .pb-fav small {
+        color: #7a8799;
+
+        font-size: 0.78rem;
+        text-decoration: none;
+    }
+
+    /* Setinha */
+
+    #favoritos .pb-fav .pb-seta {
+        flex-shrink: 0;
+
+        color: #b4bfdc;
+        font-size: 0.85rem;
+
+        transition: 0.25s ease;
+    }
+
+    #favoritos .pb-fav:hover .pb-seta {
+        color: #3467eb;
+        transform: translateX(4px);
+    }
+
+    /* Cores por tipo */
+
+    #favoritos .pb-fav-lei .pb-fav-icone,
+    #favoritos .pb-fav-lei .pb-tipo {
+        background: #edf8ee;
+        color: #347a39;
+    }
+
+    #favoritos .pb-fav-lei:hover .pb-fav-icone {
+        background: #4caf50;
+        color: #ffffff;
+    }
+
+    #favoritos .pb-fav-material .pb-fav-icone,
+    #favoritos .pb-fav-material .pb-tipo {
+        background: #fff4e0;
+        color: #b36b00;
+    }
+
+    #favoritos .pb-fav-material:hover .pb-fav-icone {
+        background: #f28c28;
+        color: #ffffff;
+    }
+
+    @media (max-width: 600px) {
+        #favoritos .pb-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+
+    /* =========================
+       CONTATOS REALIZADOS
+       ========================= */
+
+    #profissionais .pb-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 16px;
+        margin-top: 22px;
+    }
+
+    #profissionais .pb-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        padding: 16px 18px;
+
+        background: #ffffff;
+        border: 1px solid #e3eaf5;
+        border-radius: 16px;
+
+        box-shadow: 0 4px 14px rgba(33, 71, 155, 0.05);
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            border-color 0.25s ease;
+    }
+
+    #profissionais .pb-card:hover {
+        transform: translateY(-3px);
+        border-color: #bfd1f2;
+        box-shadow: 0 10px 24px rgba(33, 71, 155, 0.12);
+    }
+
+    /* Foto */
+
+    #profissionais .pb-avatar {
+        width: 68px;
+        height: 68px;
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+
+        border-radius: 50%;
+
+        background: #eaf2ff;
+        color: #3467eb;
+
+        font-size: 1.5rem;
+
+        border: 3px solid #ffffff;
+        box-shadow: 0 0 0 2px #dbe6fa;
+    }
+
+    #profissionais .pb-avatar img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center top;
+    }
+
+    /* Textos */
+
+    #profissionais .pb-info {
+        flex: 1;
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    #profissionais .pb-info h3 {
+        margin: 0;
+
+        color: #21479b;
+
+        font-size: 0.98rem;
+        line-height: 1.35;
+    }
+
+    #profissionais .pb-tag {
+        padding: 3px 10px;
+
+        border-radius: 20px;
+
+        background: #eaf2ff;
+        color: #3467eb;
+
+        font-size: 0.7rem;
+        font-weight: 700;
+    }
+
+    #profissionais .pb-info small {
+        margin-top: 2px;
+
+        color: #7a8799;
+
+        font-size: 0.76rem;
+    }
+
+    /* Botão */
+
+    #profissionais .pb-botao,
+    #profissionais .pb-botao:visited {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+
+        flex-shrink: 0;
+
+        padding: 10px 16px;
+
+        border-radius: 22px;
+
+        background: #3467eb;
+        color: #ffffff;
+
+        text-decoration: none;
+        white-space: nowrap;
+
+        font-size: 0.78rem;
+        font-weight: 700;
+
+        transition: 0.2s ease;
+    }
+
+    #profissionais .pb-botao:hover {
+        background: #21479b;
+        transform: translateY(-2px);
+    }
+
+    #profissionais .pb-botao-zap,
+    #profissionais .pb-botao-zap:visited {
+        background: #20c967;
+    }
+
+    #profissionais .pb-botao-zap:hover {
+        background: #19b85b;
+    }
+
+    @media (max-width: 600px) {
+
+        #profissionais .pb-grid {
+            grid-template-columns: 1fr;
+        }
+
+        #profissionais .pb-card {
+            flex-wrap: wrap;
+        }
+
+        #profissionais .pb-botao {
+            width: 100%;
+        }
+    }
+
+    </style>
+
+</head>
 
 <body>
 
@@ -157,98 +488,6 @@ function iconeFavorito($tipo) {
 
 <link rel="stylesheet" href="chatbot/chatbot.css">
 <script src="chatbot/chatbot.js"></script>
-
-
-<header>
-
-    <div class="topo">
-
-        <div class="logo">
-
-            <img src="img/logoo.png"
-                 alt="Logo">
-
-            <h2>ForTEA</h2>
-
-        </div>
-
-
-        <div class="acoes">
-
-            <div class="pesquisa">
-
-                <input type="text"
-                       placeholder="O que você procura?">
-
-            </div>
-
-
-            <a href="perfil.php"
-               class="usuario-logado">
-
-                <i class="fa-regular fa-user"></i>
-
-                <?= htmlspecialchars($nomeUsuario) ?>
-
-            </a>
-
-            <a href="configuracoes.php" class="menu-configuracoes">
-                    <i class="fa-solid fa-gear"></i>
-                    
-                </a>
-
-        </div>
-
-    </div>
-
-
-    <nav class="menu">
-
-        <ul class="menu-links">
-
-            <li>
-                <a href="index.php">Início</a>
-            </li>
-
-            <li>
-                <a href="sobre.php">Sobre</a>
-            </li>
-
-            <li>
-                <a href="guia.php">Guia para Famílias</a>
-            </li>
-
-            <li>
-                <a href="educacaoinclusiva.php">
-                    Educação Inclusiva
-                </a>
-            </li>
-
-            <li>
-                <a href="biblioteca.php">
-                    Biblioteca
-                </a>
-            </li>
-
-            <li>
-                <a href="direitos.php">
-                    Direitos
-                </a>
-            </li>
-
-            <li>
-                <a href="faq.php">FAQ</a>
-            </li>
-
-            <li>
-                <a href="contato.php">Contato</a>
-            </li>
-
-        </ul>
-
-    </nav>
-
-</header>
 
 
 <main class="perfil-pagina">
@@ -404,14 +643,13 @@ function iconeFavorito($tipo) {
                 </h2>
 
                 <p>
-                    Médicos e profissionais que você salvou.
+                    Profissionais, materiais e leis que você salvou.
                 </p>
 
             </div>
 
 
-
-                <?php if (count($favoritos) > 0): ?>
+            <?php if (count($favoritos) > 0): ?>
 
                 <div class="pb-grid">
 
@@ -424,7 +662,7 @@ function iconeFavorito($tipo) {
                         $favUrl    = $fav['url'] ?? '#';
                         ?>
 
-                        <a class="pb-fav"
+                        <a class="pb-fav pb-fav-<?= htmlspecialchars($favTipo) ?>"
                            href="<?= htmlspecialchars($favUrl) ?>">
 
                             <div class="pb-fav-icone">
@@ -461,14 +699,12 @@ function iconeFavorito($tipo) {
 
                     <p>
                         Quando você favoritar um profissional,
-                        ele aparecerá aqui.
+                        material ou lei, ele aparecerá aqui.
                     </p>
 
                 </div>
 
             <?php endif; ?>
-
-
 
 
         </div>
@@ -536,8 +772,16 @@ function iconeFavorito($tipo) {
                                 <a href="contato_profissional.php?id=<?= (int) $profissional['id'] ?>"
                                    target="_blank"
                                    rel="noopener noreferrer"
-                                   class="pb-botao">
+                                   class="pb-botao pb-botao-zap">
                                     <i class="fa-brands fa-whatsapp"></i>
+                                    Conversar novamente
+                                </a>
+                            <?php elseif (!empty($profissional['telefone'])): ?>
+                                <?php $tel = preg_replace('/[^0-9]/', '', $profissional['telefone']); ?>
+                                <a href="tel:+55<?= $tel ?>"
+                                   onclick="registrarLigacao(<?= (int) $profissional['id'] ?>)"
+                                   class="pb-botao">
+                                    <i class="fa-solid fa-phone"></i>
                                     Conversar novamente
                                 </a>
                             <?php endif; ?>
@@ -620,6 +864,20 @@ function mostrarAba(nome, botao) {
     document.getElementById(nome).classList.add("ativa");
 
     botao.classList.add("ativa");
+
+}
+
+
+// Atualiza a data do último contato ao ligar de novo
+function registrarLigacao(id) {
+
+    const dados = new URLSearchParams({ id: id });
+
+    if (navigator.sendBeacon) {
+        navigator.sendBeacon('registrar_contato.php', dados);
+    } else {
+        fetch('registrar_contato.php', { method: 'POST', body: dados, keepalive: true });
+    }
 
 }
 

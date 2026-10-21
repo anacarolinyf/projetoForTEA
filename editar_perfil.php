@@ -435,6 +435,7 @@ if (
         }
     }
 
+    require_once "includes/header.php";
 
 ?>
 
@@ -462,62 +463,43 @@ if (
 
 </head>
 
+<script>
+function mostrarSenha(id, botao) {
+    const campo = document.getElementById(id);
+    const mostrar = campo.type === "password";
+
+    campo.type = mostrar ? "text" : "password";
+
+    botao.setAttribute(
+        "aria-label",
+        mostrar ? "Esconder senha" : "Mostrar senha"
+    );
+
+    botao.innerHTML = mostrar
+        ? `<svg xmlns="http://www.w3.org/2000/svg"
+               width="20" height="20" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round">
+             <path d="M3 3l18 18"/>
+             <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
+             <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5
+                      c6.5 0 10 7 10 7a16 16 0 0 1-4 4.8"/>
+             <path d="M6.2 6.2C3.5 8 2 12 2 12
+                      s3.5 7 10 7a10 10 0 0 0 4-.8"/>
+           </svg>`
+        : `<svg xmlns="http://www.w3.org/2000/svg"
+               width="20" height="20" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round">
+             <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>`;
+}
+</script>
+
 <body>
-
-<header>
-
-    <div class="topo">
-
-        <div class="logo">
-
-            <img src="img/logoo.png"
-                 alt="Logo">
-
-            <h2>ForTEA</h2>
-
-        </div>
-
-        <div class="acoes">
-
-            <div class="pesquisa">
-
-                <input type="text"
-                       placeholder="O que você procura?">
-
-            </div>
-
-            <a href="perfil.php"
-               class="usuario-logado">
-
-                <i class="fa-regular fa-user"></i>
-
-                <?= htmlspecialchars($usuario["nome"]) ?>
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <nav class="menu">
-
-        <ul class="menu-links">
-
-            <li><a href="index.php">Início</a></li>
-            <li><a href="sobre.php">Sobre</a></li>
-            <li><a href="guia.php">Guia para Famílias</a></li>
-            <li><a href="educacaoinclusiva.php">Educação Inclusiva</a></li>
-            <li><a href="biblioteca.php">Biblioteca</a></li>
-            <li><a href="direitos.php">Direitos</a></li>
-            <li><a href="faq.php">FAQ</a></li>
-            <li><a href="contato.php">Contato</a></li>
-
-        </ul>
-
-    </nav>
-
-</header>
 
 
 <main class="editar-pagina">
@@ -658,18 +640,29 @@ if (
 
                 <!-- SENHA ATUAL -->
 
-                <div class="campo-editar">
-
-                    <label for="senha_atual">
+                    <div class="campo-editar">
+                        <label for="senha_atual">
                         Senha atual
                     </label>
+    <input type="password"
+           id="senha_atual"
+           name="senha_atual"
+           placeholder="Digite sua senha atual">
 
-                    <input type="password"
-                           id="senha_atual"
-                           name="senha_atual"
-                           placeholder="Digite sua senha atual">
-
-                </div>
+    <button type="button"
+            class="olho-senha"
+            onclick="mostrarSenha('senha_atual', this)"
+            aria-label="Mostrar senha">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="20" height="20" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>
+    </button>
+</div>
 
 
                 <!-- NOVA SENHA -->
@@ -684,6 +677,20 @@ if (
                            id="nova_senha"
                            name="nova_senha"
                            placeholder="Nova senha">
+
+                    <button type="button"
+            class="olho-senha"
+            onclick="mostrarSenha('senha_atual', this)"
+            aria-label="Mostrar senha">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="20" height="20" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>
+    </button>
 
                 </div>
 
@@ -702,6 +709,20 @@ if (
                        id="confirmar_senha"
                        name="confirmar_senha"
                        placeholder="Repita a nova senha">
+
+                       <button type="button"
+            class="olho-senha"
+            onclick="mostrarSenha('senha_atual', this)"
+            aria-label="Mostrar senha">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="20" height="20" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>
+    </button>
 
             </div>
 

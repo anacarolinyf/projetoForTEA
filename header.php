@@ -277,7 +277,7 @@ if ($daltonismo !== 'nenhum') {
     rel="icon"
     type="image/png"
     sizes="32x32"
-    href="img/logonavegador.png"
+    href="img/logoatualizada.png"
 >
 
     

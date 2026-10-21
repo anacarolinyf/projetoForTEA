@@ -5333,3 +5333,30 @@ header .submenu-biblioteca a:hover {
         padding: 18px;
     }
 }
+
+
+/* Nome do usuário e engrenagem menores */
+header .acoes > a.usuario-logado,
+header .acoes > .usuario-logado {
+  font-size: 0.9rem;
+  font-weight: 600;
+  gap: 6px;
+  max-width: 150px;          /* nomes longos ficam com "..." */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+header .acoes .usuario-logado i {
+  font-size: 1.1rem;
+}
+
+header .acoes > a.menu-configuracoes,
+header .acoes > .menu-configuracoes {
+  font-size: 1.15rem;
+}
+
+header .acoes {
+  gap: 12px;
+}
+

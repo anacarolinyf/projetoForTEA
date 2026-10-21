@@ -1,5 +1,71 @@
 <?php include 'includes/header.php'; ?>
 
+<?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once "conexao.php";
+
+// Leis que o usuário já favoritou
+$leisFavoritas = [];
+
+if (isset($_SESSION['usuario_id'])) {
+
+    $uid = (int) $_SESSION['usuario_id'];
+
+    $q = $conexao->prepare(
+        "SELECT titulo FROM favoritos WHERE usuario_id = ? AND tipo = 'lei'"
+    );
+
+    $q->bind_param("i", $uid);
+    $q->execute();
+
+    $r = $q->get_result();
+
+    while ($f = $r->fetch_assoc()) {
+        $leisFavoritas[] = $f['titulo'];
+    }
+}
+
+?>
+
+<style>
+.card-legislacao {
+    position: relative;
+    scroll-margin-top: 150px;
+}
+
+.card-legislacao .btn-favorito {
+    position: absolute;
+    top: 26px;               /* metade da altura do cabeçalho do card */
+    right: 52px;             /* fica ao lado da setinha */
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    color: #94a3b8;
+    font-size: 1.05rem;
+    padding: 6px;
+    line-height: 1;
+
+    transition: 0.2s ease;
+    z-index: 2;
+}
+
+.card-legislacao .btn-favorito:hover {
+    color: #ef4444;
+    transform: translateY(-50%) scale(1.15);
+}
+
+.card-legislacao .btn-favorito.ativo {
+    color: #ef4444;
+}
+</style>
+
 <section class="secao-leis">
 
     <div class="container-leis">
@@ -22,7 +88,6 @@
 
             <!-- LEI 1 -->
             <article class="card-legislacao">
-                
 
                 <button class="card-cabecalho" type="button">
 
@@ -602,10 +667,20 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     const cards = document.querySelectorAll('.card-legislacao');
+    const favoritas = <?= json_encode($leisFavoritas) ?>;
 
     cards.forEach(function (card) {
 
-        const botao = card.querySelector('.card-cabecalho');
+        const botao  = card.querySelector('.card-cabecalho');
+        const titulo = card.querySelector('h3').textContent.trim();
+        const numero = card.querySelector('.card-titulo span').textContent.trim();
+
+        // id estável baseado no número da lei (ex.: lei-12-764-2012)
+        const slug = 'lei-' + numero.replace(/[^0-9]+/g, '-').replace(/^-|-$/g, '');
+        card.id = slug;
+
+
+        /* ----- abrir / fechar ----- */
 
         botao.addEventListener('click', function () {
 
@@ -623,7 +698,66 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
+
+        /* ----- coração de favoritar ----- */
+
+        const ativo = favoritas.includes(titulo);
+
+        const fav = document.createElement('button');
+        fav.type = 'button';
+        fav.className = 'btn-favorito' + (ativo ? ' ativo' : '');
+        fav.setAttribute('aria-label', 'Favoritar ' + titulo);
+        fav.innerHTML = '<i class="' + (ativo ? 'fa-solid' : 'fa-regular') + ' fa-heart"></i>';
+
+        card.appendChild(fav);
+
+        fav.addEventListener('click', async function () {
+
+            const dados = new URLSearchParams({
+                titulo: titulo,
+                lei: numero,
+                url: 'leis.php#' + slug
+            });
+
+            try {
+
+                const resp = await fetch('favoritar_lei.php', {
+                    method: 'POST',
+                    body: dados
+                });
+
+                if (resp.status === 401) {
+                    window.location.href = 'login.php';
+                    return;
+                }
+
+                const json = await resp.json();
+                const icone = fav.querySelector('i');
+
+                fav.classList.toggle('ativo', json.favoritado);
+                icone.classList.toggle('fa-solid', json.favoritado);
+                icone.classList.toggle('fa-regular', !json.favoritado);
+
+            } catch (erro) {
+                console.error(erro);
+            }
+
+        });
+
     });
+
+
+    /* ----- abre a lei indicada no link (vindo do perfil) ----- */
+
+    if (location.hash) {
+
+        const alvo = document.getElementById(location.hash.slice(1));
+
+        if (alvo && alvo.classList.contains('card-legislacao')) {
+            alvo.classList.add('aberto');
+            alvo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
 
 });
 </script>

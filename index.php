@@ -18,7 +18,7 @@ $entrada = isset($_GET["entrada"]) && $_GET["entrada"] === "1";
             </div>
         </div>
         <div class="hero-imagem">
-            <img src="img/banner.png" alt="Familiaa">
+            <img src="img/loginfoto.png" alt="Familiaa">
         </div>
     </section>
 

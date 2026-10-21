@@ -18,7 +18,7 @@ $sucesso = $_GET["sucesso"] ?? "";
                 ← Voltar
             </a>
 
-            <img src="img/banner.png" alt="Família">
+            <img src="img/loginfoto.png" alt="Família">
 
             <div class="texto-imagem">
                 <h1>Bem-vindo à ForTEA</h1>
