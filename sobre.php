@@ -603,6 +603,66 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<style>
+
+.sobre-banner {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding-top: 120px !important;
+    padding-bottom: 110px !important;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+/* Menu lateral + conteúdo ocupando a largura toda */
+.conteudo-tea {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 40px 5%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 280px 1fr; /* menu fixo + conteúdo flexível */
+    gap: 40px;
+    align-items: start;
+}
+
+.menu-lateral {
+    position: sticky;
+    top: 100px; /* ajuste conforme a altura do seu header */
+}
+
+.conteudo-principal {
+    max-width: 100%;
+    min-width: 0;
+}
+
+/* Seções internas também sem limite */
+.diagnostico-tea,
+.niveis-suporte,
+.causas-tea,
+.causas-container,
+.primeiros-sinais {
+    max-width: 100%;
+}
+
+/* Cards do diagnóstico em 3 colunas, aproveitando o espaço */
+.diagnostico-passos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 1000px) {
+    .conteudo-tea { grid-template-columns: 1fr; }
+    .menu-lateral { position: static; }
+    .diagnostico-passos { grid-template-columns: 1fr; }
+}
+</style>
+
+
 </main>
 
 <?php include 'includes/footer.php'; ?>

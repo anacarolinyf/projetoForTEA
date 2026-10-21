@@ -488,6 +488,97 @@ include __DIR__ . "/includes/header.php";
     </div>
 </section>
 
+<style>
+    /* Seções do guia ocupando a largura toda */
+.guia-intro,
+.guia-comeco,
+.guia-sinais,
+.guia-rotina,
+.guia-diagnostico,
+.guia-equipe,
+.container.guia-acessos {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    box-sizing: border-box;
+}
+
+/* Grids se espalhando pelo espaço disponível */
+.guia-comeco-grid,
+.guia-sinais-lista,
+.guia-diagnostico-passos,
+.guia-acessos-grid {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+}
+
+.guia-intro {
+    /* camada escura por cima + a foto */
+    background:
+        linear-gradient(90deg, rgba(15, 35, 85, 0.88) 0%, rgba(15, 35, 85, 0.65) 55%, rgba(15, 35, 85, 0.45) 100%),
+        url("img/familia.jpg") center / cover no-repeat;
+
+    min-height: 520px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 60px;
+    align-items: center;
+}
+
+main {
+    padding-top: 0 !important;
+}
+
+.guia-intro {
+    margin-top: 0 !important;
+}
+
+/* Textos em branco sobre a foto */
+.guia-intro .guia-tag,
+.guia-intro h1,
+.guia-intro p {
+    color: #ffffff;
+}
+
+.guia-intro .guia-tag {
+    color: #bcd2ff;
+}
+
+.guia-intro .guia-info span,
+.guia-intro .guia-info i {
+    color: #ffffff;
+}
+
+/* Card "Por onde começar?" com efeito de vidro */
+.guia-intro-destaque {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+}
+
+.guia-intro-destaque p {
+    color: #475569;   /* volta ao cinza dentro do card claro */
+}
+
+@media (max-width: 900px) {
+    .guia-intro {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        gap: 35px;
+    }
+}
+</style>
+
 
 </main>
 

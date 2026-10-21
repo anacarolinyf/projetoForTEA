@@ -1,6 +1,4 @@
-// ===============================
-// BARRA DE PROGRESSO
-// ===============================
+
 
 const progressBar = document.getElementById("progress-bar");
 
@@ -16,9 +14,7 @@ window.addEventListener("scroll", () => {
 });
 
 
-// ===============================
-// SCROLL REVEAL
-// ===============================
+
 
 const reveals = document.querySelectorAll(".reveal");
 
@@ -45,9 +41,7 @@ window.addEventListener("scroll", revelar);
 revelar();
 
 
-// ===============================
-// BOTÃO VOLTAR AO TOPO
-// ===============================
+
 
 const topBtn = document.getElementById("topBtn");
 
@@ -78,9 +72,7 @@ topBtn.addEventListener("click", () => {
 });
 
 
-// ===============================
-// MENU LATERAL ATIVO
-// ===============================
+
 
 const secoes = document.querySelectorAll("section[id]");
 
@@ -120,9 +112,7 @@ window.addEventListener("scroll", () => {
 });
 
 
-// ===============================
-// CONTADORES
-// ===============================
+
 
 const numeros = document.querySelectorAll(".numero");
 
@@ -173,9 +163,6 @@ window.addEventListener("scroll", () => {
 });
 
 
-// ===============================
-// PARALLAX DA IMAGEM
-// ===============================
 
 const imagem = document.querySelector(".sobre-imagem img");
 
@@ -187,3 +174,4 @@ window.addEventListener("scroll", () => {
         "translateY(" + window.scrollY * 0.10 + "px)";
 
 });
+

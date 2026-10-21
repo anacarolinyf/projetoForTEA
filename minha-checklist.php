@@ -11,9 +11,7 @@ if (!isset($_SESSION["usuario_id"])) {
 
 $usuarioId = (int) $_SESSION["usuario_id"];
 
-/* =========================================
-   ETAPAS E TAREFAS SUGERIDAS
-========================================= */
+
 
 $etapas = [
     "buscando_informacoes" => [
@@ -99,9 +97,7 @@ function voltarChecklist() {
     exit;
 }
 
-/* =========================================
-   RECUPERAR A ETAPA ATUAL
-========================================= */
+
 
 $stmt = $conexao->prepare(
     "SELECT etapa_atual
@@ -134,9 +130,7 @@ if (!$jornada) {
     }
 }
 
-/* =========================================
-   ALTERNAR CONCLUSÃO SEM RECARREGAR A PÁGINA
-========================================= */
+
 
 if (
     $_SERVER["REQUEST_METHOD"] === "POST" &&
@@ -185,9 +179,7 @@ if (
     exit;
 }
 
-/* =========================================
-   GARANTIR QUE AS TAREFAS SUGERIDAS EXISTAM
-========================================= */
+
 
 $stmtExiste = $conexao->prepare(
     "SELECT id
@@ -217,9 +209,7 @@ foreach ($etapas as $chaveEtapa => $dadosEtapa) {
 $stmtExiste->close();
 $stmtInserir->close();
 
-/* =========================================
-   AÇÕES DOS FORMULÁRIOS
-========================================= */
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $acao = $_POST["acao"] ?? "";
@@ -314,9 +304,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-/* =========================================
-   BUSCAR TAREFAS DA ETAPA SELECIONADA
-========================================= */
+
 
 $stmt = $conexao->prepare(
     "SELECT id, titulo, status, personalizada
@@ -337,9 +325,7 @@ while ($linha = $resultado->fetch_assoc()) {
 
 $stmt->close();
 
-/* =========================================
-   CALCULAR PROGRESSO
-========================================= */
+
 
 $totalTarefas = count($tarefas);
 $totalConcluidas = 0;
@@ -770,9 +756,7 @@ include __DIR__ . "/includes/header.php";
 }
 
 
-/* =========================================
-   BOTÃO VOLTAR PARA O GUIA — CHECKLIST
-========================================= */
+
 
 .voltar-checklist {
     display: inline-flex;

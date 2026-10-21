@@ -1049,3 +1049,283 @@
     display: block;
     flex-shrink: 0;
 }
+
+/* ===== Contador nas abas ===== */
+
+.aba-contador {
+    margin-left: 6px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #eaf2ff;
+    color: #3467eb;
+    font-size: .7rem;
+    font-weight: 700;
+}
+
+.aba.ativa .aba-contador {
+    background: #3467eb;
+    color: #fff;
+}
+
+
+/* ===== Estatísticas ===== */
+
+.pf-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin: 28px 0;
+}
+
+.pf-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 20px 14px;
+    border: 1px solid #e3eaf5;
+    border-radius: 16px;
+    background: #f8faff;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+
+.pf-stat:hover {
+    transform: translateY(-4px);
+    border-color: #bfd1f2;
+    box-shadow: 0 10px 24px rgba(33, 71, 155, .12);
+}
+
+.pf-stat i {
+    font-size: 1.3rem;
+    color: #3467eb;
+}
+
+.pf-stat strong {
+    font-size: 1.8rem;
+    color: #21479b;
+    line-height: 1;
+}
+
+.pf-stat span {
+    font-size: .8rem;
+    color: #64748b;
+}
+
+
+/* ===== Perfil completo ===== */
+
+.pf-completude {
+    padding: 20px;
+    margin-bottom: 28px;
+    border: 1px solid #e3eaf5;
+    border-radius: 16px;
+    background: #fff;
+}
+
+.pf-completude-topo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #21479b;
+}
+
+.pf-barra {
+    height: 10px;
+    border-radius: 10px;
+    background: #e8eefb;
+    overflow: hidden;
+}
+
+.pf-barra-preench {
+    width: 0;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #3467eb, #5b8def);
+    transition: width 1s ease;
+}
+
+.pf-completude p {
+    margin: 10px 0 0;
+    font-size: .85rem;
+    color: #64748b;
+}
+
+.pf-completude a {
+    color: #3467eb;
+    font-weight: 600;
+}
+
+
+/* ===== Atalhos e atividade ===== */
+
+.pf-subtitulo {
+    margin: 30px 0 14px;
+    color: #21479b;
+    font-size: 1.05rem;
+}
+
+.pf-atalhos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+}
+
+.pf-atalhos a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #e3eaf5;
+    border-radius: 14px;
+    background: #fff;
+    color: #21479b;
+    font-size: .9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .25s;
+}
+
+.pf-atalhos a i {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #eaf2ff;
+    color: #3467eb;
+    transition: all .25s;
+}
+
+.pf-atalhos a:hover {
+    transform: translateY(-3px);
+    border-color: #bfd1f2;
+}
+
+.pf-atalhos a:hover i {
+    background: #3467eb;
+    color: #fff;
+}
+
+.pf-atividade {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pf-atividade-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: #f8faff;
+}
+
+.pf-atividade-item i {
+    color: #3467eb;
+}
+
+.pf-atividade-item strong {
+    display: block;
+    font-size: .9rem;
+    color: #21479b;
+}
+
+.pf-atividade-item small {
+    color: #7a8799;
+    font-size: .78rem;
+}
+
+.pf-vazio {
+    color: #7a8799;
+    font-size: .9rem;
+}
+
+
+/* ===== Filtros e busca ===== */
+
+.pf-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.pf-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pf-chip {
+    padding: 8px 16px;
+    border: 1px solid #e3eaf5;
+    border-radius: 22px;
+    background: #fff;
+    color: #475569;
+    font-size: .82rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.pf-chip span {
+    margin-left: 4px;
+    padding: 1px 7px;
+    border-radius: 12px;
+    background: #eaf2ff;
+    color: #3467eb;
+    font-size: .7rem;
+}
+
+.pf-chip:hover {
+    border-color: #3467eb;
+}
+
+.pf-chip.ativo {
+    background: #3467eb;
+    border-color: #3467eb;
+    color: #fff;
+}
+
+.pf-chip.ativo span {
+    background: rgba(255, 255, 255, .25);
+    color: #fff;
+}
+
+.pf-busca {
+    padding: 10px 16px;
+    min-width: 230px;
+    border: 1px solid #e3eaf5;
+    border-radius: 22px;
+    background: #fff;
+    font-size: .85rem;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.pf-busca:focus {
+    border-color: #3467eb;
+    box-shadow: 0 0 0 3px rgba(52, 103, 235, .12);
+}
+
+#profissionais > .pf-busca {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 18px;
+}
+
+
+@media (max-width: 600px) {
+
+    .pf-busca {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+}

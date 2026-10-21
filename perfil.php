@@ -5,10 +5,6 @@ session_start();
 require_once "conexao.php";
 
 
-/* =========================
-   VERIFICA LOGIN
-   ========================= */
-
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit;
@@ -17,10 +13,6 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $usuarioId = $_SESSION['usuario_id'];
 
-
-/* =========================
-   BUSCA USUÁRIO
-   ========================= */
 
 $sql = "SELECT * FROM usuarios WHERE id = ?";
 
@@ -49,10 +41,6 @@ $emailUsuario = $usuario['email'];
 $fotoUsuario = $usuario['foto'] ?? null;
 
 
-/* =========================
-   FAVORITOS
-   ========================= */
-
 $favoritos = [];
 
 $sqlFavoritos = "
@@ -77,10 +65,6 @@ while ($favorito = $resultadoFavoritos->fetch_assoc()) {
 }
 
 
-/* =========================
-   CONTATOS REALIZADOS
-   ========================= */
-
 $profissionais = [];
 
 $sqlProfissionais = "
@@ -104,6 +88,34 @@ while ($profissional = $resultadoProfissionais->fetch_assoc()) {
     $profissionais[] = $profissional;
 
 }
+
+
+/* ---------- Dados para os novos blocos ---------- */
+
+$totalFavoritos = count($favoritos);
+$totalContatos  = count($profissionais);
+
+$contagemTipos = ['profissional' => 0, 'material' => 0, 'lei' => 0];
+
+foreach ($favoritos as $f) {
+
+    $t = $f['tipo'] ?? '';
+
+    if (isset($contagemTipos[$t])) {
+        $contagemTipos[$t]++;
+    }
+
+}
+
+$ultimoContato  = $profissionais[0] ?? null;
+$ultimoFavorito = $favoritos[0] ?? null;
+
+$camposPreenchidos =
+    (int) !empty($nomeUsuario)
+    + (int) !empty($emailUsuario)
+    + (int) !empty($fotoUsuario);
+
+$completude = (int) round(($camposPreenchidos / 3) * 100);
 
 
 function iconeFavorito($tipo) {
@@ -144,6 +156,9 @@ require_once "includes/header.php";
     <link rel="stylesheet"
           href="css/perfil_blocos.css?v=<?= @filemtime(__DIR__ . '/css/perfil_blocos.css') ?>">
 
+    <link rel="stylesheet"
+          href="css/perfil_extra.css?v=<?= @filemtime(__DIR__ . '/css/perfil_extra.css') ?>">
+
     <link rel="icon"
           type="image"
           href="img/logoo.png">
@@ -151,11 +166,6 @@ require_once "includes/header.php";
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
-    <!-- =========================
-         ESTILO DOS FAVORITOS
-         (fica aqui para não depender de cache nem de outro CSS)
-         ========================= -->
 
     <style>
 
@@ -312,10 +322,6 @@ require_once "includes/header.php";
         }
     }
 
-
-    /* =========================
-       CONTATOS REALIZADOS
-       ========================= */
 
     #profissionais .pb-grid {
         display: grid;
@@ -566,6 +572,8 @@ require_once "includes/header.php";
 
                 Favoritos
 
+                <span class="aba-contador"><?= $totalFavoritos ?></span>
+
             </button>
 
 
@@ -576,15 +584,15 @@ require_once "includes/header.php";
 
                 Contatos realizados
 
+                <span class="aba-contador"><?= $totalContatos ?></span>
+
             </button>
 
 
         </div>
 
 
-        <!-- =========================
-             INFORMAÇÕES
-             ========================= -->
+        <!-- ABA INFORMAÇÕES -->
 
         <div id="informacoes"
              class="conteudo-aba ativa">
@@ -625,12 +633,149 @@ require_once "includes/header.php";
             </div>
 
 
+            <!-- Estatísticas -->
+
+            <div class="pf-stats">
+
+                <button type="button" class="pf-stat" onclick="irParaAba(1)">
+                    <i class="fa-solid fa-heart"></i>
+                    <strong data-contar="<?= $totalFavoritos ?>">0</strong>
+                    <span>Favoritos</span>
+                </button>
+
+                <button type="button" class="pf-stat" onclick="irParaAba(2)">
+                    <i class="fa-solid fa-comments"></i>
+                    <strong data-contar="<?= $totalContatos ?>">0</strong>
+                    <span>Contatos realizados</span>
+                </button>
+
+                <button type="button" class="pf-stat" onclick="irParaAba(1)">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <strong data-contar="<?= $contagemTipos['lei'] ?>">0</strong>
+                    <span>Leis salvas</span>
+                </button>
+
+            </div>
+
+
+            <!-- Perfil completo -->
+
+            <div class="pf-completude">
+
+                <div class="pf-completude-topo">
+                    <strong>Perfil completo</strong>
+                    <span><?= $completude ?>%</span>
+                </div>
+
+                <div class="pf-barra">
+                    <div class="pf-barra-preench"
+                         data-valor="<?= $completude ?>"></div>
+                </div>
+
+                <?php if (empty($fotoUsuario)): ?>
+
+                    <p>
+                        Adicione uma foto de perfil para completar.
+                        <a href="editar_perfil.php">Editar perfil</a>
+                    </p>
+
+                <?php else: ?>
+
+                    <p>Seu perfil está completo. 🎉</p>
+
+                <?php endif; ?>
+
+            </div>
+
+
+            <!-- Atalhos -->
+
+            <h3 class="pf-subtitulo">Atalhos rápidos</h3>
+
+            <div class="pf-atalhos">
+
+                <a href="Profissionais.php">
+                    <i class="fa-solid fa-user-doctor"></i> Profissionais
+                </a>
+
+                <a href="biblioteca.php">
+                    <i class="fa-solid fa-book-open"></i> Biblioteca
+                </a>
+
+                <a href="minha-trajetoria.php">
+                    <i class="fa-solid fa-route"></i> Minha trajetória
+                </a>
+
+                <a href="minha-checklist.php">
+                    <i class="fa-solid fa-list-check"></i> Minha checklist
+                </a>
+
+                <a href="configuracoes.php">
+                    <i class="fa-solid fa-gear"></i> Configurações
+                </a>
+
+                <a href="guia.php">
+                    <i class="fa-solid fa-compass"></i> Guia para famílias
+                </a>
+
+            </div>
+
+
+            <!-- Atividade recente -->
+
+            <h3 class="pf-subtitulo">Atividade recente</h3>
+
+            <div class="pf-atividade">
+
+                <?php if ($ultimoContato): ?>
+
+                    <div class="pf-atividade-item">
+                        <i class="fa-solid fa-comments"></i>
+                        <div>
+                            <strong>
+                                Conversou com
+                                <?= htmlspecialchars($ultimoContato['nome']) ?>
+                            </strong>
+                            <small>
+                                <?= date('d/m/Y', strtotime($ultimoContato['ultimo_contato'])) ?>
+                            </small>
+                        </div>
+                    </div>
+
+                <?php endif; ?>
+
+                <?php if ($ultimoFavorito): ?>
+
+                    <div class="pf-atividade-item">
+                        <i class="fa-solid fa-heart"></i>
+                        <div>
+                            <strong>
+                                Favoritou "<?= htmlspecialchars($ultimoFavorito['titulo'] ?? 'Sem título') ?>"
+                            </strong>
+                            <small>
+                                <?= htmlspecialchars(ucfirst($ultimoFavorito['tipo'] ?? '')) ?>
+                            </small>
+                        </div>
+                    </div>
+
+                <?php endif; ?>
+
+                <?php if (!$ultimoContato && !$ultimoFavorito): ?>
+
+                    <p class="pf-vazio">
+                        Sua atividade vai aparecer aqui quando você favoritar
+                        algo ou conversar com um profissional.
+                    </p>
+
+                <?php endif; ?>
+
+            </div>
+
+
         </div>
 
 
-        <!-- =========================
-             FAVORITOS
-             ========================= -->
+        <!-- ABA FAVORITOS -->
 
         <div id="favoritos"
              class="conteudo-aba">
@@ -649,7 +794,45 @@ require_once "includes/header.php";
             </div>
 
 
-            <?php if (count($favoritos) > 0): ?>
+            <?php if ($totalFavoritos > 0): ?>
+
+                <div class="pf-filtros">
+
+                    <div class="pf-chips">
+
+                        <button type="button" class="pf-chip ativo"
+                                data-filtro="todos"
+                                onclick="filtrarFavoritos(this)">
+                            Todos <span><?= $totalFavoritos ?></span>
+                        </button>
+
+                        <button type="button" class="pf-chip"
+                                data-filtro="profissional"
+                                onclick="filtrarFavoritos(this)">
+                            Profissionais <span><?= $contagemTipos['profissional'] ?></span>
+                        </button>
+
+                        <button type="button" class="pf-chip"
+                                data-filtro="material"
+                                onclick="filtrarFavoritos(this)">
+                            Materiais <span><?= $contagemTipos['material'] ?></span>
+                        </button>
+
+                        <button type="button" class="pf-chip"
+                                data-filtro="lei"
+                                onclick="filtrarFavoritos(this)">
+                            Leis <span><?= $contagemTipos['lei'] ?></span>
+                        </button>
+
+                    </div>
+
+                    <input type="text"
+                           id="buscaFav"
+                           class="pf-busca"
+                           placeholder="Buscar nos favoritos..."
+                           oninput="aplicarFiltroFav()">
+
+                </div>
 
                 <div class="pb-grid">
 
@@ -663,6 +846,8 @@ require_once "includes/header.php";
                         ?>
 
                         <a class="pb-fav pb-fav-<?= htmlspecialchars($favTipo) ?>"
+                           data-tipo="<?= htmlspecialchars($favTipo) ?>"
+                           data-titulo="<?= htmlspecialchars(mb_strtolower($favTitulo . ' ' . $favEspec)) ?>"
                            href="<?= htmlspecialchars($favUrl) ?>">
 
                             <div class="pb-fav-icone">
@@ -684,6 +869,16 @@ require_once "includes/header.php";
                         </a>
 
                     <?php endforeach; ?>
+
+                </div>
+
+                <div class="estado-vazio" id="semResultadoFav" style="display:none;">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <h3>Nada encontrado</h3>
+
+                    <p>Tente outro filtro ou outra palavra.</p>
 
                 </div>
 
@@ -710,9 +905,7 @@ require_once "includes/header.php";
         </div>
 
 
-        <!-- =========================
-             CONTATOS
-             ========================= -->
+        <!-- ABA CONTATOS REALIZADOS -->
 
         <div id="profissionais"
              class="conteudo-aba">
@@ -731,7 +924,14 @@ require_once "includes/header.php";
             </div>
 
 
-            <?php if (count($profissionais) > 0): ?>
+            <?php if ($totalContatos > 0): ?>
+
+
+                <input type="text"
+                       id="buscaContato"
+                       class="pf-busca"
+                       placeholder="Buscar por nome ou especialidade..."
+                       oninput="filtrarContatos()">
 
 
                 <div class="pb-grid">
@@ -742,7 +942,8 @@ require_once "includes/header.php";
                         $zap = preg_replace('/[^0-9]/', '', $profissional['whatsapp'] ?? '');
                         ?>
 
-                        <article class="pb-card">
+                        <article class="pb-card"
+                                 data-busca="<?= htmlspecialchars(mb_strtolower($profissional['nome'] . ' ' . ($profissional['especialidade'] ?? ''))) ?>">
 
                             <div class="pb-avatar">
                                 <?php if (!empty($profissional['foto'])): ?>
@@ -789,6 +990,17 @@ require_once "includes/header.php";
                         </article>
 
                     <?php endforeach; ?>
+
+                </div>
+
+
+                <div class="estado-vazio" id="semResultadoContato" style="display:none;">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <h3>Nada encontrado</h3>
+
+                    <p>Tente outro nome ou especialidade.</p>
 
                 </div>
 
@@ -868,6 +1080,93 @@ function mostrarAba(nome, botao) {
 }
 
 
+function irParaAba(indice) {
+
+    const nomes = ['informacoes', 'favoritos', 'profissionais'];
+
+    mostrarAba(nomes[indice], document.querySelectorAll('.aba')[indice]);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+}
+
+
+/* ---------- Filtros dos favoritos ---------- */
+
+let filtroTipoAtual = 'todos';
+
+function filtrarFavoritos(botao) {
+
+    document.querySelectorAll('.pf-chip').forEach(function (c) {
+        c.classList.remove('ativo');
+    });
+
+    botao.classList.add('ativo');
+
+    filtroTipoAtual = botao.dataset.filtro;
+
+    aplicarFiltroFav();
+
+}
+
+function aplicarFiltroFav() {
+
+    const campo = document.getElementById('buscaFav');
+
+    const busca = (campo ? campo.value : '').toLowerCase().trim();
+
+    let visiveis = 0;
+
+    document.querySelectorAll('#favoritos .pb-fav').forEach(function (card) {
+
+        const okTipo = filtroTipoAtual === 'todos' || card.dataset.tipo === filtroTipoAtual;
+
+        const okBusca = card.dataset.titulo.includes(busca);
+
+        const mostrar = okTipo && okBusca;
+
+        card.style.display = mostrar ? '' : 'none';
+
+        if (mostrar) visiveis++;
+
+    });
+
+    const aviso = document.getElementById('semResultadoFav');
+
+    if (aviso) {
+        aviso.style.display = visiveis === 0 ? '' : 'none';
+    }
+
+}
+
+
+/* ---------- Busca nos contatos ---------- */
+
+function filtrarContatos() {
+
+    const busca = document.getElementById('buscaContato').value.toLowerCase().trim();
+
+    let visiveis = 0;
+
+    document.querySelectorAll('#profissionais .pb-card').forEach(function (card) {
+
+        const mostrar = card.dataset.busca.includes(busca);
+
+        card.style.display = mostrar ? '' : 'none';
+
+        if (mostrar) visiveis++;
+
+    });
+
+    const aviso = document.getElementById('semResultadoContato');
+
+    if (aviso) {
+        aviso.style.display = visiveis === 0 ? '' : 'none';
+    }
+
+}
+
+
 // Atualiza a data do último contato ao ligar de novo
 function registrarLigacao(id) {
 
@@ -880,6 +1179,49 @@ function registrarLigacao(id) {
     }
 
 }
+
+
+/* ---------- Números subindo, barra e abertura pela URL ---------- */
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('[data-contar]').forEach(function (el) {
+
+        const alvo = parseInt(el.dataset.contar, 10);
+
+        if (alvo === 0) return;
+
+        let atual = 0;
+
+        const passo = setInterval(function () {
+
+            atual++;
+
+            el.textContent = atual;
+
+            if (atual >= alvo) clearInterval(passo);
+
+        }, 90);
+
+    });
+
+    document.querySelectorAll('.pf-barra-preench').forEach(function (barra) {
+
+        setTimeout(function () {
+            barra.style.width = barra.dataset.valor + '%';
+        }, 200);
+
+    });
+
+    const mapa = { informacoes: 0, favoritos: 1, profissionais: 2 };
+
+    const hash = location.hash.replace('#', '');
+
+    if (hash in mapa && hash !== 'informacoes') {
+        irParaAba(mapa[hash]);
+    }
+
+});
 
 </script>
 

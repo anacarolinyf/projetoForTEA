@@ -11,9 +11,7 @@ if (!isset($_SESSION["usuario_id"])) {
 
 $usuario_id = (int) $_SESSION["usuario_id"];
 
-/* =========================================
-   FUNÇÃO PARA ESCAPAR TEXTOS
-========================================= */
+
 
 function escaparTrajetoria($valor) {
     return htmlspecialchars(
@@ -23,10 +21,7 @@ function escaparTrajetoria($valor) {
     );
 }
 
-/* =========================================
-   SALVAR FOTO
-   Imagens de até 5 MB
-========================================= */
+
 
 function salvarFotoTrajetoria($arquivo, $usuarioId) {
     if (
@@ -82,9 +77,7 @@ function salvarFotoTrajetoria($arquivo, $usuarioId) {
     return "uploads/trajetoria/" . $nomeArquivo;
 }
 
-/* =========================================
-   EDITAR REGISTRO
-========================================= */
+
 
 if (
     $_SERVER["REQUEST_METHOD"] === "POST" &&
@@ -167,9 +160,7 @@ if (
     exit;
 }
 
-/* =========================================
-   ADICIONAR REGISTRO
-========================================= */
+
 
 if (
     $_SERVER["REQUEST_METHOD"] === "POST" &&
@@ -241,9 +232,7 @@ if (
     exit;
 }
 
-/* =========================================
-   EXCLUIR REGISTRO
-========================================= */
+
 
 if (isset($_GET["excluir"])) {
     $id = filter_input(
@@ -308,9 +297,7 @@ if (isset($_GET["excluir"])) {
     exit;
 }
 
-/* =========================================
-   CARREGAR REGISTRO PARA EDIÇÃO
-========================================= */
+
 
 $registro_edicao = null;
 
@@ -344,9 +331,7 @@ if (isset($_GET["editar"])) {
     }
 }
 
-/* =========================================
-   BUSCAR REGISTROS DO USUÁRIO
-========================================= */
+
 
 $sql = "SELECT *
         FROM trajetoria_registros

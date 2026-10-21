@@ -9,9 +9,7 @@ require_once __DIR__ . '/conexao.php';
 include __DIR__ . '/includes/header.php';
 
 
-/* =========================
-   FUNÇÕES AUXILIARES
-   ========================= */
+
 
 if (!function_exists('normalizarTexto')) {
     function normalizarTexto($texto) {
@@ -59,7 +57,7 @@ function categoriaDoProfissional($especialidade, $categorias) {
 
 <style>
 
-/* ===== Card: posição do coração e destaque ===== */
+
 
 .profissional-card {
     position: relative;
@@ -110,7 +108,7 @@ function categoriaDoProfissional($especialidade, $categorias) {
 }
 
 
-/* ===== Selo "Você já conversou" ===== */
+
 
 .selo-contato {
     display: inline-flex;
@@ -130,7 +128,7 @@ function categoriaDoProfissional($especialidade, $categorias) {
 }
 
 
-/* ===== Informações do card ===== */
+
 
 .profissional-endereco,
 .profissional-extra {
@@ -198,7 +196,7 @@ function categoriaDoProfissional($especialidade, $categorias) {
 }
 
 
-/* ===== Busca e filtros ===== */
+
 
 .filtro-barra {
     max-width: 1080px;
@@ -314,7 +312,7 @@ function categoriaDoProfissional($especialidade, $categorias) {
 }
 
 
-/* ===== Blocos extras da página ===== */
+
 
 .prof-bloco {
     padding: 70px 0;
@@ -453,7 +451,6 @@ function categoriaDoProfissional($especialidade, $categorias) {
 }
 
 
-/* Como escolher */
 
 .dicas-grid {
     display: grid;
@@ -505,7 +502,7 @@ function categoriaDoProfissional($especialidade, $categorias) {
 }
 
 
-/* Não encontrou */
+
 
 .ajuda-grid {
     display: grid;
@@ -571,7 +568,7 @@ function categoriaDoProfissional($especialidade, $categorias) {
 }
 
 
-/* Aviso */
+
 
 .prof-aviso {
     display: flex;
@@ -628,7 +625,6 @@ if (!isset($conexao) || !$conexao) {
     die("Erro: conexão com o banco de dados não foi encontrada.");
 }
 
-// SELECT * para a página funcionar mesmo antes de criar colunas opcionais
 $sqlProfissionais = "
     SELECT *
     FROM profissionais
@@ -657,9 +653,7 @@ while ($profissional = $resultadoProfissionais->fetch_assoc()) {
 }
 
 
-/* =========================
-   DADOS DE QUEM ESTÁ LOGADO
-   ========================= */
+
 
 $favoritosProf = [];
 $contatados    = [];
@@ -997,9 +991,7 @@ $totalProfissionais = count($profissionais);
     </section>
 
 
-    <!-- =========================
-         O QUE FAZ CADA ESPECIALISTA
-         ========================= -->
+    
 
     <section class="prof-bloco branco">
 
@@ -1089,9 +1081,7 @@ $totalProfissionais = count($profissionais);
     </section>
 
 
-    <!-- =========================
-         COMO ESCOLHER
-         ========================= -->
+    
 
     <section class="prof-bloco cinza">
 
@@ -1157,9 +1147,7 @@ $totalProfissionais = count($profissionais);
     </section>
 
 
-    <!-- =========================
-         NÃO ENCONTROU
-         ========================= -->
+   
 
     <section class="prof-bloco branco">
 
@@ -1229,9 +1217,7 @@ $totalProfissionais = count($profissionais);
     </section>
 
 
-    <!-- =========================
-         AVISO
-         ========================= -->
+    
 
     <section class="prof-bloco cinza" style="padding: 45px 0;">
 
@@ -1259,7 +1245,7 @@ $totalProfissionais = count($profissionais);
 
 <script>
 
-/* ===== Registra ligação (aparece em "Contatos realizados" no perfil) ===== */
+
 
 function registrarLigacao(id) {
 
@@ -1344,7 +1330,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /* ----- coração de favoritar ----- */
+   
 
     document.querySelectorAll('.btn-fav-prof').forEach(function (btn) {
 
@@ -1383,7 +1369,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /* ----- destaca o profissional quando vem pelo link do perfil ----- */
+   
 
     if (location.hash) {
 

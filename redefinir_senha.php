@@ -12,11 +12,7 @@ require_once "PHPMailer/src/PHPMailer.php";
 require_once "PHPMailer/src/SMTP.php";
 
 
-/*
-|--------------------------------------------------------------------------
-| VARIÁVEIS
-|--------------------------------------------------------------------------
-*/
+
 
 $erro = '';
 $sucesso = '';
@@ -52,11 +48,7 @@ if (!isset($_SESSION['etapa_recuperacao'])) {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| ETAPA 1 - ENVIAR CÓDIGO
-|--------------------------------------------------------------------------
-*/
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
 
@@ -95,11 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
             $emailUsuario = $usuario['email'];
 
 
-            /*
-            |--------------------------------------------------------------
-            | Gera código de 6 números
-            |--------------------------------------------------------------
-            */
+            
 
             $codigo = random_int(100000, 999999);
 
@@ -110,11 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
             $expiraEm = date('Y-m-d H:i:s', time() + 600);
 
 
-            /*
-            |--------------------------------------------------------------
-            | Invalida códigos anteriores
-            |--------------------------------------------------------------
-            */
+            
 
             $stmtInvalida = $conexao->prepare(
                 "UPDATE recuperacao_senha
@@ -126,11 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
             $stmtInvalida->execute();
 
 
-            /*
-            |--------------------------------------------------------------
-            | Salva novo código
-            |--------------------------------------------------------------
-            */
+            
 
             $stmtCodigo = $conexao->prepare(
                 "INSERT INTO recuperacao_senha
@@ -151,11 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
 
             } else {
 
-                /*
-                |----------------------------------------------------------
-                | ENVIO DO E-MAIL
-                |----------------------------------------------------------
-                */
+                
 
                 $configEmail = require "config_email.php";
 
@@ -175,22 +151,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
 
                     $mail->CharSet = 'UTF-8';
 
-                    /*
-                    |------------------------------------------------------
-                    | REMETENTE
-                    |------------------------------------------------------
-                    */
-
+                    
                     $mail->setFrom(
                         $configEmail['from_email'],
                         $configEmail['from_name']
                     );
 
-                    /*
-                    |------------------------------------------------------
-                    | DESTINATÁRIO
-                    |------------------------------------------------------
-                    */
+                    
 
                     $mail->addAddress(
                         $emailUsuario,
@@ -198,11 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
                     );
 
 
-                    /*
-                    |------------------------------------------------------
-                    | CONTEÚDO
-                    |------------------------------------------------------
-                    */
+                    
 
                     $mail->isHTML(true);
 
@@ -257,20 +220,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
                         "Este código é válido por 10 minutos.";
 
 
-                    /*
-                    |------------------------------------------------------
-                    | ENVIA
-                    |------------------------------------------------------
-                    */
+                    
 
                     $mail->send();
 
 
-                    /*
-                    |------------------------------------------------------
-                    | SALVA INFORMAÇÕES NA SESSÃO
-                    |------------------------------------------------------
-                    */
+                   
 
                     $_SESSION['recuperacao_usuario_id'] = $usuarioId;
                     $_SESSION['recuperacao_email'] = $emailUsuario;
@@ -296,11 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar_codigo'])) {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| ETAPA 2 - CONFIRMAR CÓDIGO
-|--------------------------------------------------------------------------
-*/
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_codigo'])) {
 
@@ -324,11 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_codigo'])) 
 
     } else {
 
-        /*
-        |--------------------------------------------------------------
-        | Busca o último código válido
-        |--------------------------------------------------------------
-        */
+        
 
         $stmt = $conexao->prepare(
             "SELECT id, codigo_hash, expira_em
@@ -354,11 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_codigo'])) 
 
             $recuperacao = $resultado->fetch_assoc();
 
-            /*
-            |----------------------------------------------------------
-            | Verifica validade
-            |----------------------------------------------------------
-            */
+           
 
             if (strtotime($recuperacao['expira_em']) < time()) {
 
@@ -377,11 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_codigo'])) 
 
             } else {
 
-                /*
-                |------------------------------------------------------
-                | Código correto
-                |------------------------------------------------------
-                */
+                
 
                 $_SESSION['recuperacao_verificada'] = true;
                 $_SESSION['recuperacao_id'] = $recuperacao['id'];
@@ -395,11 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_codigo'])) 
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| ETAPA 3 - ALTERAR SENHA
-|--------------------------------------------------------------------------
-*/
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['redefinir_senha'])) {
 
@@ -433,11 +368,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['redefinir_senha'])) {
 
     } else {
 
-        /*
-        |--------------------------------------------------------------
-        | Criptografa nova senha
-        |--------------------------------------------------------------
-        */
+        
 
         $senhaHash = password_hash(
             $novaSenha,
@@ -445,11 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['redefinir_senha'])) {
         );
 
 
-        /*
-        |--------------------------------------------------------------
-        | Atualiza senha do usuário
-        |--------------------------------------------------------------
-        */
+        
 
         $stmt = $conexao->prepare(
             "UPDATE usuarios
@@ -466,11 +393,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['redefinir_senha'])) {
 
         if ($stmt->execute()) {
 
-            /*
-            |----------------------------------------------------------
-            | Marca código como usado
-            |----------------------------------------------------------
-            */
+            
 
             $stmtUsado = $conexao->prepare(
                 "UPDATE recuperacao_senha
@@ -486,11 +409,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['redefinir_senha'])) {
             $stmtUsado->execute();
 
 
-            /*
-            |----------------------------------------------------------
-            | Limpa sessão de recuperação
-            |----------------------------------------------------------
-            */
+            
 
             unset($_SESSION['recuperacao_usuario_id']);
             unset($_SESSION['recuperacao_email']);
@@ -499,11 +418,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['redefinir_senha'])) {
             unset($_SESSION['etapa_recuperacao']);
 
 
-            /*
-            |----------------------------------------------------------
-            | Volta para login
-            |----------------------------------------------------------
-            */
 
             header("Location: login.php?senha=alterada");
             exit;
@@ -518,11 +432,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['redefinir_senha'])) {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| ETAPA ATUAL
-|--------------------------------------------------------------------------
-*/
+
 
 $etapa = $_SESSION['etapa_recuperacao'] ?? $etapa ?? 'email';
 
@@ -574,9 +484,7 @@ $etapa = $_SESSION['etapa_recuperacao'] ?? $etapa ?? 'email';
         <?php endif; ?>
 
 
-        <!-- =========================================================
-             ETAPA 1 - E-MAIL
-        ========================================================== -->
+       
 
         <?php if ($etapa === 'email'): ?>
 
@@ -620,9 +528,7 @@ $etapa = $_SESSION['etapa_recuperacao'] ?? $etapa ?? 'email';
             </a>
 
 
-        <!-- =========================================================
-             ETAPA 2 - CÓDIGO
-        ========================================================== -->
+        
 
         <?php elseif ($etapa === 'codigo'): ?>
 
@@ -676,9 +582,7 @@ $etapa = $_SESSION['etapa_recuperacao'] ?? $etapa ?? 'email';
             </a>
 
 
-        <!-- =========================================================
-             ETAPA 3 - NOVA SENHA
-        ========================================================== -->
+        
 
         <?php elseif ($etapa === 'nova_senha'): ?>
 

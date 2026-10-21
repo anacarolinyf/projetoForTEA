@@ -1,0 +1,272 @@
+/* ===== Resumo do topo ===== */
+
+.config-resumo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #21479b, #3467eb);
+    border-radius: 20px;
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(33, 71, 155, .25);
+}
+
+.config-resumo-avatar {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .2);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.config-resumo-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.config-resumo-info h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.config-resumo-info p {
+    margin: 2px 0 10px;
+    opacity: .85;
+    font-size: .9rem;
+    color: #fff;
+}
+
+.config-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.config-chips .chip {
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .18);
+    font-size: .75rem;
+}
+
+.config-chips .chip i {
+    margin-right: 5px;
+}
+
+.config-resumo-botao {
+    padding: 10px 18px;
+    border-radius: 22px;
+    background: #fff;
+    color: #21479b;
+    font-weight: 700;
+    font-size: .85rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform .2s;
+}
+
+.config-resumo-botao:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ===== Busca ===== */
+
+.config-busca {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.config-busca i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+.config-busca input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 16px 13px 44px;
+    border: 1px solid #e3eaf5;
+    border-radius: 14px;
+    background: #fff;
+    font-size: .92rem;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.config-busca input:focus {
+    border-color: #3467eb;
+    box-shadow: 0 0 0 3px rgba(52, 103, 235, .12);
+}
+
+.config-vazio {
+    margin-top: 20px;
+    text-align: center;
+    color: #7a8799;
+}
+
+.config-vazio i {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.6rem;
+    color: #b4bfdc;
+}
+
+
+/* ===== Itens da lista ===== */
+
+.config-badge {
+    padding: 4px 12px;
+    margin-right: 10px;
+    border-radius: 20px;
+    background: #eaf2ff;
+    color: #3467eb;
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.config-item {
+    transition: background .2s, transform .2s;
+}
+
+.config-item:hover {
+    background: #f5f8ff;
+    transform: translateX(3px);
+}
+
+
+/* ===== Campos do modal ===== */
+
+.config-select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e3eaf5;
+    border-radius: 12px;
+    background: #fff;
+    font-size: .92rem;
+}
+
+.config-link-botao {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    padding: 11px 20px;
+    border-radius: 22px;
+    background: #3467eb;
+    color: #fff;
+    font-size: .85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+}
+
+.config-link-botao:hover {
+    background: #21479b;
+    transform: translateY(-2px);
+}
+
+.senha-forca {
+    height: 6px;
+    margin-top: 8px;
+    border-radius: 6px;
+    background: #e8eefb;
+    overflow: hidden;
+}
+
+.senha-forca div {
+    width: 0;
+    height: 100%;
+    border-radius: 6px;
+    transition: width .3s ease, background .3s ease;
+}
+
+.senha-dica {
+    display: block;
+    margin-top: 6px;
+    color: #7a8799;
+    font-size: .78rem;
+}
+
+.mostrar-senha {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    color: #475569;
+    font-size: .85rem;
+    cursor: pointer;
+}
+
+
+/* ===== Prévia do modo escuro ===== */
+
+body.modo-escuro {
+    background: #0f172a !important;
+    color: #e2e8f0;
+}
+
+body.modo-escuro .config-card,
+body.modo-escuro .config-modal-content,
+body.modo-escuro .config-busca input,
+body.modo-escuro .config-select,
+body.modo-escuro .config-item {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-color: #334155;
+}
+
+body.modo-escuro .config-item:hover {
+    background: #26354d;
+}
+
+body.modo-escuro .config-info h3,
+body.modo-escuro .config-header h1,
+body.modo-escuro .config-header p,
+body.modo-escuro .config-info p,
+body.modo-escuro .modal-header h2,
+body.modo-escuro .config-option strong,
+body.modo-escuro .config-option p,
+body.modo-escuro .form-group label {
+    color: #e2e8f0;
+}
+
+body.modo-escuro .config-badge {
+    background: #26354d;
+    color: #8fb0ff;
+}
+
+
+/* ===== Reduzir animações ===== */
+
+body.sem-animacoes *,
+body.sem-animacoes *::before,
+body.sem-animacoes *::after {
+    transition: none !important;
+    animation: none !important;
+}
+
+
+@media (max-width: 700px) {
+
+    .config-resumo {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .config-chips {
+        justify-content: center;
+    }
+
+}

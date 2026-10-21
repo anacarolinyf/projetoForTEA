@@ -5,9 +5,7 @@ session_start();
 require_once "conexao.php";
 
 
-/* =========================
-   VERIFICA LOGIN
-   ========================= */
+
 
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
@@ -17,9 +15,7 @@ if (!isset($_SESSION['usuario_id'])) {
 $usuarioId = $_SESSION['usuario_id'];
 
 
-/* =========================
-   BUSCA USUÁRIO
-   ========================= */
+
 
 $sql = "SELECT * FROM usuarios WHERE id = ?";
 
@@ -51,9 +47,7 @@ $mensagem = "";
 $erro = "";
 
 
-/* =========================
-   ATUALIZAR PERFIL
-   ========================= */
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -65,9 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $confirmarSenha = $_POST["confirmar_senha"] ?? "";
 
 
-    /* =========================
-       VALIDA NOME E EMAIL
-       ========================= */
 
     if ($nome === "" || $email === "") {
 
@@ -80,9 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
 
 
-        /* =========================
-           VERIFICA EMAIL DUPLICADO
-           ========================= */
+        
 
         $sqlEmail = "
             SELECT id
@@ -119,9 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
 
-        /* =========================
-   FOTO
-   ========================= */
+        
 
 $foto = $usuario["foto"] ?? null;
 
@@ -291,9 +278,7 @@ if (
 }
 
 
-        /* =========================
-           ALTERAÇÃO DE SENHA
-           ========================= */
+       
 
         if (
             $erro === "" &&
@@ -373,9 +358,7 @@ if (
         } elseif ($erro === "") {
 
 
-            /* =========================
-               ATUALIZA SEM ALTERAR SENHA
-               ========================= */
+            
 
             $sqlUpdate = "
                 UPDATE usuarios
@@ -414,9 +397,7 @@ if (
         }
 
 
-        /* =========================
-           ATUALIZA SESSÃO
-           ========================= */
+        
 
         if ($erro === "") {
 

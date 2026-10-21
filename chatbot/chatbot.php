@@ -8,7 +8,7 @@
         aria-label="Abrir assistente ForTEA"
         type="button"
     >
-        <img src="img/mascote.png" alt="Ícone do chatbot">
+        <img src="img/iconchat.png" alt="Ícone do chatbot">
     </button>
 
     <div class="chatbot-box" id="chatbotBox">

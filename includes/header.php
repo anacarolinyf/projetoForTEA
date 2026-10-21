@@ -231,6 +231,8 @@ if ($daltonismo !== 'nenhum') {
 
 <html lang="pt-br">
 
+<?php include __DIR__ . '/preferencias.php'; ?>
+
 <head>
 
     <meta charset="UTF-8">
