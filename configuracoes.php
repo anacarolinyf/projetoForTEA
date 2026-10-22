@@ -18,12 +18,6 @@ $sucesso = '';
 $erro = '';
 
 
-/* Marca a opção selecionada nos <select> */
-function sel($atual, $valor) {
-    return $atual === $valor ? 'selected' : '';
-}
-
-
 $stmt = $conexao->prepare(
     "INSERT IGNORE INTO preferencias_usuario (usuario_id)
      VALUES (?)"
@@ -45,98 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $secao = $_POST['secao'] ?? '';
 
 
-    /* ---------- APARÊNCIA ---------- */
-
-    if ($secao === 'aparencia') {
-
-        $modoEscuro = isset($_POST['modo_escuro']) ? 1 : 0;
-
-        $stmt = $conexao->prepare(
-            "UPDATE preferencias_usuario
-             SET modo_escuro = ?
-             WHERE usuario_id = ?"
-        );
-
-        if ($stmt) {
-
-            $stmt->bind_param("ii", $modoEscuro, $usuarioId);
-
-            if ($stmt->execute()) {
-                $sucesso = "Aparência atualizada com sucesso!";
-            } else {
-                $erro = "Não foi possível salvar a aparência.";
-            }
-
-            $stmt->close();
-
-        }
-
-    }
-
-
-    /* ---------- ACESSIBILIDADE ---------- */
-
-    elseif ($secao === 'acessibilidade') {
-
-        $reduzirAnimacoes = isset($_POST['reduzir_animacoes']) ? 1 : 0;
-
-        $tamanhoFonte = $_POST['tamanho_fonte'] ?? 'normal';
-
-        $daltonismo = $_POST['daltonismo'] ?? 'nenhum';
-
-        $tamanhosPermitidos = ['pequena', 'normal', 'grande', 'muito_grande'];
-
-        if (!in_array($tamanhoFonte, $tamanhosPermitidos, true)) {
-            $tamanhoFonte = 'normal';
-        }
-
-        $daltonismoPermitido = [
-            'nenhum',
-            'protanopia',
-            'deuteranopia',
-            'tritanopia',
-            'acromatopsia'
-        ];
-
-        if (!in_array($daltonismo, $daltonismoPermitido, true)) {
-            $daltonismo = 'nenhum';
-        }
-
-        $stmt = $conexao->prepare(
-            "UPDATE preferencias_usuario
-             SET
-                reduzir_animacoes = ?,
-                tamanho_fonte = ?,
-                daltonismo = ?
-             WHERE usuario_id = ?"
-        );
-
-        if ($stmt) {
-
-            $stmt->bind_param(
-                "issi",
-                $reduzirAnimacoes,
-                $tamanhoFonte,
-                $daltonismo,
-                $usuarioId
-            );
-
-            if ($stmt->execute()) {
-                $sucesso = "Acessibilidade atualizada com sucesso!";
-            } else {
-                $erro = "Não foi possível salvar a acessibilidade.";
-            }
-
-            $stmt->close();
-
-        }
-
-    }
-
-
     /* ---------- NOTIFICAÇÕES ---------- */
 
-    elseif ($secao === 'notificacoes') {
+    if ($secao === 'notificacoes') {
 
         $notificacoesSistema   = isset($_POST['notificacoes_sistema']) ? 1 : 0;
         $notificacoesLembretes = isset($_POST['notificacoes_lembretes']) ? 1 : 0;
@@ -241,10 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $preferencias = [
 
-    'modo_escuro' => 0,
-    'reduzir_animacoes' => 0,
-    'tamanho_fonte' => 'normal',
-    'daltonismo' => 'nenhum',
     'notificacoes_sistema' => 1,
     'notificacoes_lembretes' => 1,
     'notificacoes_novidades' => 1
@@ -254,10 +155,6 @@ $preferencias = [
 
 $stmt = $conexao->prepare(
     "SELECT
-        modo_escuro,
-        reduzir_animacoes,
-        tamanho_fonte,
-        daltonismo,
         notificacoes_sistema,
         notificacoes_lembretes,
         notificacoes_novidades
@@ -288,19 +185,36 @@ if ($stmt) {
 }
 
 
-$config = [];
+/* Conta registros do usuário (favoritos, contatos) */
 
-$resultadoConfig = $conexao->query(
-    "SELECT chave, valor FROM configuracoes"
-);
+function contarDoUsuario($conexao, $tabela, $usuarioId) {
 
-if ($resultadoConfig) {
+    $total = 0;
 
-    while ($row = $resultadoConfig->fetch_assoc()) {
-        $config[$row['chave']] = $row['valor'];
+    $stmt = $conexao->prepare(
+        "SELECT COUNT(*) AS total FROM $tabela WHERE usuario_id = ?"
+    );
+
+    if ($stmt) {
+
+        $stmt->bind_param("i", $usuarioId);
+
+        $stmt->execute();
+
+        $linha = $stmt->get_result()->fetch_assoc();
+
+        $total = (int) ($linha['total'] ?? 0);
+
+        $stmt->close();
+
     }
 
+    return $total;
+
 }
+
+$totalFavoritos = contarDoUsuario($conexao, 'favoritos', $usuarioId);
+$totalContatos  = contarDoUsuario($conexao, 'contatos_profissionais', $usuarioId);
 
 
 /* Dados para o resumo do topo */
@@ -308,13 +222,6 @@ if ($resultadoConfig) {
 $notifAtivas = (int) $preferencias['notificacoes_sistema']
              + (int) $preferencias['notificacoes_lembretes']
              + (int) $preferencias['notificacoes_novidades'];
-
-$nomesFonte = [
-    'pequena'      => 'Pequena',
-    'normal'       => 'Normal',
-    'grande'       => 'Grande',
-    'muito_grande' => 'Muito grande'
-];
 
 $nomeExibido = $_SESSION['nome'] ?? $_SESSION['usuario_nome'] ?? 'Usuário';
 $emailExibido = $_SESSION['email'] ?? '';
@@ -326,7 +233,18 @@ require_once "includes/header.php";
 
 
 <link rel="stylesheet" href="css/configuracoes.css">
+
+<?php include "includes/laterais.php"; ?>
+
 <style>
+
+/* Container mais largo para caber o menu lateral */
+
+.config-container {
+    max-width: 1000px !important;
+}
+
+
 /* ===== Resumo do topo ===== */
 
 .config-resumo {
@@ -452,6 +370,138 @@ require_once "includes/header.php";
 }
 
 
+/* ===== Layout com menu lateral ===== */
+
+.config-layout {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.config-lateral {
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.lateral-card {
+    padding: 18px;
+    background: #fff;
+    border: 1px solid #e3eaf5;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(33, 71, 155, .05);
+}
+
+.lateral-card h3 {
+    margin: 0 0 10px;
+    color: #7a8799;
+    font-size: .74rem;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+}
+
+.lateral-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.lateral-links a,
+.lateral-links a:visited {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: 12px;
+    color: #21479b;
+    font-size: .88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+}
+
+.lateral-links a i {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #eaf2ff;
+    color: #3467eb;
+    font-size: .82rem;
+    transition: background .2s, color .2s;
+}
+
+.lateral-links a:hover {
+    background: #f5f8ff;
+    transform: translateX(3px);
+}
+
+.lateral-links a:hover i {
+    background: #3467eb;
+    color: #fff;
+}
+
+.lateral-links .lateral-contador {
+    margin-left: auto;
+    padding: 2px 9px;
+    border-radius: 20px;
+    background: #eaf2ff;
+    color: #3467eb;
+    font-size: .7rem;
+    font-weight: 700;
+}
+
+.lateral-ajuda {
+    background: linear-gradient(135deg, #eaf2ff, #f5f8ff);
+    text-align: center;
+}
+
+.lateral-ajuda i.icone-grande {
+    display: block;
+    margin-bottom: 8px;
+    color: #3467eb;
+    font-size: 1.6rem;
+}
+
+.lateral-ajuda strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #21479b;
+    font-size: .95rem;
+}
+
+.lateral-ajuda p {
+    margin: 0 0 12px;
+    color: #5b6b82;
+    font-size: .8rem;
+    line-height: 1.45;
+}
+
+.lateral-ajuda a,
+.lateral-ajuda a:visited {
+    display: inline-block;
+    padding: 9px 18px;
+    border-radius: 22px;
+    background: #3467eb;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+}
+
+.lateral-ajuda a:hover {
+    background: #21479b;
+    transform: translateY(-2px);
+}
+
+
 /* ===== Itens da lista ===== */
 
 .config-badge {
@@ -477,20 +527,12 @@ require_once "includes/header.php";
 
 /* ===== Campos do modal ===== */
 
-.config-select {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #e3eaf5;
-    border-radius: 12px;
-    background: #fff;
-    font-size: .92rem;
-}
-
 .config-link-botao {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     margin-top: 6px;
+    margin-right: 6px;
     padding: 11px 20px;
     border-radius: 22px;
     background: #3467eb;
@@ -504,6 +546,38 @@ require_once "includes/header.php";
 .config-link-botao:hover {
     background: #21479b;
     transform: translateY(-2px);
+}
+
+.dados-grade {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.dados-caixa {
+    padding: 16px;
+    border-radius: 14px;
+    background: #f5f8ff;
+    border: 1px solid #e3eaf5;
+    text-align: center;
+}
+
+.dados-caixa i {
+    color: #3467eb;
+    font-size: 1.2rem;
+}
+
+.dados-caixa strong {
+    display: block;
+    margin: 6px 0 2px;
+    color: #21479b;
+    font-size: 1.5rem;
+}
+
+.dados-caixa span {
+    color: #7a8799;
+    font-size: .8rem;
 }
 
 .senha-forca {
@@ -539,53 +613,18 @@ require_once "includes/header.php";
 }
 
 
-/* ===== Prévia do modo escuro ===== */
+@media (max-width: 900px) {
 
-body.modo-escuro {
-    background: #0f172a !important;
-    color: #e2e8f0;
+    .config-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .config-lateral {
+        position: static;
+        order: 2;
+    }
+
 }
-
-body.modo-escuro .config-card,
-body.modo-escuro .config-modal-content,
-body.modo-escuro .config-busca input,
-body.modo-escuro .config-select,
-body.modo-escuro .config-item {
-    background: #1e293b;
-    color: #e2e8f0;
-    border-color: #334155;
-}
-
-body.modo-escuro .config-item:hover {
-    background: #26354d;
-}
-
-body.modo-escuro .config-info h3,
-body.modo-escuro .config-header h1,
-body.modo-escuro .config-header p,
-body.modo-escuro .config-info p,
-body.modo-escuro .modal-header h2,
-body.modo-escuro .config-option strong,
-body.modo-escuro .config-option p,
-body.modo-escuro .form-group label {
-    color: #e2e8f0;
-}
-
-body.modo-escuro .config-badge {
-    background: #26354d;
-    color: #8fb0ff;
-}
-
-
-/* ===== Reduzir animações ===== */
-
-body.sem-animacoes *,
-body.sem-animacoes *::before,
-body.sem-animacoes *::after {
-    transition: none !important;
-    animation: none !important;
-}
-
 
 @media (max-width: 700px) {
 
@@ -667,13 +706,13 @@ body.sem-animacoes *::after {
             <div class="config-chips">
 
                 <span class="chip">
-                    <i class="fa-solid fa-moon"></i>
-                    <?= $preferencias['modo_escuro'] ? 'Modo escuro' : 'Modo claro' ?>
+                    <i class="fa-solid fa-heart"></i>
+                    <?= $totalFavoritos ?> favoritos
                 </span>
 
                 <span class="chip">
-                    <i class="fa-solid fa-text-height"></i>
-                    Fonte <?= $nomesFonte[$preferencias['tamanho_fonte']] ?? 'Normal' ?>
+                    <i class="fa-solid fa-comments"></i>
+                    <?= $totalContatos ?> contatos
                 </span>
 
                 <span class="chip">
@@ -709,176 +748,249 @@ body.sem-animacoes *::after {
     </div>
 
 
-    <div class="config-card">
+    <div class="config-layout">
 
 
-        <!-- APARÊNCIA -->
+        <!-- MENU LATERAL -->
 
-        <button
-            type="button"
-            class="config-item"
-            data-busca="aparência modo escuro claro tema"
-            onclick="abrirConfiguracao('aparencia')"
-        >
+        <aside class="config-lateral">
 
-            <div class="config-icon">
-                <i class="fa-solid fa-palette"></i>
+            <div class="lateral-card">
+
+                <h3>Acesso rápido</h3>
+
+                <nav class="lateral-links">
+
+                    <a href="perfil.php">
+                        <i class="fa-solid fa-user"></i> Meu perfil
+                    </a>
+
+                    <a href="perfil.php#favoritos">
+                        <i class="fa-solid fa-heart"></i> Favoritos
+                        <span class="lateral-contador"><?= $totalFavoritos ?></span>
+                    </a>
+
+                    <a href="perfil.php#profissionais">
+                        <i class="fa-solid fa-comments"></i> Contatos
+                        <span class="lateral-contador"><?= $totalContatos ?></span>
+                    </a>
+
+                    <a href="minha-trajetoria.php">
+                        <i class="fa-solid fa-route"></i> Minha trajetória
+                    </a>
+
+                    <a href="minha-checklist.php">
+                        <i class="fa-solid fa-list-check"></i> Minha checklist
+                    </a>
+
+                    <a href="guia.php">
+                        <i class="fa-solid fa-compass"></i> Guia para famílias
+                    </a>
+
+                    <a href="Profissionais.php">
+                        <i class="fa-solid fa-user-doctor"></i> Profissionais
+                    </a>
+
+                    <a href="biblioteca.php">
+                        <i class="fa-solid fa-book-open"></i> Biblioteca
+                    </a>
+
+                </nav>
+
             </div>
 
-            <div class="config-info">
-                <h3>Aparência</h3>
-                <p>Modo claro ou escuro</p>
+            <div class="lateral-card lateral-ajuda">
+
+                <i class="fa-solid fa-hand-holding-heart icone-grande"></i>
+
+                <strong>Precisa de ajuda?</strong>
+
+                <p>
+                    Tire suas dúvidas ou fale com a nossa equipe.
+                </p>
+
+                <a href="contato.php">Fale conosco</a>
+
             </div>
 
-            <span class="config-badge">
-                <?= $preferencias['modo_escuro'] ? 'Escuro' : 'Claro' ?>
-            </span>
+        </aside>
 
-            <div class="config-arrow">
-                <i class="fa-solid fa-chevron-right"></i>
+
+        <!-- LISTA DE CONFIGURAÇÕES -->
+
+        <div class="config-principal">
+
+            <div class="config-card">
+
+
+                <!-- MINHA CONTA -->
+
+                <button
+                    type="button"
+                    class="config-item"
+                    data-busca="minha conta nome e-mail email foto informações pessoais"
+                    onclick="abrirConfiguracao('conta')"
+                >
+
+                    <div class="config-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div class="config-info">
+                        <h3>Minha conta</h3>
+                        <p>Nome, e-mail, foto e informações pessoais</p>
+                    </div>
+
+                    <div class="config-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                </button>
+
+
+                <!-- MEUS DADOS -->
+
+                <button
+                    type="button"
+                    class="config-item"
+                    data-busca="meus dados favoritos contatos atividade resumo"
+                    onclick="abrirConfiguracao('dados')"
+                >
+
+                    <div class="config-icon">
+                        <i class="fa-solid fa-chart-simple"></i>
+                    </div>
+
+                    <div class="config-info">
+                        <h3>Meus dados</h3>
+                        <p>Resumo dos seus favoritos e contatos</p>
+                    </div>
+
+                    <span class="config-badge">
+                        <?= $totalFavoritos + $totalContatos ?> itens
+                    </span>
+
+                    <div class="config-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                </button>
+
+
+                <!-- NOTIFICAÇÕES -->
+
+                <button
+                    type="button"
+                    class="config-item"
+                    data-busca="notificações lembretes novidades avisos"
+                    onclick="abrirConfiguracao('notificacoes')"
+                >
+
+                    <div class="config-icon">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+
+                    <div class="config-info">
+                        <h3>Notificações</h3>
+                        <p>Escolha quais notificações deseja receber</p>
+                    </div>
+
+                    <span class="config-badge">
+                        <?= $notifAtivas ?>/3 ativas
+                    </span>
+
+                    <div class="config-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                </button>
+
+
+                <!-- PRIVACIDADE -->
+
+                <button
+                    type="button"
+                    class="config-item"
+                    data-busca="privacidade segurança senha"
+                    onclick="abrirConfiguracao('privacidade')"
+                >
+
+                    <div class="config-icon">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+
+                    <div class="config-info">
+                        <h3>Privacidade e segurança</h3>
+                        <p>Senha, segurança e privacidade</p>
+                    </div>
+
+                    <div class="config-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                </button>
+
+
+                <!-- AJUDA -->
+
+                <button
+                    type="button"
+                    class="config-item"
+                    data-busca="ajuda suporte dúvidas faq contato fale conosco"
+                    onclick="abrirConfiguracao('ajuda')"
+                >
+
+                    <div class="config-icon">
+                        <i class="fa-solid fa-circle-question"></i>
+                    </div>
+
+                    <div class="config-info">
+                        <h3>Ajuda e suporte</h3>
+                        <p>Dúvidas frequentes e fale com a gente</p>
+                    </div>
+
+                    <div class="config-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                </button>
+
+
+                <!-- TERMOS -->
+
+                <button
+                    type="button"
+                    class="config-item"
+                    data-busca="termos privacidade documentos política"
+                    onclick="abrirConfiguracao('termos')"
+                >
+
+                    <div class="config-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+
+                    <div class="config-info">
+                        <h3>Termos e privacidade</h3>
+                        <p>Consulte nossos documentos</p>
+                    </div>
+
+                    <div class="config-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                </button>
+
             </div>
 
-        </button>
 
-
-        <!-- ACESSIBILIDADE -->
-
-        <button
-            type="button"
-            class="config-item"
-            data-busca="acessibilidade fonte tamanho daltonismo animações"
-            onclick="abrirConfiguracao('acessibilidade')"
-        >
-
-            <div class="config-icon">
-                <i class="fa-solid fa-universal-access"></i>
+            <div class="config-vazio" id="configVazio" style="display:none;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <p>Nenhuma configuração encontrada.</p>
             </div>
 
-            <div class="config-info">
-                <h3>Acessibilidade</h3>
-                <p>Tamanho da fonte, daltonismo e animações</p>
-            </div>
-
-            <span class="config-badge">
-                <?= $nomesFonte[$preferencias['tamanho_fonte']] ?? 'Normal' ?>
-            </span>
-
-            <div class="config-arrow">
-                <i class="fa-solid fa-chevron-right"></i>
-            </div>
-
-        </button>
+        </div>
 
 
-        <!-- MINHA CONTA -->
-
-        <button
-            type="button"
-            class="config-item"
-            data-busca="minha conta nome e-mail email foto informações pessoais"
-            onclick="abrirConfiguracao('conta')"
-        >
-
-            <div class="config-icon">
-                <i class="fa-solid fa-user"></i>
-            </div>
-
-            <div class="config-info">
-                <h3>Minha conta</h3>
-                <p>Nome, e-mail, foto e informações pessoais</p>
-            </div>
-
-            <div class="config-arrow">
-                <i class="fa-solid fa-chevron-right"></i>
-            </div>
-
-        </button>
-
-
-        <!-- NOTIFICAÇÕES -->
-
-        <button
-            type="button"
-            class="config-item"
-            data-busca="notificações lembretes novidades avisos"
-            onclick="abrirConfiguracao('notificacoes')"
-        >
-
-            <div class="config-icon">
-                <i class="fa-solid fa-bell"></i>
-            </div>
-
-            <div class="config-info">
-                <h3>Notificações</h3>
-                <p>Escolha quais notificações deseja receber</p>
-            </div>
-
-            <span class="config-badge">
-                <?= $notifAtivas ?>/3 ativas
-            </span>
-
-            <div class="config-arrow">
-                <i class="fa-solid fa-chevron-right"></i>
-            </div>
-
-        </button>
-
-
-        <!-- PRIVACIDADE -->
-
-        <button
-            type="button"
-            class="config-item"
-            data-busca="privacidade segurança senha"
-            onclick="abrirConfiguracao('privacidade')"
-        >
-
-            <div class="config-icon">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-
-            <div class="config-info">
-                <h3>Privacidade e segurança</h3>
-                <p>Senha, segurança e privacidade</p>
-            </div>
-
-            <div class="config-arrow">
-                <i class="fa-solid fa-chevron-right"></i>
-            </div>
-
-        </button>
-
-
-        <!-- TERMOS -->
-
-        <button
-            type="button"
-            class="config-item"
-            data-busca="termos privacidade documentos política"
-            onclick="abrirConfiguracao('termos')"
-        >
-
-            <div class="config-icon">
-                <i class="fa-solid fa-file-lines"></i>
-            </div>
-
-            <div class="config-info">
-                <h3>Termos e privacidade</h3>
-                <p>Consulte nossos documentos</p>
-            </div>
-
-            <div class="config-arrow">
-                <i class="fa-solid fa-chevron-right"></i>
-            </div>
-
-        </button>
-
-    </div>
-
-
-    <div class="config-vazio" id="configVazio" style="display:none;">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <p>Nenhuma configuração encontrada.</p>
     </div>
 
 </div>
@@ -950,39 +1062,6 @@ body.sem-animacoes *::after {
 
 <script>
 
-/* Preferências já salvas (usadas para aplicar e para desfazer a prévia) */
-
-const PREFS = {
-    escuro: <?= (int) $preferencias['modo_escuro'] ?>,
-    fonte: '<?= htmlspecialchars($preferencias['tamanho_fonte'], ENT_QUOTES) ?>',
-    reduzirAnimacoes: <?= (int) $preferencias['reduzir_animacoes'] ?>
-};
-
-
-function previaEscuro(ligado) {
-    document.body.classList.toggle('modo-escuro', ligado);
-}
-
-function previaFonte(tamanho) {
-
-    const mapa = {
-        pequena: '14px',
-        normal: '16px',
-        grande: '18px',
-        muito_grande: '20px'
-    };
-
-    document.documentElement.style.fontSize = mapa[tamanho] || '16px';
-
-}
-
-function aplicarPreferenciasSalvas() {
-    previaEscuro(!!PREFS.escuro);
-    previaFonte(PREFS.fonte);
-    document.body.classList.toggle('sem-animacoes', !!PREFS.reduzirAnimacoes);
-}
-
-
 function abrirConfiguracao(tipo) {
 
     const modal = document.getElementById('configModal');
@@ -992,111 +1071,9 @@ function abrirConfiguracao(tipo) {
     let conteudo = '';
 
 
-    /* ---------- APARÊNCIA ---------- */
-
-    if (tipo === 'aparencia') {
-
-        titulo.innerText = 'Aparência';
-
-        conteudo = `
-
-            <input type="hidden" name="secao" value="aparencia">
-
-            <div class="config-option">
-
-                <div>
-                    <strong>Modo escuro</strong>
-                    <p>Reduz o brilho da tela e descansa a vista.</p>
-                </div>
-
-                <label class="switch">
-                    <input
-                        type="checkbox"
-                        name="modo_escuro"
-                        onchange="previaEscuro(this.checked)"
-                        <?= $preferencias['modo_escuro'] ? 'checked' : '' ?>
-                    >
-                    <span class="slider"></span>
-                </label>
-
-            </div>
-
-            <p class="config-info-extra">
-                Você vê a prévia na hora. Clique em "Salvar alterações" para manter.
-            </p>
-
-        `;
-
-    }
-
-
-    /* ---------- ACESSIBILIDADE ---------- */
-
-    else if (tipo === 'acessibilidade') {
-
-        titulo.innerText = 'Acessibilidade';
-
-        conteudo = `
-
-            <input type="hidden" name="secao" value="acessibilidade">
-
-            <div class="form-group">
-
-                <label>Tamanho da fonte</label>
-
-                <select
-                    name="tamanho_fonte"
-                    class="config-select"
-                    onchange="previaFonte(this.value)"
-                >
-                    <option value="pequena" <?= sel($preferencias['tamanho_fonte'], 'pequena') ?>>Pequena</option>
-                    <option value="normal" <?= sel($preferencias['tamanho_fonte'], 'normal') ?>>Normal</option>
-                    <option value="grande" <?= sel($preferencias['tamanho_fonte'], 'grande') ?>>Grande</option>
-                    <option value="muito_grande" <?= sel($preferencias['tamanho_fonte'], 'muito_grande') ?>>Muito grande</option>
-                </select>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Daltonismo</label>
-
-                <select name="daltonismo" class="config-select">
-                    <option value="nenhum" <?= sel($preferencias['daltonismo'], 'nenhum') ?>>Nenhum</option>
-                    <option value="protanopia" <?= sel($preferencias['daltonismo'], 'protanopia') ?>>Protanopia</option>
-                    <option value="deuteranopia" <?= sel($preferencias['daltonismo'], 'deuteranopia') ?>>Deuteranopia</option>
-                    <option value="tritanopia" <?= sel($preferencias['daltonismo'], 'tritanopia') ?>>Tritanopia</option>
-                    <option value="acromatopsia" <?= sel($preferencias['daltonismo'], 'acromatopsia') ?>>Acromatopsia</option>
-                </select>
-
-            </div>
-
-            <div class="config-option">
-
-                <div>
-                    <strong>Reduzir animações</strong>
-                    <p>Diminui movimentos e transições na tela.</p>
-                </div>
-
-                <label class="switch">
-                    <input
-                        type="checkbox"
-                        name="reduzir_animacoes"
-                        <?= $preferencias['reduzir_animacoes'] ? 'checked' : '' ?>
-                    >
-                    <span class="slider"></span>
-                </label>
-
-            </div>
-
-        `;
-
-    }
-
-
     /* ---------- MINHA CONTA ---------- */
 
-    else if (tipo === 'conta') {
+    if (tipo === 'conta') {
 
         titulo.innerText = 'Minha conta';
 
@@ -1127,6 +1104,49 @@ function abrirConfiguracao(tipo) {
             <a href="editar_perfil.php" class="config-link-botao">
                 <i class="fa-solid fa-pen"></i>
                 Editar perfil
+            </a>
+
+        `;
+
+    }
+
+
+    /* ---------- MEUS DADOS ---------- */
+
+    else if (tipo === 'dados') {
+
+        titulo.innerText = 'Meus dados';
+
+        conteudo = `
+
+            <div class="dados-grade">
+
+                <div class="dados-caixa">
+                    <i class="fa-solid fa-heart"></i>
+                    <strong><?= $totalFavoritos ?></strong>
+                    <span>Favoritos salvos</span>
+                </div>
+
+                <div class="dados-caixa">
+                    <i class="fa-solid fa-comments"></i>
+                    <strong><?= $totalContatos ?></strong>
+                    <span>Contatos realizados</span>
+                </div>
+
+            </div>
+
+            <p class="config-info-extra">
+                Veja tudo o que você salvou e com quem já conversou no seu perfil.
+            </p>
+
+            <a href="perfil.php#favoritos" class="config-link-botao">
+                <i class="fa-solid fa-heart"></i>
+                Ver favoritos
+            </a>
+
+            <a href="perfil.php#profissionais" class="config-link-botao">
+                <i class="fa-solid fa-comments"></i>
+                Ver contatos
             </a>
 
         `;
@@ -1246,6 +1266,33 @@ function abrirConfiguracao(tipo) {
     }
 
 
+    /* ---------- AJUDA ---------- */
+
+    else if (tipo === 'ajuda') {
+
+        titulo.innerText = 'Ajuda e suporte';
+
+        conteudo = `
+
+            <p class="config-info-extra">
+                Encontre respostas rápidas ou entre em contato com a nossa equipe.
+            </p>
+
+            <a href="faq.php" class="config-link-botao">
+                <i class="fa-solid fa-circle-question"></i>
+                Dúvidas frequentes
+            </a>
+
+            <a href="contato.php" class="config-link-botao">
+                <i class="fa-solid fa-envelope"></i>
+                Fale conosco
+            </a>
+
+        `;
+
+    }
+
+
     /* ---------- TERMOS ---------- */
 
     else if (tipo === 'termos') {
@@ -1262,7 +1309,7 @@ function abrirConfiguracao(tipo) {
 
                 <p>Consulte os termos de utilização da plataforma ForTEA.</p>
 
-                <button type="button" onclick="alert('Página de termos será adicionada.')">
+                <button type="button" onclick="window.location.href='termos.php'">
                     Visualizar termos
                 </button>
 
@@ -1276,7 +1323,7 @@ function abrirConfiguracao(tipo) {
 
                 <p>Consulte a política de privacidade do ForTEA.</p>
 
-                <button type="button" onclick="alert('Página de privacidade será adicionada.')">
+                <button type="button" onclick="window.location.href='privacidade.php'">
                     Visualizar política
                 </button>
 
@@ -1289,7 +1336,7 @@ function abrirConfiguracao(tipo) {
 
     /* Esconde o botão Salvar onde não há nada para salvar */
 
-    const semSalvar = (tipo === 'conta' || tipo === 'termos');
+    const semSalvar = ['conta', 'dados', 'ajuda', 'termos'].includes(tipo);
 
     document.querySelector('.btn-salvar').style.display = semSalvar ? 'none' : '';
 
@@ -1308,9 +1355,6 @@ function fecharConfiguracao() {
     document.getElementById('configModal').classList.remove('active');
 
     document.body.style.overflow = '';
-
-    /* Desfaz prévias que não foram salvas */
-    aplicarPreferenciasSalvas();
 
 }
 
@@ -1404,8 +1448,5 @@ function forcaSenha(valor) {
     texto.textContent = 'Força da senha: ' + nivel.msg;
 
 }
-
-
-document.addEventListener('DOMContentLoaded', aplicarPreferenciasSalvas);
 
 </script>

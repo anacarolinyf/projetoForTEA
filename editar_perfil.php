@@ -434,6 +434,7 @@ if (
 
     <link rel="stylesheet" href="css/estilo.css">
     <link rel="stylesheet" href="css/perfil.css">
+    <link rel="stylesheet" href="css/laterais.css">
 
     <link rel="icon"
           type="image"
@@ -481,6 +482,8 @@ function mostrarSenha(id, botao) {
 </script>
 
 <body>
+
+<?php include "includes/laterais.php"; ?>
 
 
 <main class="editar-pagina">

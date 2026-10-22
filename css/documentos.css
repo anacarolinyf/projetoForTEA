@@ -1,0 +1,232 @@
+/* Páginas de documentos: termos.php e privacidade.php */
+
+html {
+    scroll-behavior: smooth;
+}
+
+.doc-pagina {
+    padding: 30px 16px 70px;
+}
+
+.doc-card {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 44px;
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 10px 34px rgba(33, 71, 155, .08);
+    color: #334155;
+    line-height: 1.7;
+}
+
+.doc-voltar,
+.doc-voltar:visited {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #3467eb;
+    font-size: .85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.doc-voltar:hover {
+    color: #21479b;
+}
+
+.doc-card h1 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 22px 0 4px;
+    color: #21479b;
+    font-size: 1.9rem;
+}
+
+.doc-card h1 i {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: #eaf2ff;
+    color: #3467eb;
+    font-size: 1.3rem;
+}
+
+.doc-atualizacao {
+    margin: 0 0 24px;
+    color: #7a8799;
+    font-size: .85rem;
+}
+
+.doc-aviso {
+    padding: 16px 18px;
+    margin-bottom: 24px;
+    border-left: 4px solid #3467eb;
+    border-radius: 0 12px 12px 0;
+    background: #f5f8ff;
+    font-size: .95rem;
+}
+
+.doc-sumario {
+    padding: 18px 22px;
+    margin-bottom: 30px;
+    border: 1px solid #e3eaf5;
+    border-radius: 16px;
+    background: #fafcff;
+}
+
+.doc-sumario strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #21479b;
+}
+
+.doc-sumario ol {
+    margin: 0;
+    padding-left: 20px;
+    columns: 2;
+    column-gap: 30px;
+    font-size: .9rem;
+}
+
+.doc-sumario a,
+.doc-sumario a:visited {
+    color: #3467eb;
+    text-decoration: none;
+}
+
+.doc-sumario a:hover {
+    text-decoration: underline;
+}
+
+.doc-card section {
+    scroll-margin-top: 130px;
+    margin-bottom: 28px;
+}
+
+.doc-card h2 {
+    margin: 0 0 8px;
+    color: #21479b;
+    font-size: 1.2rem;
+}
+
+.doc-card p {
+    margin: 0 0 10px;
+}
+
+.doc-card ul {
+    margin: 0 0 10px;
+    padding-left: 22px;
+}
+
+.doc-card li {
+    margin-bottom: 5px;
+}
+
+.doc-card a.doc-link,
+.doc-card a.doc-link:visited {
+    color: #3467eb;
+    font-weight: 600;
+}
+
+.doc-tabela {
+    width: 100%;
+    margin: 8px 0 12px;
+    border-collapse: collapse;
+    font-size: .9rem;
+}
+
+.doc-tabela th,
+.doc-tabela td {
+    padding: 10px 12px;
+    border: 1px solid #e3eaf5;
+    text-align: left;
+    vertical-align: top;
+}
+
+.doc-tabela th {
+    background: #eaf2ff;
+    color: #21479b;
+}
+
+.doc-rodape {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 22px;
+    margin-top: 10px;
+    border-top: 1px solid #e3eaf5;
+}
+
+.doc-botao,
+.doc-botao:visited {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 22px;
+    background: #3467eb;
+    color: #fff;
+    font-size: .82rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+.doc-botao:hover {
+    background: #21479b;
+    transform: translateY(-2px);
+}
+
+.doc-botao-claro,
+.doc-botao-claro:visited {
+    background: #eaf2ff;
+    color: #3467eb;
+}
+
+.doc-botao-claro:hover {
+    background: #d8e6ff;
+}
+
+@media (max-width: 700px) {
+
+    .doc-card {
+        padding: 26px 20px;
+    }
+
+    .doc-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .doc-sumario ol {
+        columns: 1;
+    }
+
+}
+
+@media print {
+
+    .laterais-deco,
+    .doc-voltar,
+    .doc-rodape,
+    .chatbot,
+    header {
+        display: none !important;
+    }
+
+    .doc-card {
+        box-shadow: none;
+        padding: 0;
+    }
+
+}

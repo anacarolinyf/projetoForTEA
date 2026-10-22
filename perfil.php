@@ -490,9 +490,12 @@ require_once "includes/header.php";
 
 <body>
 
+<?php include "includes/laterais.php"; ?>
+
 <?php include "chatbot/chatbot.php"; ?>
 
 <link rel="stylesheet" href="chatbot/chatbot.css">
+<link rel="stylesheet" href="css/laterais.css">
 <script src="chatbot/chatbot.js"></script>
 
 

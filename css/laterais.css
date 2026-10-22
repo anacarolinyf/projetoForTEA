@@ -1,0 +1,77 @@
+/* Decoração das laterais - perfil, editar perfil e configurações */
+
+.laterais-deco {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.laterais-deco .lado {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 22%;
+}
+
+.laterais-deco .esq { left: 0;  }
+.laterais-deco .dir { right: 0; }
+
+.laterais-deco .deco,
+.laterais-deco .bolha {
+    position: absolute;
+    top: var(--top);
+    left: var(--left);
+}
+
+.laterais-deco .deco {
+    font-size: var(--size);
+    color: var(--cor);
+    opacity: .22;
+    transform: rotate(var(--rot));
+    animation: deco-flutuar 7s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+.laterais-deco .bolha {
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: var(--cor);
+    opacity: .08;
+}
+
+@keyframes deco-flutuar {
+    0%, 100% { transform: translateY(0)     rotate(var(--rot)); }
+    50%      { transform: translateY(-14px) rotate(calc(var(--rot) + 6deg)); }
+}
+
+/* Conteúdo sempre acima da decoração */
+.perfil-card,
+.editar-card,
+.config-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Se o fundo da página estiver cobrindo a decoração, deixa transparente */
+.perfil-pagina,
+.editar-pagina {
+    position: static;
+    background: transparent;
+}
+
+/* Some em telas estreitas */
+@media (max-width: 1100px) {
+    .laterais-deco { display: none; }
+}
+
+/* Respeita "reduzir animações" */
+@media (prefers-reduced-motion: reduce) {
+    .laterais-deco .deco { animation: none; }
+}
+
+body.sem-animacoes .laterais-deco .deco {
+    animation: none;
+}
