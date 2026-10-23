@@ -5,7 +5,7 @@
 return [
     'host'       => 'smtp.gmail.com',
     'username'   => 'projetofortea@gmail.com',
-    'password'   => 'SENHA_DE_APP_AQUI',   // 16 letras, sem espaços
+    'password'   => 'eohp qpen zplk nrqz',   // 16 letras, sem espaços
     'encryption' => 'tls',                 // STARTTLS
     'port'       => 587,
 

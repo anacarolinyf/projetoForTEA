@@ -619,28 +619,48 @@ function categoriaDoProfissional($especialidade, $categorias) {
 
 <?php
 
-$profissionais = [];
+require_once __DIR__ . '/api_client.php';
+
+$profissionais    = [];
+$categoriasUsadas = [];
 
 if (!isset($conexao) || !$conexao) {
     die("Erro: conexão com o banco de dados não foi encontrada.");
 }
 
-$sqlProfissionais = "
-    SELECT *
-    FROM profissionais
-    WHERE ativo = 1
-    ORDER BY nome ASC
-";
+$lista = [];
+$fonteDados = 'api';
 
-$resultadoProfissionais = $conexao->query($sqlProfissionais);
+$resposta = api_listar();
 
-if (!$resultadoProfissionais) {
-    die("Erro ao buscar profissionais: " . $conexao->error);
+if ($resposta['status'] === 200 && is_array($resposta['dados'])) {
+
+    // a API devolve todos; aqui ficam só os ativos, em ordem alfabética
+    $lista = array_values(array_filter($resposta['dados'], function ($p) {
+        return (int) ($p['ativo'] ?? 1) === 1;
+    }));
+
+    usort($lista, function ($a, $b) {
+        return strcmp(normalizarTexto($a['nome']), normalizarTexto($b['nome']));
+    });
+
+} else {
+
+    // API fora do ar: usa o banco direto, como antes
+    $fonteDados = 'banco';
+
+    $res = $conexao->query("SELECT * FROM profissionais WHERE ativo = 1 ORDER BY nome ASC");
+
+    if (!$res) {
+        die("Erro ao buscar profissionais: " . $conexao->error);
+    }
+
+    while ($linha = $res->fetch_assoc()) {
+        $lista[] = $linha;
+    }
 }
 
-$categoriasUsadas = [];
-
-while ($profissional = $resultadoProfissionais->fetch_assoc()) {
+foreach ($lista as $profissional) {
 
     $profissional['_categoria'] = categoriaDoProfissional(
         $profissional['especialidade'] ?? '',

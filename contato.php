@@ -1,18 +1,68 @@
 <?php
 include 'includes/header.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
 
 $enviado = false;
+$erro = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nome = trim($_POST['nome'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $assunto = trim($_POST['assunto'] ?? '');
+    $nome     = trim($_POST['nome'] ?? '');
+    $email    = trim($_POST['email'] ?? '');
+    $assunto  = trim($_POST['assunto'] ?? '');
     $mensagem = trim($_POST['mensagem'] ?? '');
 
-    if ($nome && $email && $assunto && $mensagem) {
-        $enviado = true;
+    if (!$nome || !$email || !$assunto || !$mensagem) {
+        $erro = 'Preencha todos os campos.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $erro = 'Digite um e-mail válido.';
+    } else {
+
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'projetofortea@gmail.com';
+            $mail->Password   = 'eohp qpen zplk nrqz'; // senha de app de 16 letras
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+            $mail->CharSet    = 'UTF-8';
+
+            // Quem envia (precisa ser o próprio Gmail)
+            $mail->setFrom('projetofortea@gmail.com', 'Contato ForTEA');
+
+            // Quem recebe
+            $mail->addAddress('projetofortea@gmail.com');
+
+            // Ao clicar em "Responder", responde direto pra pessoa
+            $mail->addReplyTo($email, $nome);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Contato ForTEA: ' . $assunto;
+            $mail->Body    = '
+                <h3>Nova mensagem pelo site ForTEA</h3>
+                <p><strong>Nome:</strong> ' . htmlspecialchars($nome) . '</p>
+                <p><strong>E-mail:</strong> ' . htmlspecialchars($email) . '</p>
+                <p><strong>Assunto:</strong> ' . htmlspecialchars($assunto) . '</p>
+                <p><strong>Mensagem:</strong><br>' . nl2br(htmlspecialchars($mensagem)) . '</p>
+            ';
+            $mail->AltBody = "Nome: $nome\nE-mail: $email\nAssunto: $assunto\n\n$mensagem";
+
+            $mail->send();
+            $enviado = true;
+
+        } catch (Exception $e) {
+    $erro = 'Não foi possível enviar sua mensagem agora. Tente novamente mais tarde.';
+    $erro .= ' [DEBUG: ' . $mail->ErrorInfo . ']';
+}
     }
 }
 ?>
@@ -128,6 +178,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Envie uma mensagem
                     </h2>
 
+                    <?php if ($enviado): ?>
+    <div class="contato-sucesso">
+        <i class="fa-solid fa-circle-check"></i>
+        Mensagem enviada com sucesso! Responderemos em breve.
+    </div>
+<?php elseif ($erro): ?>
+    <div class="contato-erro">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <?= htmlspecialchars($erro) ?>
+    </div>
+<?php endif; ?>
+
                     <form method="POST" action="contato.php">
 
 
@@ -217,6 +279,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
     </section>
+
+    <style>
+        .contato-sucesso,
+.contato-erro {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+.contato-sucesso { background: #e6f7ec; color: #1e7a3d; }
+.contato-erro    { background: #fdeaea; color: #b3261e; }
+    </style>
 
 </main>
 
