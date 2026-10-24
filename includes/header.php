@@ -393,6 +393,11 @@ new window.VLibras.Widget(
 
             <?php if ($nomeUsuario): ?>
 
+                <a href="rotina.php" class="usuario-logado">
+    <i class="fa-regular fa-calendar-check"></i>
+    Rotina
+</a>
+
                 <a
                     href="perfil.php"
                     class="usuario-logado"

@@ -1,0 +1,125 @@
+/* ===== Base, fundo e tema ===== */
+.rotina-pagina{--p:var(--cor-principal,#2454A6);--s:var(--cor-secundaria,#193F80);--tinta:#1f2d3a;--card:#fff;--borda:#cfd9e1;--verde:#3f9b6e;--alerta:#a8473f;--suave:#5a6b79;
+  position:relative;overflow:hidden;min-height:75vh;color:var(--tinta);font-size:18px;line-height:1.55;
+  background:radial-gradient(#2454a61f 1.5px,transparent 1.5px) 0 0/28px 28px,linear-gradient(180deg,#dcecf9 0%,#e6f5ee 60%,#fdf6e3 100%)}
+.modo-escuro .rotina-pagina{--tinta:#e8eef3;--card:#1f2a35;--borda:#3a4957;--suave:#a9b8c4;background:linear-gradient(180deg,#14202b,#18262a)}
+.rotina-pagina::before,.rotina-pagina::after{content:"";position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.rotina-pagina::before{width:420px;height:420px;left:-140px;top:140px;background:radial-gradient(circle,#ffffffb0,transparent 70%)}
+.rotina-pagina::after{width:520px;height:520px;right:-180px;bottom:-120px;background:radial-gradient(circle,#ffcf8a66,transparent 70%)}
+.rotina-pagina *{box-sizing:border-box}
+.rotina-pagina .rv-wrap{position:relative;z-index:1;max-width:940px;margin:0 auto;padding:48px 16px 56px}
+.rotina-pagina h1{font-size:2.2rem;margin:.1em 0 .2em;color:var(--tinta)}
+.rotina-pagina h2{font-size:1.4rem;margin:1.6em 0 .6em;color:var(--tinta)}
+.rotina-pagina a{color:var(--p)}
+.rotina-pagina :focus-visible{outline:3px solid var(--p);outline-offset:2px}
+.rotina-pagina .rv-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ===== Faixa de destaque ===== */
+.rotina-pagina .rv-hero{position:relative;background:linear-gradient(135deg,var(--p),var(--s));color:#fff;border-radius:24px;padding:26px 28px 28px;margin-bottom:24px;box-shadow:0 12px 26px #19305a38;overflow:hidden}
+.rotina-pagina .rv-hero h1{color:#fff}
+.rotina-pagina .rv-hero .rv-lead{max-width:52ch;color:#eaf1fb;margin:0 0 16px}
+.rotina-pagina .rv-hero .rv-prog{margin:0;color:#fff}
+.rotina-pagina .rv-hero.rv-com-emojis{padding-right:270px}
+.rotina-pagina .rv-flutuantes{position:absolute;right:16px;top:0;bottom:0;width:230px;pointer-events:none}
+.rotina-pagina .rv-flutuantes span{position:absolute;font-size:2.4rem;animation:bob 4s ease-in-out infinite}
+.rotina-pagina .rv-flutuantes span:nth-child(1){left:8%;top:10%}
+.rotina-pagina .rv-flutuantes span:nth-child(2){left:58%;top:18%;animation-delay:.6s}
+.rotina-pagina .rv-flutuantes span:nth-child(3){left:30%;top:42%;animation-delay:1.2s}
+.rotina-pagina .rv-flutuantes span:nth-child(4){left:70%;top:55%;animation-delay:1.8s}
+.rotina-pagina .rv-flutuantes span:nth-child(5){left:12%;top:74%;animation-delay:2.4s}
+@keyframes bob{50%{transform:translateY(-10px)}}
+@media (max-width:760px){.rotina-pagina .rv-flutuantes{display:none}.rotina-pagina .rv-hero.rv-com-emojis{padding-right:28px}}
+.rotina-pagina .rv-pilula{display:flex;flex-wrap:wrap;gap:6px;background:#fff;border-radius:999px;padding:6px;max-width:580px}
+.rotina-pagina .rv-pilula input{flex:1;min-width:180px;border:0;background:transparent;color:#1f2d3a;font:inherit;padding:.4em .9em}
+.rotina-pagina .rv-pilula .rv-btn{border-radius:999px}
+
+/* ===== Passos ===== */
+.rotina-pagina .rv-passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.rotina-pagina .rv-passo{display:grid;gap:2px;background:var(--card);border:2px solid var(--borda);border-radius:16px;padding:14px 16px}
+.rotina-pagina .rv-passo b{color:var(--p);font-size:1.1rem}
+.rotina-pagina .rv-passo span{color:var(--suave);font-size:.95rem}
+
+/* ===== Botões e campos ===== */
+.rotina-pagina .rv-btn{display:inline-block;border:2px solid var(--p);background:var(--p);color:#fff;padding:.5em 1.1em;border-radius:12px;font:inherit;cursor:pointer;text-decoration:none;transition:transform .15s,filter .15s}
+.rotina-pagina .rv-btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.rotina-pagina .rv-btn:active{transform:scale(.97)}
+.rotina-pagina .rv-btn.rv-sec{background:var(--card);color:var(--p)}
+.rotina-pagina .rv-btn.rv-perigo{background:var(--alerta);border-color:var(--alerta);color:#fff}
+.rotina-pagina .rv-btn.rv-sec.rv-perigo{background:var(--card);color:var(--alerta)}
+.rotina-pagina input,.rotina-pagina select{font:inherit;padding:.45em .6em;border:2px solid var(--borda);border-radius:10px;background:var(--card);color:var(--tinta)}
+.rotina-pagina label{font-weight:600}
+.rotina-pagina .rv-acoes{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rotina-pagina .rv-acoes form{margin:0}
+.rotina-pagina .rv-vazio{background:var(--card);border:2px dashed var(--borda);border-radius:16px;padding:18px}
+/* formulários da tela de edição viram painéis */
+.rotina-pagina .rv-wrap form.rv-linha,.rotina-pagina .rv-wrap form.rv-coluna{background:var(--card);border:2px solid var(--borda);border-radius:18px;padding:16px;box-shadow:0 4px 12px #0000000d}
+.rotina-pagina .rv-linha{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.rotina-pagina .rv-coluna{display:grid;gap:8px;max-width:440px}
+
+/* ===== Lista de rotinas (cartões coloridos) ===== */
+.rotina-pagina .rv-rgrade{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.rotina-pagina .rv-rcard{display:flex;flex-direction:column;gap:12px;border:3px solid;border-radius:20px;padding:16px;background:var(--tint);color:#1f2d3a;transition:transform .2s,box-shadow .2s}
+.rotina-pagina .rv-rcard:hover{transform:translateY(-4px);box-shadow:0 12px 22px #0000001f}
+.rotina-pagina .rv-rcard h3{margin:0;font-size:1.25rem}
+.rotina-pagina .rv-rcard small{color:#4d5d6a}
+.rotina-pagina .rv-rcard.rv-c0{--tint:#fdebd2;border-color:#f3c88f}
+.rotina-pagina .rv-rcard.rv-c1{--tint:#dff3e8;border-color:#9fd3b6}
+.rotina-pagina .rv-rcard.rv-c2{--tint:#e3e8fb;border-color:#aab8ee}
+.rotina-pagina .rv-rcard.rv-c3{--tint:#fde3ec;border-color:#f0a9c1}
+.rotina-pagina .rv-rcard.rv-c4{--tint:#fff4bf;border-color:#e8d36a}
+.modo-escuro .rotina-pagina .rv-rcard{background:var(--card);color:var(--tinta)}
+.modo-escuro .rotina-pagina .rv-rcard small{color:var(--suave)}
+.rotina-pagina .rv-pre{display:flex;gap:8px;align-items:center;min-height:44px;font-size:2rem;line-height:1}
+.rotina-pagina .rv-pre img{width:44px;height:44px;border-radius:10px;object-fit:cover}
+
+/* ===== Lista de edição ===== */
+.rotina-pagina .rv-ordem{list-style:none;padding:0;margin:16px 0;display:grid;gap:10px}
+.rotina-pagina .rv-ordem li{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--card);border:2px solid var(--borda);border-radius:14px;padding:10px 14px}
+.rotina-pagina .rv-previa{max-width:160px;border-radius:12px}
+
+/* ===== Cartões de atividade ===== */
+.rotina-pagina .rv-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:20px}
+.rotina-pagina .rv-grade.rv-duas{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.rotina-pagina .rv-cartao{position:relative;background:var(--card);border:3px solid var(--borda);border-radius:20px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;color:#1f2d3a}
+.rotina-pagina .rv-cartao img{width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:14px}
+.rotina-pagina .rv-cartao .rv-emo{font-size:4.5rem;line-height:1.1}
+.rotina-pagina .rv-cartao strong{font-size:1.2rem}
+.rotina-pagina .rv-cartao small{color:#4d5d6a}
+.rotina-pagina .rv-cartao.rv-mini{flex-direction:row;padding:8px 12px;border-width:2px;text-align:left;background:transparent;border:0}
+.rotina-pagina .rv-cartao.rv-mini img{width:56px;height:56px}
+.rotina-pagina .rv-cartao.rv-mini .rv-emo{font-size:2rem}
+.modo-escuro .rotina-pagina .rv-cartao,.modo-escuro .rotina-pagina .rv-cartao small{color:var(--tinta)}
+.rotina-pagina .rv-grade .rv-cartao:nth-child(5n+1){background:#fdebd2;border-color:#f3c88f}
+.rotina-pagina .rv-grade .rv-cartao:nth-child(5n+2){background:#dff3e8;border-color:#9fd3b6}
+.rotina-pagina .rv-grade .rv-cartao:nth-child(5n+3){background:#e3e8fb;border-color:#aab8ee}
+.rotina-pagina .rv-grade .rv-cartao:nth-child(5n+4){background:#fde3ec;border-color:#f0a9c1}
+.rotina-pagina .rv-grade .rv-cartao:nth-child(5n+5){background:#fff4bf;border-color:#e8d36a}
+.modo-escuro .rotina-pagina .rv-grade .rv-cartao{background:var(--card)}
+.rotina-pagina .rv-grade .rv-cartao.rv-ok{background:#e6f5ec;border-color:var(--verde)}
+.modo-escuro .rotina-pagina .rv-grade .rv-cartao.rv-ok{background:#1d3a2c}
+.rotina-pagina .rv-cartao.rv-ok::after{content:"✔";position:absolute;top:8px;right:12px;color:var(--verde);font-size:1.7rem}
+.rotina-pagina .rv-cartao.rv-ok img,.rotina-pagina .rv-cartao.rv-ok .rv-emo{opacity:.5}
+.rotina-pagina .rv-cartao.rv-pop{animation:pop .38s ease}
+@keyframes pop{40%{transform:scale(1.08)}100%{transform:scale(1)}}
+.rotina-pagina .rv-selo{background:var(--p);color:#fff;border-radius:999px;padding:.1em .9em;font-weight:600}
+.rotina-pagina .rv-feito-btn{width:100%;background:var(--verde);border-color:var(--verde);font-size:1.15rem}
+.rotina-pagina .rv-cartao.rv-ok .rv-feito-btn{background:#fff;color:var(--verde)}
+
+/* ===== Progresso e parabéns ===== */
+.rotina-pagina .rv-barra{height:18px;background:#ffffff40;border-radius:99px;overflow:hidden;margin:12px 0 6px}
+.rotina-pagina .rv-barra span{display:block;height:100%;background:#ffd966;border-radius:99px;transition:width .4s}
+.rotina-pagina .rv-parabens{position:relative;overflow:hidden;text-align:center;font-size:1.4rem;background:var(--card);border:3px solid var(--verde);border-radius:20px;padding:20px;margin:0 0 16px}
+.rotina-pagina .rv-estrelas span{position:absolute;top:-30px;font-size:1.4rem;animation:cai 3s linear infinite}
+@keyframes cai{to{transform:translateY(220px) rotate(200deg);opacity:0}}
+
+/* ===== Preferências de movimento e impressão ===== */
+.reduzir-animacoes .rotina-pagina *{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion:reduce){.rotina-pagina *{animation:none!important;transition:none!important}}
+@media print{
+  header,.rv-semprint,.rotina-pagina .rv-acoes,.rotina-pagina a,.rotina-pagina .rv-flutuantes,.rotina-pagina .rv-parabens,.rotina-pagina .rv-passos,.rotina-pagina .rv-barra,.rotina-pagina .rv-prog{display:none!important}
+  .rotina-pagina{background:#fff!important;font-size:14px}.rotina-pagina::before,.rotina-pagina::after{display:none}
+  .rotina-pagina .rv-hero{background:none;box-shadow:none;padding:0}.rotina-pagina .rv-hero h1{color:#000}
+  .rotina-pagina .rv-grade{grid-template-columns:repeat(3,1fr)}
+  .rotina-pagina .rv-grade .rv-cartao{background:#fff!important;border:2px solid #000!important;break-inside:avoid}
+  .rotina-pagina .rv-cartao.rv-ok::after{display:none}
+}
