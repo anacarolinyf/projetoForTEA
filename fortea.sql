@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22/10/2026 às 05:45
+-- Tempo de geração: 24/10/2026 às 02:28
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,41 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `fortea`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `atividades_padrao`
+--
+
+CREATE TABLE `atividades_padrao` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(60) NOT NULL,
+  `categoria` varchar(30) NOT NULL,
+  `emoji` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `atividades_padrao`
+--
+
+INSERT INTO `atividades_padrao` (`id`, `nome`, `categoria`, `emoji`) VALUES
+(1, 'Acordar', 'Manhã', '⏰'),
+(2, 'Escovar os dentes', 'Higiene', '🪥'),
+(3, 'Tomar banho', 'Higiene', '🚿'),
+(4, 'Trocar de roupa', 'Higiene', '👕'),
+(5, 'Ir ao banheiro', 'Higiene', '🚽'),
+(6, 'Café da manhã', 'Alimentação', '🥣'),
+(7, 'Almoço', 'Alimentação', '🍽️'),
+(8, 'Lanche', 'Alimentação', '🍎'),
+(9, 'Jantar', 'Alimentação', '🍝'),
+(10, 'Ir para a escola', 'Escola', '🎒'),
+(11, 'Lição de casa', 'Escola', '✏️'),
+(12, 'Terapia', 'Saúde', '🧩'),
+(13, 'Brincar', 'Lazer', '🧸'),
+(14, 'Tela / TV', 'Lazer', '📺'),
+(15, 'Passeio', 'Lazer', '🌳'),
+(16, 'Dormir', 'Noite', '🌙');
 
 -- --------------------------------------------------------
 
@@ -278,7 +313,8 @@ INSERT INTO `preferencias_usuario` (`id`, `usuario_id`, `modo_escuro`, `reduzir_
 (0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-22 03:12:45'),
 (0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-22 03:15:14'),
 (0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-22 03:20:11'),
-(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-22 03:44:55');
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-22 03:44:55'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-23 21:56:29');
 
 -- --------------------------------------------------------
 
@@ -338,6 +374,67 @@ INSERT INTO `recuperacao_senha` (`id`, `usuario_id`, `codigo_hash`, `expira_em`,
 (3, 0, '$2y$10$EZ8S1AFapGGjwMKAgezrteewboDqCApaWUVyYL8upaSI/eUu0wx3W', '2026-09-19 03:01:22', 1, '2026-09-18 21:51:22'),
 (4, 0, '$2y$10$q4IfJqMsnStAwiqCbl52DOx7VNdXVIO4iHt8OkNhZPLveRXNRzpjC', '2026-09-19 03:01:29', 0, '2026-09-18 21:51:29'),
 (5, 1, '$2y$10$TFcGB.vnHGwzefNnrhFJEeUfqr0nze3SNDEf/Hkt2Vp8/oKKPNgGK', '2026-10-21 05:02:59', 0, '2026-10-20 23:52:59');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `rotinas`
+--
+
+CREATE TABLE `rotinas` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `nome` varchar(80) NOT NULL,
+  `criada_em` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `rotinas`
+--
+
+INSERT INTO `rotinas` (`id`, `usuario_id`, `nome`, `criada_em`) VALUES
+(1, 7, 'Fim de semana', '2026-10-23 19:29:35');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `rotina_itens`
+--
+
+CREATE TABLE `rotina_itens` (
+  `id` int(11) NOT NULL,
+  `rotina_id` int(11) NOT NULL,
+  `titulo` varchar(60) NOT NULL,
+  `emoji` varchar(8) DEFAULT NULL,
+  `imagem` varchar(80) DEFAULT NULL,
+  `horario` time DEFAULT NULL,
+  `ordem` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `rotina_itens`
+--
+
+INSERT INTO `rotina_itens` (`id`, `rotina_id`, `titulo`, `emoji`, `imagem`, `horario`, `ordem`) VALUES
+(1, 1, 'higiene bocal', NULL, '3656b828fe87c7fc047af1449a4785b7.jpg', '08:20:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `rotina_progresso`
+--
+
+CREATE TABLE `rotina_progresso` (
+  `item_id` int(11) NOT NULL,
+  `dia` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `rotina_progresso`
+--
+
+INSERT INTO `rotina_progresso` (`item_id`, `dia`) VALUES
+(1, '2026-10-23');
 
 -- --------------------------------------------------------
 
@@ -466,6 +563,12 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `data_cadastro`, `foto`)
 --
 
 --
+-- Índices de tabela `atividades_padrao`
+--
+ALTER TABLE `atividades_padrao`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `checklist_jornada`
 --
 ALTER TABLE `checklist_jornada`
@@ -506,6 +609,25 @@ ALTER TABLE `recuperacao_senha`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices de tabela `rotinas`
+--
+ALTER TABLE `rotinas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `rotina_itens`
+--
+ALTER TABLE `rotina_itens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `rotina_id` (`rotina_id`);
+
+--
+-- Índices de tabela `rotina_progresso`
+--
+ALTER TABLE `rotina_progresso`
+  ADD PRIMARY KEY (`item_id`,`dia`);
+
+--
 -- Índices de tabela `trajetoria_checklists`
 --
 ALTER TABLE `trajetoria_checklists`
@@ -535,6 +657,12 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `atividades_padrao`
+--
+ALTER TABLE `atividades_padrao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `checklist_jornada`
@@ -567,6 +695,18 @@ ALTER TABLE `recuperacao_senha`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de tabela `rotinas`
+--
+ALTER TABLE `rotinas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `rotina_itens`
+--
+ALTER TABLE `rotina_itens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `trajetoria_checklists`
 --
 ALTER TABLE `trajetoria_checklists`
@@ -593,6 +733,18 @@ ALTER TABLE `usuarios`
 --
 -- Restrições para tabelas despejadas
 --
+
+--
+-- Restrições para tabelas `rotina_itens`
+--
+ALTER TABLE `rotina_itens`
+  ADD CONSTRAINT `rotina_itens_ibfk_1` FOREIGN KEY (`rotina_id`) REFERENCES `rotinas` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `rotina_progresso`
+--
+ALTER TABLE `rotina_progresso`
+  ADD CONSTRAINT `rotina_progresso_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `rotina_itens` (`id`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `trajetoria_checklists`
