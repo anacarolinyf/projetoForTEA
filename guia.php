@@ -382,8 +382,8 @@ include __DIR__ . "/includes/header.php";
 
     <div class="container">
 
-        <div class="guia-acessos-intro">
-            <span>ORGANIZAÇÃO E ACOMPANHAMENTO</span>
+<div class="container" id="trajetoria">
+                <span>ORGANIZAÇÃO E ACOMPANHAMENTO</span>
             <h2>Um espaço para acompanhar sua jornada</h2>
             <p>
                 Cada trajetória é única. Consulte informações, registre momentos
@@ -566,6 +566,10 @@ main {
 
 .guia-intro-destaque p {
     color: #475569;   /* volta ao cinza dentro do card claro */
+}
+
+.guia-acessos-nota {
+    margin-bottom: 40px;
 }
 
 @media (max-width: 900px) {

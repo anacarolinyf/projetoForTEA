@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/10/2026 às 01:07
+-- Tempo de geração: 27/10/2026 às 21:30
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -74,7 +74,7 @@ CREATE TABLE `checklist_jornada` (
 --
 
 INSERT INTO `checklist_jornada` (`id`, `usuario_id`, `etapa_atual`, `atualizado_em`) VALUES
-(1, 5, 'autonomia', '2026-10-19 00:12:33');
+(1, 5, 'familia_cuidador', '2026-10-27 20:27:35');
 
 -- --------------------------------------------------------
 
@@ -669,7 +669,7 @@ ALTER TABLE `atividades_padrao`
 -- AUTO_INCREMENT de tabela `checklist_jornada`
 --
 ALTER TABLE `checklist_jornada`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `checklist_tarefas`
