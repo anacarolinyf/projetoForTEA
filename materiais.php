@@ -1,306 +1,395 @@
-<?php include 'includes/header.php';?>
+
+<?php include 'includes/header.php'; ?>
 
 <link rel="stylesheet" href="css/material.css">
 
 <main class="materiais-page">
 
-    <!-- INTRODUÇÃO -->
+    <!-- CABEÇALHO -->
     <section class="materiais-intro">
         <div class="materiais-container">
+
             <span class="materiais-tag">
-                MATERIAIS PEDAGÓGICOS
+                CENTRO DE RECURSOS
             </span>
 
-            <h1>
-                Aprender pode ser mais
-                <span>leve, visual e divertido</span>
-            </h1>
+            <h1>Materiais e recursos pedagógicos</h1>
 
             <p>
-                Encontre materiais pedagógicos pensados para apoiar
-                o desenvolvimento, a aprendizagem e a autonomia de
-                pessoas autistas em diferentes momentos da jornada.
+                Consulte nossa biblioteca de materiais educativos,
+                desenvolvidos para auxiliar no desenvolvimento,
+                na aprendizagem e na autonomia de pessoas autistas.
             </p>
+
         </div>
     </section>
 
-    <!-- CATEGORIAS -->
-    <section class="materiais-categorias">
+    <!-- ÁREA PRINCIPAL -->
+    <section class="materiais-area">
+
         <div class="materiais-container">
-            <div class="categorias-titulo">
-                <h2>
-                    Encontre o material ideal
-                </h2>
 
-                <p>
-                    Explore nossas categorias de atividades e recursos.
-                </p>
-            </div>
+            <div class="materiais-layout">
 
-            <div class="categorias-grid">
-                <button class="categoria-card categoria-rotina">
-                    <div>
-                        <h3>Rotina</h3>
-                        <p>
-                        Recursos visuais para organizar o dia a dia, estabelecer previsibilidade e facilitar as transições diárias.
-                        </p>
+                <!-- MENU LATERAL -->
+                <aside class="materiais-sidebar">
+
+                    <h3 class="sidebar-titulo">
+                        Categorias
+                    </h3>
+
+                    <div class="categorias-menu">
+
+                        <button class="categoria-link ativo"
+                                onclick="filtrarMateriais('TODOS', this)">
+                            Todos os materiais
+                        </button>
+
+                        <button class="categoria-link"
+                                onclick="filtrarMateriais('ROTINA', this)">
+                            Rotina
+                        </button>
+
+                        <button class="categoria-link"
+                                onclick="filtrarMateriais('EMOÇÕES', this)">
+                            Emoções
+                        </button>
+
+                        <button class="categoria-link"
+                                onclick="filtrarMateriais('CUIDADOS', this)">
+                            Cuidados
+                        </button>
+
+                        <button class="categoria-link"
+                                onclick="filtrarMateriais('VIDA ADULTA', this)">
+                            Vida adulta
+                        </button>
+
                     </div>
-                </button>
 
-                <button class="categoria-card categoria-comunicacao">
-                    <div>
-                        <h3>Emoções</h3>
+                </aside>
+
+                <!-- CONTEÚDO -->
+                <div class="materiais-conteudo-principal">
+
+                    <div class="materiais-topo">
+
+                        <h2>Biblioteca de materiais</h2>
+
                         <p>
-                        Ferramentas adaptadas para ajudar no reconhecimento, expressão e autorregulação dos sentimentos.
+                            Selecione um recurso para consultar
+                            o conteúdo completo.
                         </p>
-                    </div>
-                </button>
 
-                <button class="categoria-card categoria-emocoes">
-                    <div>
-                        <h3>Cuidados</h3>
+                    </div>
+
+                    <!-- CONTADOR -->
+                    <div class="materiais-resultados">
+
+                        <span>Recursos disponíveis</span>
+
+                        <strong id="contadorMateriais">6 materiais</strong>
+
+                    </div>
+
+                    <!-- LISTA DE MATERIAIS -->
+                    <div class="materiais-lista" id="listaMateriais">
+
+                        <!-- MATERIAL 1 -->
+                        <article class="material-item"
+                                 data-categoria="ROTINA">
+
+                            <div class="material-indicador"></div>
+
+                            <div class="material-item-conteudo">
+
+                                <span class="material-item-categoria">
+                                    ROTINA
+                                </span>
+
+                                <h3>Melhora da Alimentação</h3>
+
+                                <p>
+                                    Recursos visuais e estratégias práticas
+                                    para auxiliar na introdução alimentar,
+                                    aceitação de novos alimentos e organização
+                                    das refeições no dia a dia.
+                                </p>
+
+                                <div class="material-detalhes">
+                                    <span>Pais e educadores</span>
+                                    <span>Documento PDF</span>
+                                </div>
+
+                            </div>
+
+                            <div class="material-acesso">
+                                <a href="pdfs/Alimentação.pdf"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Consultar material
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <!-- MATERIAL 2 -->
+                        <article class="material-item"
+                                 data-categoria="EMOÇÕES">
+
+                            <div class="material-indicador"></div>
+
+                            <div class="material-item-conteudo">
+
+                                <span class="material-item-categoria">
+                                    EMOÇÕES
+                                </span>
+
+                                <h3>Comportamentos agressivos?</h3>
+
+                                <p>
+                                    Ferramentas visuais para auxiliar
+                                    na identificação de possíveis gatilhos,
+                                    compreensão das emoções intensas e
+                                    desenvolvimento de estratégias
+                                    de autorregulação.
+                                </p>
+
+                                <div class="material-detalhes">
+                                    <span>Crianças</span>
+                                    <span>Documento PDF</span>
+                                </div>
+
+                            </div>
+
+                            <div class="material-acesso">
+                                <a href="pdfs/Comportamento agressivos.pdf"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Consultar material
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <!-- MATERIAL 3 -->
+                        <article class="material-item"
+                                 data-categoria="CUIDADOS">
+
+                            <div class="material-indicador"></div>
+
+                            <div class="material-item-conteudo">
+
+                                <span class="material-item-categoria">
+                                    CUIDADOS
+                                </span>
+
+                                <h3>Corte de Cabelo</h3>
+
+                                <p>
+                                    História social e sequenciamento
+                                    ilustrado para preparar a criança
+                                    antes e durante a visita
+                                    ao cabeleireiro.
+                                </p>
+
+                                <div class="material-detalhes">
+                                    <span>Crianças</span>
+                                    <span>Documento PDF</span>
+                                </div>
+
+                            </div>
+
+                            <div class="material-acesso">
+                                <a href="pdfs/Corte de cabelo.pdf"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Consultar material
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <!-- MATERIAL 4 -->
+                        <article class="material-item"
+                                 data-categoria="CUIDADOS">
+
+                            <div class="material-indicador"></div>
+
+                            <div class="material-item-conteudo">
+
+                                <span class="material-item-categoria">
+                                    CUIDADOS
+                                </span>
+
+                                <h3>Higiene Bucal</h3>
+
+                                <p>
+                                    Guia ilustrado com orientações
+                                    para desenvolver hábitos de higiene
+                                    bucal, estimular a autonomia e
+                                    facilitar a escovação diária.
+                                </p>
+
+                                <div class="material-detalhes">
+                                    <span>Crianças</span>
+                                    <span>Documento PDF</span>
+                                </div>
+
+                            </div>
+
+                            <div class="material-acesso">
+                                <a href="pdfs/Higiene Bucal.pdf"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Consultar material
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <!-- MATERIAL 5 -->
+                        <article class="material-item"
+                                 data-categoria="VIDA ADULTA">
+
+                            <div class="material-indicador"></div>
+
+                            <div class="material-item-conteudo">
+
+                                <span class="material-item-categoria">
+                                    VIDA ADULTA
+                                </span>
+
+                                <h3>Transição para a vida adulta</h3>
+
+                                <p>
+                                    Materiais voltados ao desenvolvimento
+                                    da autonomia, independência pessoal,
+                                    organização da rotina e habilidades
+                                    essenciais para o cotidiano.
+                                </p>
+
+                                <div class="material-detalhes">
+                                    <span>Público em transição</span>
+                                    <span>Documento PDF</span>
+                                </div>
+
+                            </div>
+
+                            <div class="material-acesso">
+                                <a href="pdfs/Vida Adulta.pdf"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Consultar material
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <!-- MATERIAL 6 -->
+                        <article class="material-item"
+                                 data-categoria="ROTINA">
+
+                            <div class="material-indicador"></div>
+
+                            <div class="material-item-conteudo">
+
+                                <span class="material-item-categoria">
+                                    ROTINA
+                                </span>
+
+                                <h3>Desafios com o sono?</h3>
+
+                                <p>
+                                    Atividades e rotinas visuais
+                                    estruturadas para organizar o
+                                    momento de descanso e favorecer
+                                    hábitos de sono mais regulares.
+                                </p>
+
+                                <div class="material-detalhes">
+                                    <span>Crianças</span>
+                                    <span>Documento PDF</span>
+                                </div>
+
+                            </div>
+
+                            <div class="material-acesso">
+                                <a href="pdfs/Melhorar o sono da criança.pdf"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Consultar material
+                                </a>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- NENHUM RESULTADO -->
+                    <div class="material-vazio" id="materialVazio">
+
+                        <h3>Nenhum material encontrado</h3>
+
                         <p>
-                        Atividades estruturadas para auxiliar na higiene, autonomia pessoal e hábitos do dia a dia.
+                            Não existem materiais cadastrados
+                            nesta categoria.
                         </p>
+
                     </div>
-                </button>
 
-                <button class="categoria-card categoria-aprendizado">
-                    <div>
-                        <h3>Vida Adulta</h3>
-                        <p>
-                        Materiais focados no desenvolvimento da independência, habilidades sociais e vida comunitária.
-                        </p>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- LISTA DE MATERIAIS -->
-    <section class="materiais-lista">
-        <div class="materiais-container">
-            <div class="lista-cabecalho">
-                <div>
-                    <span class="materiais-tag">
-                        RECURSOS
-                    </span>
-
-                    <h2>
-                        Materiais disponíveis
-                    </h2>
-
-                    <p>
-                        Escolha uma atividade para começar.
-                    </p>
                 </div>
-            </div>
-
-            <!-- MATERIAIS -->
-            <div class="materiais-grid">
-
-                <!-- MATERIAL 1 -->
-                <article class="material-card">
-                    <div class="material-imagem material-azul">
-                        <span class="material-tipo">
-                            ROTINA
-                        </span>
-                    </div>
-
-                    <div class="material-conteudo">
-                        <h3>
-                            Melhora da Alimentação
-                        </h3>
-
-                        <p>
-                           Recursos visuais e estratégias práticas para auxiliar na introdução alimentar, aceitação de novos alimentos e organização das refeições no dia a dia.
-                        </p>
-
-                        <div class="material-info">
-                            <span>
-                                Pais e educadores
-                            </span>
-
-                            <span>
-                                PDF
-                            </span>
-                        </div>
-
-                        <a href="pdfs/Alimentação.pdf" target="_blank" rel="noopener noreferrer" class="material-btn">
-                            Ver material
-                        </a>
-                    </div>
-                </article>
-
-                <!-- MATERIAL 2 -->
-                <article class="material-card">
-                    <div class="material-imagem material-verde">
-                        <span class="material-tipo">
-                            EMOÇÕES
-                        </span>
-                    </div>
-
-                    <div class="material-conteudo">
-                        <h3>
-                            Comportamentos agressivos?
-                        </h3>
-
-                        <p>
-                            Atividades e ferramentas visuais desenvolvidas para ajudar a identificar gatilhos, compreender emoções intensas e promover formas saudáveis de autorregulação.
-                        </p>
-
-                        <div class="material-info">
-                            <span>
-                                Crianças
-                            </span>
-
-                            <span>
-                                PDF
-                            </span>
-                        </div>
-
-                        <a href="pdfs/Comportamento agressivos.pdf" target="_blank" rel="noopener noreferrer" class="material-btn">
-                            Ver material
-                        </a>
-                    </div>
-                </article>
-
-                <!-- MATERIAL 3 -->
-                <article class="material-card">
-                    <div class="material-imagem material-roxo">
-                        <span class="material-tipo">
-                            CUIDADOS
-                        </span>
-                    </div>
-
-                    <div class="material-conteudo">
-                        <h3>
-                            Corte de Cabelo
-                        </h3>
-
-                        <p>
-                        História social e sequenciamento ilustrado para preparar, dessensibilizar e tranquilizar a criança antes e durante a visita ao cabeleireiro.
-                        </p>
-
-                        <div class="material-info">
-                            <span>
-                                Crianças
-                            </span>
-
-                            <span>
-                                PDF
-                            </span>
-                        </div>
-
-                        <a href="pdfs/Corte de cabelo.pdf" target="_blank" rel="noopener noreferrer" class="material-btn">
-                            Ver material
-                        </a>
-                    </div>
-                </article>
-
-                <!-- MATERIAL 4 -->
-                <article class="material-card">
-                    <div class="material-imagem material-amarelo">
-                        <span class="material-tipo">
-                            HIGIENE
-                        </span>
-                    </div>
-
-                    <div class="material-conteudo">
-                        <h3>
-                            Higiene Bucal
-                        </h3>
-
-                        <p>
-                            Guia passo a passo ilustrado para ensinar o uso da escova e do fio dental, promovendo a autonomia e transformando a escovação em um hábito leve.
-                        </p>
-
-                        <div class="material-info">
-                            <span>
-                                Crianças
-                            </span>
-
-                            <span>
-                                PDF
-                            </span>
-                        </div>
-
-                        <a href="pdfs/Higiene Bucal.pdf" target="_blank" rel="noopener noreferrer" class="material-btn">
-                            Ver material
-                        </a>
-                    </div>
-                </article>
-
-                <!-- MATERIAL 5 -->
-                <article class="material-card">
-                    <div class="material-imagem material-laranja">
-                        <span class="material-tipo">
-                            VIDA ADULTA
-                        </span>
-                    </div>
-
-                    <div class="material-conteudo">
-                        <h3>
-                            Transição para a vida adulta
-                        </h3>
-
-                        <p>
-                        Materiais focados no desenvolvimento da autonomia, independência pessoal, organização da rotina e aprendizado de habilidades essenciais para o cotidiano.
-                        </p>
-
-                        <div class="material-info">
-                            <span>
-                                Crianças
-                            </span>
-
-                            <span>
-                                PDF
-                            </span>
-                        </div>
-
-                        <a href="pdfs/Vida Adulta.pdf" target="_blank" rel="noopener noreferrer" class="material-btn">
-                            Ver material
-                        </a>
-                    </div>
-                </article>
-
-                <!-- MATERIAL 6 -->
-                <article class="material-card">
-                    <div class="material-imagem material-rosa">
-                        <span class="material-tipo">
-                            ROTINA
-                        </span>
-                    </div>
-
-                    <div class="material-conteudo">
-                        <h3>
-                            Desafios com o sono?
-                        </h3>
-
-                        <p>
-                        Atividades e rotinas visuais estruturadas para sinalizar a hora de descansar, diminuir a agitação noturna e favorecer um sono mais tranquilo.
-                        </p>
-
-                        <div class="material-info">
-                            <span>
-                                Crianças
-                            </span>
-
-                            <span>
-                                PDF
-                            </span>
-                        </div>
-
-                        <a href="pdfs/Melhorar o sono da criança.pdf" target="_blank" rel="noopener noreferrer" class="material-btn">
-                            Ver material
-                        </a>
-                    </div>
-                </article>
 
             </div>
+
         </div>
+
     </section>
 
 </main>
+
+<script>
+
+function filtrarMateriais(categoria, botao) {
+
+    const materiais = document.querySelectorAll('.material-item');
+
+    let quantidade = 0;
+
+    document.querySelectorAll('.categoria-link').forEach(item => {
+        item.classList.remove('ativo');
+    });
+
+    botao.classList.add('ativo');
+
+    materiais.forEach(material => {
+
+        const categoriaMaterial = material.dataset.categoria;
+
+        if (
+            categoria === 'TODOS' ||
+            categoriaMaterial === categoria
+        ) {
+
+            material.style.display = 'grid';
+            quantidade++;
+
+        } else {
+
+            material.style.display = 'none';
+
+        }
+
+    });
+
+    document.getElementById('contadorMateriais').textContent =
+        quantidade + (quantidade === 1 ? ' material' : ' materiais');
+
+    document.getElementById('materialVazio').style.display =
+        quantidade === 0 ? 'block' : 'none';
+
+}
+
+</script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

@@ -1,776 +1,375 @@
+
 /* ==========================================
-   PÁGINA DE RELATOS
+   CONFIGURAÇÃO GERAL
 ========================================== */
 
 .relatos-page {
-    background: #f5f9ff;
-    color: #244b8f;
+    background: #ffffff;
+    color: #29466f;
     font-family: Arial, sans-serif;
     overflow: hidden;
 }
 
 .relatos-container {
-    width: 90%;
-    max-width: 1150px;
+    width: 94%;
+    max-width: 1450px;
     margin: 0 auto;
 }
 
 
 /* ==========================================
-   INTRODUÇÃO
+   CABEÇALHO
 ========================================== */
 
-
-
-/* círculos decorativos */
-
-.relatos-intro::before {
-    content: "";
-    position: absolute;
-
-    width: 120px;
-    height: 120px;
-
-    border-radius: 50%;
-
-    background: rgba(71, 119, 224, 0.08);
-
-    left: 5%;
-    top: 40px;
-}
-
-.relatos-intro::after {
-    content: "";
-    position: absolute;
-
-    width: 80px;
-    height: 80px;
-
-    border-radius: 50%;
-
-    background: rgba(255, 196, 67, 0.13);
-
-    right: 8%;
-    bottom: 30px;
-}
-
-
-/* etiqueta */
-
-.relatos-tag {
-    display: inline-block;
-
-    padding: 7px 15px;
-
-    border-radius: 30px;
-
-    background: #e3edff;
-
-    color: #3267d6;
-
-    font-size: 12px;
-    font-weight: bold;
-
-    letter-spacing: 1.5px;
-
-    margin-bottom: 16px;
-}
-
-
-/* título */
-
-.relatos-intro h1 {
+.relatos-hero {
     position: relative;
-    z-index: 2;
-
-    max-width: 800px;
-
-    margin: 0 auto 20px;
-
-    font-size: 44px;
-    line-height: 1.18;
-
-    color: #244f9e;
-}
-
-.relatos-intro h1 span {
-    color: #3972e8;
-}
-
-
-/* texto */
-
-.relatos-intro p {
-    position: relative;
-    z-index: 2;
-
-    max-width: 720px;
-
-    margin: 0 auto;
-
-    color: #526b8c;
-
-    font-size: 17px;
-    line-height: 1.8;
-}
-
-
-/* ==========================================
-   DESTAQUE
-========================================== */
-
-.relatos-destaque {
-    position: relative;
-
-    padding: 35px 0 70px;
-
-    background: #f5f9ff;
-}
-
-
-.destaque-box {
-    position: relative;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #f1f6ff
-        );
-
-    border-radius: 25px;
-
-    padding: 45px 55px;
-
-    box-shadow:
-        0 12px 35px rgba(39, 78, 140, 0.10);
-
-    border: 1px solid #dce8fa;
-
-    overflow: hidden;
-}
-
-
-/* detalhe colorido */
-
-.destaque-box::before {
-    content: "";
-
-    position: absolute;
-
-    width: 180px;
-    height: 180px;
-
-    border-radius: 50%;
-
-    background: #e5edff;
-
-    right: -70px;
-    top: -80px;
-}
-
-.destaque-box::after {
-    content: "";
-
-    position: absolute;
-
-    width: 100px;
-    height: 100px;
-
-    border-radius: 50%;
-
-    background: #fff1c9;
-
-    left: -40px;
-    bottom: -45px;
-}
-
-
-.destaque-texto {
-    position: relative;
-    z-index: 2;
-
-    max-width: 850px;
-
-    margin: 0 auto;
-
+    padding: 105px 0 90px;
     text-align: center;
-}
-
-
-/* coração */
-
-.destaque-icon {
-    width: 55px;
-    height: 55px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin: 0 auto 18px;
-
-    border-radius: 50%;
 
     background:
+        radial-gradient(
+            circle at 12% 20%,
+            rgba(76, 125, 220, 0.13),
+            transparent 25%
+        ),
         linear-gradient(
             135deg,
-            #dfe7ff,
-            #eef2ff
-        );
-
-    color: #4164c4;
-
-    font-size: 27px;
-
-    box-shadow:
-        0 7px 18px rgba(65, 100, 196, 0.12);
-
-    transition: 0.3s ease;
-}
-
-.destaque-box:hover .destaque-icon {
-    transform: scale(1.1) rotate(-5deg);
-}
-
-
-/* título */
-
-.destaque-texto h2 {
-    margin-bottom: 13px;
-
-    font-size: 28px;
-
-    color: #244f9e;
-}
-
-
-/* texto */
-
-.destaque-texto p {
-    margin: 0;
-
-    color: #61728c;
-
-    line-height: 1.8;
-
-    font-size: 16px;
-}
-
-
-/* ==========================================
-   LISTA DE RELATOS
-========================================== */
-
-.relatos-lista {
-    position: relative;
-
-    padding: 35px 0 90px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #f5f9ff 0%,
-            #ffffff 100%
+            #edf4ff,
+            #f8faff
         );
 }
 
-
-.secao-titulo {
-    margin-bottom: 40px;
-}
-
-
-.secao-titulo h2 {
-    position: relative;
-
-    display: inline-block;
-
-    margin: 0 0 12px;
-
-    color: #244f9e;
-
-    font-size: 31px;
-}
-
-
-/* linha abaixo do título */
-
-.secao-titulo h2::after {
+.relatos-hero::before {
     content: "";
-
-    display: block;
-
-    width: 55px;
-    height: 4px;
-
-    margin-top: 10px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #3267e8,
-            #79a3f5
-        );
-}
-
-
-.secao-titulo p {
-    margin: 0;
-
-    color: #64748b;
-
-    font-size: 16px;
-}
-
-
-/* ==========================================
-   GRID
-========================================== */
-
-.relatos-grid {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 27px;
-}
-
-
-/* ==========================================
-   CARDS
-========================================== */
-
-.relato-card {
-    position: relative;
-
-    background: #ffffff;
-
-    border-radius: 20px;
-
-    padding: 27px;
-
-    border: 1px solid #e1eaf7;
-
-    box-shadow:
-        0 7px 22px rgba(36, 75, 143, 0.07);
-
-    overflow: hidden;
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        border-color 0.3s ease;
-}
-
-
-/* faixa colorida */
-
-.relato-card::before {
-    content: "";
-
     position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 100%;
-    height: 5px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #3267e8,
-            #8db0f8
-        );
-}
-
-
-/* cores diferentes nos cards */
-
-.relato-card:nth-child(2)::before {
-    background:
-        linear-gradient(
-            90deg,
-            #4caf63,
-            #91d79e
-        );
-}
-
-.relato-card:nth-child(3)::before {
-    background:
-        linear-gradient(
-            90deg,
-            #8b5cf6,
-            #b79af8
-        );
-}
-
-.relato-card:nth-child(4)::before {
-    background:
-        linear-gradient(
-            90deg,
-            #f4ad32,
-            #ffd77d
-        );
-}
-
-.relato-card:nth-child(5)::before {
-    background:
-        linear-gradient(
-            90deg,
-            #e76f9b,
-            #f5a9c3
-        );
-}
-
-.relato-card:nth-child(6)::before {
-    background:
-        linear-gradient(
-            90deg,
-            #2da9a0,
-            #83d7d0
-        );
-}
-
-
-/* hover */
-
-.relato-card:hover {
-    transform: translateY(-9px);
-
-    box-shadow:
-        0 18px 40px rgba(36, 75, 143, 0.13);
-
-    border-color: #cbdcf5;
-}
-
-
-/* ==========================================
-   TOPO DO CARD
-========================================== */
-
-.relato-topo {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    margin-bottom: 22px;
-}
-
-
-.relato-avatar {
-    width: 50px;
-    height: 50px;
-
-    flex-shrink: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    width: 190px;
+    height: 190px;
     border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e1ebff,
-            #f0f5ff
-        );
-
-    color: #3267d6;
-
-    font-size: 18px;
-    font-weight: bold;
-
-    border: 2px solid #d6e3f8;
-
-    transition: 0.3s ease;
+    background: rgba(66, 116, 213, 0.06);
+    top: 30px;
+    left: -65px;
 }
 
-
-.relato-card:hover .relato-avatar {
-    transform: scale(1.08);
-}
-
-
-.relato-topo h3 {
-    margin: 0 0 5px;
-
-    color: #244f9e;
-
-    font-size: 17px;
-}
-
-
-.relato-topo span {
-    color: #7889a2;
-
-    font-size: 13px;
-}
-
-
-/* ==========================================
-   CONTEÚDO DO RELATO
-========================================== */
-
-.relato-conteudo {
-    position: relative;
-}
-
-
-.aspas {
-    display: block;
-
-    height: 25px;
-
-    color: #4b7fea;
-
-    font-size: 48px;
-
-    line-height: 30px;
-
-    font-family: Georgia, serif;
-
-    opacity: 0.7;
-}
-
-
-.relato-conteudo p {
-    margin: 8px 0 20px;
-
-    color: #52647e;
-
-    font-size: 15px;
-
-    line-height: 1.75;
-}
-
-
-/* ==========================================
-   RODAPÉ DO CARD
-========================================== */
-
-.relato-data {
-    padding-top: 15px;
-
-    border-top: 1px solid #edf1f7;
-
-    color: #8a99ad;
-
-    font-size: 12px;
-}
-
-
-/* ==========================================
-   BOTÃO
-========================================== */
-
-.relatos-botao {
-    display: flex;
-
-    justify-content: center;
-
-    margin-top: 48px;
-}
-
-
-.relatos-botao button {
-    position: relative;
-
-    padding: 14px 30px;
-
-    border: 2px solid #3267e8;
-
-    border-radius: 10px;
-
-    background: #ffffff;
-
-    color: #3267e8;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 5px 15px rgba(50, 103, 232, 0.08);
-
-    transition: 0.3s ease;
-}
-
-
-.relatos-botao button:hover {
-    background:
-        linear-gradient(
-            135deg,
-            #3267e8,
-            #4d7ff0
-        );
-
-    color: #ffffff;
-
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 10px 22px rgba(50, 103, 232, 0.25);
-}
-
-
-/* ==========================================
-   COMPARTILHAR RELATO
-========================================== */
-
-.compartilhe-relato {
-    position: relative;
-
-    padding: 0 0 90px;
-
-    background: #ffffff;
-}
-
-
-.compartilhe-box {
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 40px;
-
-    padding: 45px 50px;
-
-    border-radius: 25px;
-
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            120deg,
-            #e5efff,
-            #f1f6ff
-        );
-
-    border: 1px solid #d7e5fa;
-
-    box-shadow:
-        0 10px 30px rgba(39, 78, 140, 0.08);
-}
-
-
-/* decoração */
-
-.compartilhe-box::before {
+.relatos-hero::after {
     content: "";
-
     position: absolute;
-
-    width: 180px;
-    height: 180px;
-
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.5);
-
-    right: -70px;
-    top: -80px;
+    background: rgba(244, 190, 78, 0.12);
+    bottom: 15px;
+    right: 8%;
 }
 
-
-.compartilhe-box::after {
-    content: "♡";
-
-    position: absolute;
-
-    right: 120px;
-    bottom: -35px;
-
-    font-size: 130px;
-
-    color: rgba(50, 103, 232, 0.06);
-}
-
-
-.compartilhe-box > div {
+.relatos-hero .relatos-container {
     position: relative;
     z-index: 2;
 }
 
+.hero-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background: #e1ebff;
+    color: #3568c8;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
 
-.compartilhe-box h2 {
-    margin: 5px 0 12px;
+.relatos-hero h1 {
+    max-width: 950px;
+    margin: 25px auto 20px;
+    color: #244b87;
+    font-size: clamp(38px, 4.5vw, 58px);
+    line-height: 1.18;
+}
 
-    color: #244f9e;
+.relatos-hero h1 span {
+    display: block;
+    color: #4778d4;
+}
 
-    font-size: 28px;
+.relatos-hero p {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #657895;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.hero-linha {
+    width: 65px;
+    height: 4px;
+    margin: 30px auto 18px;
+    border-radius: 10px;
+    background: #e5b94f;
+}
+
+.hero-legenda {
+    color: #8291a8;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 
-.compartilhe-box p {
-    max-width: 650px;
+/* ==========================================
+   HISTÓRIA EM DESTAQUE
+========================================== */
 
+.historia-destaque {
+    padding: 85px 0;
+    background: #ffffff;
+}
+
+.destaque-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 65px;
+}
+
+.destaque-imagem {
+    position: relative;
+    height: 450px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #e5edf8;
+}
+
+.destaque-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.imagem-legenda {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background: rgba(30, 60, 105, 0.88);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.destaque-conteudo {
+    padding: 15px 0;
+}
+
+.materia-categoria {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #4778d4;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.4px;
+}
+
+.destaque-conteudo h2 {
+    margin: 0 0 20px;
+    color: #244b87;
+    font-size: 36px;
+    line-height: 1.3;
+}
+
+.destaque-resumo {
+    padding-left: 18px;
+    border-left: 3px solid #e6bd59;
+    color: #506987 !important;
+    font-size: 17px !important;
+    font-weight: bold;
+}
+
+.destaque-conteudo p {
+    color: #6a7c94;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 17px;
+}
+
+.materia-assinatura {
+    display: inline-block;
+    margin-top: 15px;
+    color: #8998ad;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+/* ==========================================
+   CABEÇALHO DAS MATÉRIAS
+========================================== */
+
+.relatos-materias {
+    padding: 90px 0 100px;
+    background: #f4f7fc;
+}
+
+.materias-cabecalho {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 55px;
+}
+
+.materias-cabecalho h2 {
+    margin: 18px 0 12px;
+    color: #244b87;
+    font-size: 36px;
+}
+
+.materias-cabecalho p {
     margin: 0;
-
-    color: #5c718f;
-
+    color: #71819a;
+    font-size: 16px;
     line-height: 1.7;
 }
 
-
-/* ==========================================
-   BOTÃO COMPARTILHAR
-========================================== */
-
-.btn-compartilhar {
-    position: relative;
-    z-index: 2;
-
-    flex-shrink: 0;
-
-    padding: 15px 26px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #3267e8,
-            #4d7ff0
-        );
-
-    color: #ffffff;
-
-    text-decoration: none;
-
+.materias-numero {
+    color: #9aabc3;
+    font-size: 13px;
     font-weight: bold;
-
-    box-shadow:
-        0 8px 18px rgba(50, 103, 232, 0.22);
-
-    transition: 0.3s ease;
+    letter-spacing: 2px;
+    white-space: nowrap;
 }
 
 
-.btn-compartilhar:hover {
-    transform: translateY(-3px);
+/* ==========================================
+   LISTA EDITORIAL
+========================================== */
 
-    background:
-        linear-gradient(
-            135deg,
-            #2859d0,
-            #3267e8
-        );
+.materias-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
 
-    box-shadow:
-        0 12px 25px rgba(50, 103, 232, 0.3);
+.materia-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 65px 1fr 340px;
+    align-items: center;
+    gap: 35px;
+    padding: 40px;
+    background: #ffffff;
+    border: 1px solid #e4eaf3;
+    border-radius: 15px;
+    transition: 0.3s ease;
+}
+
+.materia-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(36, 75, 135, 0.09);
+}
+
+.materia-numero {
+    align-self: flex-start;
+    padding-top: 5px;
+    color: #b4c5df;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.materia-texto {
+    padding: 5px 0;
+}
+
+.materia-texto h3 {
+    margin: 0 0 15px;
+    color: #244b87;
+    font-size: 25px;
+    line-height: 1.35;
+}
+
+.materia-subtitulo {
+    color: #4f6d94 !important;
+    font-size: 16px !important;
+    font-weight: bold;
+    line-height: 1.7 !important;
+}
+
+.materia-texto p {
+    color: #718098;
+    font-size: 15px;
+    line-height: 1.8;
+    margin: 0 0 14px;
+}
+
+.materia-rodape {
+    display: inline-block;
+    margin-top: 10px;
+    padding-top: 13px;
+    border-top: 1px solid #e9edf4;
+    color: #91a0b4;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.materia-foto {
+    height: 280px;
+    border-radius: 11px;
+    overflow: hidden;
+    background: #e5edf8;
+}
+
+.materia-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: 0.4s ease;
+}
+
+.materia-item:hover .materia-foto img {
+    transform: scale(1.04);
+}
+
+
+/* ==========================================
+   ENCERRAMENTO
+========================================== */
+
+.relatos-final {
+    padding: 85px 0;
+    background: #ffffff;
+}
+
+.final-conteudo {
+    max-width: 950px;
+    margin: auto;
+    padding: 55px 35px;
+    text-align: center;
+    border-radius: 18px;
+    background: linear-gradient(
+        135deg,
+        #edf4ff,
+        #f7f9ff
+    );
+    border: 1px solid #e0e9f7;
+}
+
+.final-conteudo h2 {
+    margin: 22px 0 15px;
+    color: #244b87;
+    font-size: 34px;
+    line-height: 1.35;
+}
+
+.final-conteudo p {
+    max-width: 750px;
+    margin: auto;
+    color: #687b95;
+    font-size: 16px;
+    line-height: 1.9;
 }
 
 
@@ -780,59 +379,114 @@
 
 @media (max-width: 1000px) {
 
-    .relatos-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .destaque-layout {
+        gap: 35px;
     }
 
-    .relatos-intro h1 {
-        font-size: 38px;
+    .destaque-imagem {
+        height: 380px;
     }
 
-    .compartilhe-box {
-        flex-direction: column;
-
-        align-items: flex-start;
+    .materia-item {
+        grid-template-columns: 45px 1fr 260px;
+        gap: 22px;
+        padding: 28px;
     }
+
+    .materia-foto {
+        height: 250px;
+    }
+
+    .materia-texto h3 {
+        font-size: 21px;
+    }
+
 }
 
+@media (max-width: 700px) {
 
-@media (max-width: 600px) {
-
-    .relatos-intro {
-        padding: 60px 0 45px;
+    .relatos-container {
+        width: 91%;
     }
 
-    .relatos-intro h1 {
-        font-size: 30px;
+    .relatos-hero {
+        padding: 75px 0 65px;
     }
 
-    .relatos-intro p {
+    .relatos-hero h1 {
+        font-size: 35px;
+    }
+
+    .relatos-hero p {
         font-size: 15px;
     }
 
-    .destaque-box {
-        padding: 32px 25px;
+    .historia-destaque {
+        padding: 55px 0;
     }
 
-    .relatos-grid {
+    .destaque-layout {
         grid-template-columns: 1fr;
+        gap: 30px;
     }
 
-    .secao-titulo h2 {
-        font-size: 25px;
+    .destaque-imagem {
+        height: 280px;
     }
 
-    .compartilhe-box {
-        padding: 32px 25px;
+    .destaque-conteudo h2 {
+        font-size: 29px;
     }
 
-    .compartilhe-box h2 {
-        font-size: 24px;
+    .relatos-materias {
+        padding: 65px 0;
     }
 
-    .btn-compartilhar {
-        width: 100%;
-
-        text-align: center;
+    .materias-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 35px;
     }
+
+    .materias-cabecalho h2 {
+        font-size: 29px;
+    }
+
+    .materia-item {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 25px;
+    }
+
+    .materia-numero {
+        font-size: 19px;
+    }
+
+    .materia-texto h3 {
+        font-size: 23px;
+    }
+
+    .materia-foto {
+        order: -1;
+        height: 230px;
+    }
+
+    .materia-numero {
+        order: -2;
+    }
+
+    .final-conteudo {
+        padding: 40px 23px;
+    }
+
+    .final-conteudo h2 {
+        font-size: 27px;
+    }
+
+    .final-conteudo p {
+        font-size: 15px;
+    }
+
 }
