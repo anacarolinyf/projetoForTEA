@@ -53,7 +53,7 @@ $entrada = isset($_GET["entrada"]) && $_GET["entrada"] === "1";
                 O ForTEA nasceu da necessidade de reunir em um único lugar informações confiáveis sobre o Transtorno do Espectro Autista. 
                 Nosso objetivo é oferecer orientação, apoio e recursos para famílias, educadores e pessoas com TEA, promovendo inclusão, conhecimento, qualidade de vida e uma comunicação mais acolhedora sobre o autismo.
             </p>
-            <a href="projeto.php" class="btn-secundario-alt">Conheça o projeto</a>
+            <a href="projeto.php" class="btn-secundario">Conheça o projeto</a>
         </div>
         <div class="icone">
             <i class="fa-solid fa-heart"></i>
