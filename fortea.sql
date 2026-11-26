@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/10/2026 às 21:30
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Tempo de geração: 26/11/2026 às 06:01
+-- Versão do servidor: 10.11.19-MariaDB
+-- Versão do PHP: 8.5.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -314,7 +314,9 @@ INSERT INTO `preferencias_usuario` (`id`, `usuario_id`, `modo_escuro`, `reduzir_
 (0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-22 03:15:14'),
 (0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-22 03:20:11'),
 (0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-22 03:44:55'),
-(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-23 21:56:29');
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-10-23 21:56:29'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-11-26 04:15:44'),
+(0, 7, 0, 0, 'normal', 'nenhum', 1, 1, 1, 0, '2026-11-26 04:23:26');
 
 -- --------------------------------------------------------
 
@@ -343,12 +345,16 @@ CREATE TABLE `profissionais` (
 --
 
 INSERT INTO `profissionais` (`id`, `nome`, `especialidade`, `descricao`, `telefone`, `whatsapp`, `foto`, `ativo`, `endereco`, `site`, `convenios`, `atendimento`, `valor_consulta`) VALUES
-(1, 'Dr. Alexandre Nascimento Harada', 'Neurologista Pediátrico', '', '(11) 97242-2735', '', 'uploads/profissionais/alexandre-nascimento.png', 1, 'Rua Bacaetava 191, sala 1403, Vila Gertrudes, São Paulo 04705-010', '', NULL, NULL, NULL),
-(2, 'Dr. Jorio Almino de Alencar Arrais Mota', 'Neurologista pediátrico', NULL, '(11) 4949-9578', NULL, 'uploads/profissionais/jonio-alencar.jpeg', 1, 'Avenida Industrial, 1680, Campestre, Santo André, SP 09080-501', 'https://jorioneuro.com/', NULL, NULL, 'R$740,00'),
-(3, 'Dr. Luiz Celso Pereira Vilanova', 'Neurologista', '', '(11) 3078-9515', '', 'uploads/profissionais/luiz-vilanova.jpg', 1, 'Rua Jesuíno Arruda 676 cj 124, Itaim Bibi, São Paulo 04532-082', '', NULL, NULL, NULL),
-(4, 'Dra. Gabriella Oliveira', 'Neurologista Pediátrica', '', '(11) 98813-4034', '', 'uploads/profissionais/gabriella-oliveira.png', 1, 'Avenida Água Fria 415, Santana, São Paulo 02333-000', '', NULL, NULL, NULL),
-(6, 'Dr. Tarcizio Brito', 'Neurologista pediátrico', NULL, '(11) 5468-0166', NULL, NULL, 1, 'Rua Augusta, 101 - Cj 212 - 2º Andar, Consolação, São Paulo 01305-000', NULL, NULL, 'Presencial e online', 'R$800'),
-(7, 'Dr. Luciano Pontes', 'Neurologista Pediátrico', NULL, '(16) 4009-7349', NULL, NULL, 1, 'R. Itapeva 518, Sala 1301, Bela Vista, São Paulo 01332-000', NULL, NULL, 'Presencial e Online', 'R$750,00');
+(1, 'Dr. Alexandre Nascimento Harada', 'Neurologista Pediátrico', NULL, NULL, '(11) 97242-2735', 'uploads/profissionais/alexandre-nascimento.png', 1, 'Rua Bacaetava 191, sala 1403, Vila Gertrudes, São Paulo 04705-010', NULL, NULL, NULL, NULL),
+(2, 'Dr. Jorio Almino de Alencar Arrais Mota', 'Neurologista pediátrico', NULL, NULL, '(11) 4949-9578', 'uploads/profissionais/jonio-alencar.jpeg', 1, 'Avenida Industrial, 1680, Campestre, Santo André, SP 09080-501', 'https://jorioneuro.com/', NULL, NULL, 'R$740,00'),
+(3, 'Dr. Luiz Celso Pereira Vilanova', 'Neurologista', NULL, NULL, '(11) 3078-9515', 'uploads/profissionais/luiz-vilanova.jpg', 1, 'Rua Jesuíno Arruda 676 cj 124, Itaim Bibi, São Paulo 04532-082', NULL, NULL, NULL, NULL),
+(4, 'Dra. Gabriella Oliveira', 'Neurologista Pediátrica', NULL, NULL, '(11) 98813-4034', 'uploads/profissionais/gabriella-oliveira.png', 1, 'Avenida Água Fria 415, Santana, São Paulo 02333-000', NULL, NULL, NULL, NULL),
+(6, 'Dr. Tarcizio Brito', 'Neurologista pediátrico', NULL, NULL, '(11) 5468-0166', 'uploads/profissionais/tarcizio-brito.png', 1, 'Rua Augusta, 101 - Cj 212 - 2º Andar, Consolação, São Paulo 01305-000', NULL, NULL, 'Presencial e online', 'R$800'),
+(7, 'Dr. Luciano Pontes', 'Neurologista Pediátrico', NULL, NULL, '(16) 4009-7349', 'uploads/profissionais/luciano-pontes.png', 1, 'R. Itapeva 518, Sala 1301, Bela Vista, São Paulo 01332-000', NULL, NULL, 'Presencial e Online', 'R$750,00'),
+(8, 'Dra. Camila Souza', 'Psiquiatra', NULL, NULL, '(11) 3336-7955', 'uploads/profissionais/camila-souza.png', 1, 'Avenida Paulista, 2064, Bela Vista, São Paulo 01310-200', NULL, 'Planos de saúde aceitos.', 'Presencial e Online', 'R$500,00'),
+(9, 'Dr. Miguel Ângelo Toledo', 'Psicólogo', NULL, NULL, '(11) 97406-4901', 'uploads/profissionais/miguel-angelo.png', 1, 'Av. Paulista, 2064, Itaim Bibi, São Paulo 01310-200', NULL, 'Planos de saúde aceitos.', 'Presencial e Online', NULL),
+(10, 'Dra. Bruna Eiko Peinado Nagano', 'Psiquiatra', NULL, NULL, '(11) 4349-6268', 'uploads/profissionais/bruna-eiko.png', 1, 'Rua Vilela 665, Tatuapé, São Paulo 08110-310', NULL, 'Planos de saúde aceitos.', 'Presencial e Online', 'R$650,00'),
+(11, 'Dra. Maria Ferreira Fassbender de Rezende', 'Psicóloga', NULL, NULL, '(27) 3441-0447', 'uploads/profissionais/maria-fassbender.png', 1, 'Rua dos Pinheiros 870, Pinheiros, São Paulo 05422-001', NULL, 'Planos de saúde aceitos.', 'Presencial e Online', 'R$350,00');
 
 -- --------------------------------------------------------
 
@@ -687,7 +693,7 @@ ALTER TABLE `contatos_profissionais`
 -- AUTO_INCREMENT de tabela `profissionais`
 --
 ALTER TABLE `profissionais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `recuperacao_senha`
