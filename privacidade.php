@@ -30,6 +30,11 @@ require_once "includes/header.php";
     <link rel="stylesheet"
           href="css/documentos.css?v=<?= @filemtime(__DIR__ . '/css/documentos.css') ?>">
 
+           <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
+
     <link rel="icon"
           type="image"
           href="img/logoo.png">

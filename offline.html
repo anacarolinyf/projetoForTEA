@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2454A6">
+<title>ForTEA · Sem conexão</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+         background: #f4f8ff; color: #475569; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; text-align: center; }
+  .caixa { max-width: 380px; }
+  .icone { width: 84px; height: 84px; margin: 0 auto 22px; border-radius: 26px; display: flex; align-items: center;
+           justify-content: center; font-size: 38px; background: linear-gradient(135deg, #2454A6, #4a7be0);
+           box-shadow: 0 12px 26px rgba(36, 84, 166, .28); }
+  h1 { color: #2454A6; font-size: 1.6rem; margin-bottom: 10px; }
+  p { line-height: 1.6; margin-bottom: 26px; }
+  button { border: 0; border-radius: 28px; padding: 14px 30px; background: #2454A6; color: #fff;
+           font-size: 1rem; font-weight: 700; cursor: pointer; }
+</style>
+</head>
+<body>
+  <div class="caixa">
+    <div class="icone" aria-hidden="true">📡</div>
+    <h1>Você está sem conexão</h1>
+    <p>Não foi possível carregar esta página. Confira sua internet e tente de novo. Suas informações continuam guardadas com segurança.</p>
+    <button onclick="location.reload()">Tentar novamente</button>
+  </div>
+</body>
+</html>

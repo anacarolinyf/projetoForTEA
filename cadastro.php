@@ -6,6 +6,10 @@ $sucesso = $_GET["sucesso"] ?? "";
 <div class="pagina-contaa">
 
     <link rel="stylesheet" href="css/style.css">
+     <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 
     <div class="container-conta">
 

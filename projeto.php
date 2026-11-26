@@ -1,6 +1,10 @@
 <?php include 'includes/header.php'; ?>
 
 <link rel="stylesheet" href="css/projeto.css">
+ <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 
 <main class="pagina-sobre">
 

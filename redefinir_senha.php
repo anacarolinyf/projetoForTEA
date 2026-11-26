@@ -450,6 +450,10 @@ $etapa = $_SESSION['etapa_recuperacao'] ?? $etapa ?? 'email';
     <title>Recuperar senha - ForTEA</title>
 
     <link rel="stylesheet" href="css/redefinir_senha.css">
+     <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 
     <link rel="icon" type="image/png" href="img/logoo.png">
 

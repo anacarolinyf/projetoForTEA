@@ -102,6 +102,10 @@ $categorias = [
 ?>
 
 <link rel="stylesheet" href="css/estilo.css">
+ <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 
 <main class="faq-page">
 

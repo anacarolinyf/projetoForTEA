@@ -21,6 +21,10 @@ if (file_exists(__DIR__ . '/conexao.php')) { include_once __DIR__ . '/conexao.ph
 include __DIR__ . '/header.php';
 ?>
 <link rel="stylesheet" href="css/rotina.css">
+ <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 <div class="rotina-pagina">
 <div class="rv-wrap">
   <p class="rv-semprint"><a href="rotina.php">← Minhas rotinas</a></p>

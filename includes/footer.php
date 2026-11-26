@@ -49,14 +49,4 @@
         <p>© 2026 ForTEA • Trabalho de Conclusão de Curso</p>
     </div>
 
-    <script>
-    const botaoMenu = document.getElementById('js-menu-toggle');
-    const listaLinks = document.querySelector('.menu ul');
-
-    if (botaoMenu && listaLinks) {
-        botaoMenu.addEventListener('click', () => {
-            listaLinks.classList.toggle('ativo');
-        });
-    }
-</script>
 </footer>

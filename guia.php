@@ -6,6 +6,10 @@ include __DIR__ . "/includes/header.php";
 ?>
 
 <link rel="stylesheet" href="css/estilo.css">
+ <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 
 <main>
 

@@ -159,6 +159,11 @@ require_once "includes/header.php";
     <link rel="stylesheet"
           href="css/perfil_extra.css?v=<?= @filemtime(__DIR__ . '/css/perfil_extra.css') ?>">
 
+           <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
+
     <link rel="icon"
           type="image"
           href="img/logoo.png">

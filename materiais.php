@@ -2,6 +2,10 @@
 <?php include 'includes/header.php'; ?>
 
 <link rel="stylesheet" href="css/material.css">
+ <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 
 <main class="materiais-page">
 

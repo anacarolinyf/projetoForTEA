@@ -435,6 +435,10 @@ if (
     <link rel="stylesheet" href="css/estilo.css">
     <link rel="stylesheet" href="css/perfil.css">
     <link rel="stylesheet" href="css/laterais.css">
+     <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 
     <link rel="icon"
           type="image"

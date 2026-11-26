@@ -1,6 +1,10 @@
 <div class="pagina-contaa">
 
     <link rel="stylesheet" href="css/style.css">
+     <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
     <linkrel="icon" type="image" href="img/logoo.png">
 
     <div class="container-conta">

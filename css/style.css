@@ -20,7 +20,8 @@ body {
    PÁGINA DE LOGIN / CADASTRO
 ================================ */
 
-.pagina-contaa {
+.pagina-conta,
+.pagina-contaa  {
     min-height: 100vh;
     display: flex;
     align-items: center;

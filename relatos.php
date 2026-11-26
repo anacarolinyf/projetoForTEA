@@ -2,6 +2,10 @@
 <?php include 'includes/header.php'; ?>
 
 <link rel="stylesheet" href="css/relatos.css">
+ <link
+        rel="stylesheet"
+        href="css/responsivo.css"
+    >
 
 <main class="relatos-page">
 

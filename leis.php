@@ -32,37 +32,281 @@ if (isset($_SESSION['usuario_id'])) {
 ?>
 
 <style>
+/* ===== Fundo e topo ===== */
+.secao-leis {
+    position: relative;
+    overflow: hidden;
+    padding-top: 60px;
+    background: linear-gradient(180deg, #e3eeff 0, #f4f8ff 460px);
+}
+
+.secao-leis::before,
+.secao-leis::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(40, 80, 165, .06);
+    pointer-events: none;
+}
+
+.secao-leis::before { width: 380px; height: 380px; top: -160px; left: -120px; }
+.secao-leis::after  { width: 260px; height: 260px; top: 40px; right: -90px; }
+
+.container-leis { position: relative; z-index: 1; }
+
+.leis-selo {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 18px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #2850a5, #4a7be0);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 12px 26px rgba(40, 80, 165, .28);
+    transform: rotate(-6deg);
+}
+
+.titulo-leis > span {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #fff;
+    font-size: 12px;
+    box-shadow: 0 2px 8px rgba(40, 80, 165, .1);
+}
+
+.titulo-leis h2 { font-size: 42px; letter-spacing: -.5px; }
+
+/* ===== Busca ===== */
+.leis-busca { position: relative; max-width: 460px; margin: 28px auto 0; }
+
+.leis-busca i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7b8fb0;
+}
+
+.leis-busca input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 52px;
+    padding: 0 20px 0 50px;
+    border: 1px solid #d5e1f3;
+    border-radius: 999px;
+    background: #fff;
+    font: inherit;
+    font-size: 15px;
+    color: #344f73;
+    outline: none;
+    box-shadow: 0 6px 18px rgba(40, 80, 165, .08);
+    transition: .2s ease;
+}
+
+.leis-busca input:focus {
+    border-color: #2850a5;
+    box-shadow: 0 0 0 4px rgba(40, 80, 165, .12);
+}
+
+.leis-contador { margin: 14px 0 0 !important; font-size: 13px !important; font-weight: 600; color: #6a7f9f !important; }
+
+.leis-vazio { display: none; text-align: center; padding: 40px 0; color: #61728b; }
+.leis-vazio i { display: block; font-size: 30px; color: #9db3d8; margin-bottom: 10px; }
+
+/* ===== Cards ===== */
+.cards-legislacao { gap: 20px; }
+
 .card-legislacao {
     position: relative;
     scroll-margin-top: 150px;
+    border-radius: 20px;
+    border: 1px solid #dbe6f6;
+    box-shadow: 0 4px 14px rgba(40, 80, 165, .06);
+    animation: leisEntrada .5s ease backwards;
 }
 
+.card-legislacao:nth-child(even) { animation-delay: .07s; }
+.card-legislacao[hidden] { display: none; }
+
+.card-legislacao::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #4a7be0, #2850a5);
+    opacity: 0;
+    transition: opacity .3s ease;
+    z-index: 1;
+}
+
+.card-legislacao:hover::before,
+.card-legislacao.aberto::before { opacity: 1; }
+
+.card-legislacao:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(40, 80, 165, .15);
+}
+
+.card-cabecalho {
+    min-height: 100px;
+    padding: 22px 100px 22px 24px;
+    background: transparent;
+}
+
+.card-icone {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #eaf2ff, #d3e3ff);
+}
+
+.card-legislacao.aberto .card-icone {
+    background: linear-gradient(135deg, #2850a5, #4a7be0);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(40, 80, 165, .25);
+}
+
+.card-titulo span {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #eef4ff;
+    color: #4a63a0;
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.card-titulo h3 { font-size: 18px; }
+
+/* seta (fica no canto, o clique passa para o botão) */
+.seta-card {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #eef4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    pointer-events: none;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+}
+
+.card-legislacao.aberto .seta-card {
+    transform: translateY(-50%) rotate(180deg);
+    background: #2850a5;
+    color: #fff;
+}
+
+/* coração de favoritar */
 .card-legislacao .btn-favorito {
     position: absolute;
-    top: 26px;               /* metade da altura do cabeçalho do card */
-    right: 52px;             /* fica ao lado da setinha */
+    top: 50px;
+    right: 62px;
     transform: translateY(-50%);
-
+    width: 34px;
+    height: 34px;
     border: none;
+    border-radius: 50%;
     background: transparent;
     cursor: pointer;
-
     color: #94a3b8;
     font-size: 1.05rem;
-    padding: 6px;
+    padding: 0;
     line-height: 1;
-
-    transition: 0.2s ease;
+    transition: .2s ease;
     z-index: 2;
 }
 
 .card-legislacao .btn-favorito:hover {
     color: #ef4444;
-    transform: translateY(-50%) scale(1.15);
+    background: #fff0f0;
+    transform: translateY(-50%) scale(1.1);
 }
 
-.card-legislacao .btn-favorito.ativo {
-    color: #ef4444;
+.card-legislacao .btn-favorito.ativo { color: #ef4444; }
+
+/* conteúdo aberto */
+.card-legislacao.aberto .card-detalhes {
+    max-height: 1000px;
+    margin: 0 24px;
+    padding: 20px 0 24px;
+    border-top: 1px dashed #cfdcf1;
+}
+
+.card-detalhes strong {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.card-detalhes ul { list-style: none; padding: 0; }
+
+.card-detalhes li { position: relative; padding-left: 30px; }
+
+.card-detalhes li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: #e3eeff;
+    color: #2850a5;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== Aviso ===== */
+.aviso-leis {
+    background: #fff;
+    border: 1px solid #cfe0f7;
+    border-left: 5px solid #2850a5;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(40, 80, 165, .06);
+}
+
+.aviso-leis i {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    margin-top: 0;
+    border-radius: 50%;
+    background: #e7f0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+
+@keyframes leisEntrada {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-legislacao { animation: none; }
+}
+
+body.reduzir-animacoes .card-legislacao { animation: none; transition: none; }
+
+@media (max-width: 600px) {
+    .secao-leis { padding-top: 40px; }
+    .titulo-leis h2 { font-size: 32px; }
+    .card-cabecalho { padding: 20px 92px 20px 18px; }
 }
 </style>
 
@@ -71,6 +315,7 @@ if (isset($_SESSION['usuario_id'])) {
     <div class="container-leis">
 
         <div class="titulo-leis">
+            <div class="leis-selo" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></div>
             <span>LEGISLAÇÃO</span>
 
             <h2>Conheça seus direitos</h2>
@@ -80,6 +325,13 @@ if (isset($_SESSION['usuario_id'])) {
                 aos direitos das pessoas com TEA. Clique em cada card para
                 conhecer mais detalhes.
             </p>
+
+            <div class="leis-busca">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" id="buscaLeis" placeholder="Buscar por nome ou número da lei" aria-label="Buscar leis">
+            </div>
+
+            <p class="leis-contador" id="contadorLeis" aria-live="polite"></p>
         </div>
 
 
@@ -644,6 +896,11 @@ if (isset($_SESSION['usuario_id'])) {
         </div>
 
 
+        <div class="leis-vazio" id="leisVazio">
+            <i class="fa-regular fa-face-frown-open" aria-hidden="true"></i>
+            Nenhuma lei encontrada. Tente outro nome ou número.
+        </div>
+
         <div class="aviso-leis">
 
             <i class="fa-solid fa-circle-info"></i>
@@ -745,6 +1002,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     });
+
+
+    /* ----- busca ----- */
+
+    const campo    = document.getElementById('buscaLeis');
+    const contador = document.getElementById('contadorLeis');
+    const vazio    = document.getElementById('leisVazio');
+    const total    = cards.length;
+
+    const normalizar = function (t) {
+        return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    };
+
+    function filtrar() {
+        const q = normalizar(campo.value.trim());
+        let achadas = 0;
+
+        cards.forEach(function (card) {
+            const ok = !q || normalizar(card.textContent).includes(q);
+            card.hidden = !ok;
+            if (ok) achadas++;
+        });
+
+        contador.textContent = q ? achadas + ' de ' + total + ' leis' : total + ' leis reunidas';
+        vazio.style.display = achadas ? 'none' : 'block';
+    }
+
+    campo.addEventListener('input', filtrar);
+    filtrar();
 
 
     /* ----- abre a lei indicada no link (vindo do perfil) ----- */

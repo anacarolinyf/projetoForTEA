@@ -1,0 +1,318 @@
+/* =========================================================
+   RESPONSIVO ForTEA
+   Carregue ESTE arquivo por último no <head> (depois de todos os outros css).
+   Desktop (acima de 960px) continua igual; só celular e tablet mudam.
+   ========================================================= */
+
+/* ---------- Base segura para qualquer tela ---------- */
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: var(--header-h, 130px);
+}
+
+img, video, iframe, svg, canvas {
+    max-width: 100%;
+}
+
+iframe, video {
+    height: auto;
+}
+
+/* tabelas largas rolam dentro delas mesmas, sem esticar a página */
+table {
+    max-width: 100%;
+}
+
+/* palavras/links muito longos não estouram a tela */
+p, li, h1, h2, h3, h4, a, td, th {
+    overflow-wrap: break-word;
+}
+
+/* botão do menu: escondido no computador */
+header .menu-toggle {
+    display: none;
+}
+
+
+/* =========================================================
+   CELULAR E TABLET: até 960px
+   ========================================================= */
+
+@media (max-width: 960px) {
+
+    /* valor provisório; o script ajusta para a altura real do header */
+    body {
+        padding-top: 118px !important;
+    }
+
+    /* ----- linha de cima: logo, ícones e botão do menu ----- */
+
+    header .topo {
+        position: static;
+        top: auto;
+        width: 100%;
+        height: auto;
+        min-height: 64px;
+        padding: 8px 14px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 10px;
+    }
+
+    header .logo {
+        order: 1;
+        margin-right: auto;
+    }
+
+    header .logo img {
+        position: static;
+        top: auto;
+        height: 42px;
+        width: auto;
+    }
+
+    /* os itens de .acoes passam a ser filhos diretos do .topo */
+    header .acoes {
+        display: contents;
+    }
+
+    header .acoes > a,
+    header .usuario-logado,
+    header .menu-configuracoes {
+        order: 2;
+    }
+
+    header .menu-toggle {
+        order: 3;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(255, 255, 255, .45);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, .1);
+        color: #fff;
+        font-size: 1.25rem;
+        cursor: pointer;
+    }
+
+    header .menu-toggle:focus-visible,
+    header .pesquisa input:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 2px;
+    }
+
+    /* ----- busca ocupa a linha de baixo, em largura total ----- */
+
+    header .pesquisa {
+        order: 4;
+        flex: 1 1 100%;
+        width: 100%;
+        height: 42px;
+    }
+
+    header .pesquisa input {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+        padding: 0;
+        font-size: 16px; /* 16px evita o zoom automático do iPhone */
+    }
+
+    /* ----- menu vira uma gaveta que abre e fecha ----- */
+
+    header .menu {
+        display: block;
+        flex: none;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        background: var(--cor-secundaria, #193F80);
+        transition: max-height .3s ease;
+    }
+
+    header.menu-aberto .menu {
+        max-height: 70vh;
+        max-height: calc(100dvh - 130px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    header .menu-links {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0;
+    }
+
+    header .menu-links > li {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    header .menu-links > li > a {
+        flex: 1 1 100%;
+        display: block;
+        padding: 15px 20px;
+        font-size: 1rem;
+        white-space: normal;
+        border-top: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    header .menu-links > li > a:hover,
+    header .menu-links > li > a:focus-visible {
+        background: rgba(255, 255, 255, .08);
+        opacity: 1;
+    }
+
+    /* o sublinhado animado do desktop não existe aqui */
+    header .menu-links > li > a::after {
+        display: none;
+    }
+
+    /* seta do "Biblioteca" */
+    header .menu-links > li.menu-dropdown > a::after {
+        display: inline-block;
+        content: "\25BE";
+        position: static;
+        height: auto;
+        background: none;
+        transform: none;
+        margin-left: 8px;
+        transition: transform .2s ease;
+    }
+
+    header .menu-dropdown.aberto > a::after {
+        transform: rotate(180deg);
+    }
+
+    /* ----- submenu "Biblioteca": abre no toque, dentro da gaveta ----- */
+
+    header .submenu-biblioteca,
+    header .menu-dropdown:hover .submenu-biblioteca {
+        position: static;
+        display: none;
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: 0;
+        padding: 4px 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: #fff;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    header .menu-dropdown.aberto .submenu-biblioteca {
+        display: block;
+    }
+
+    /* (a cor azul dos links do submenu vem do estilo.css) */
+    header .submenu-biblioteca a {
+        padding: 14px 20px 14px 36px;
+        font-size: .95rem;
+        border-radius: 0;
+        border-top: 1px solid #e6edf8;
+    }
+
+    header .submenu-biblioteca a:first-child {
+        border-top: 0;
+    }
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO: até 600px
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    /* "Rotina" e o nome do usuário viram só o ícone */
+    header .acoes > a.usuario-logado,
+    header .acoes > .usuario-logado {
+        font-size: 0;
+        gap: 0;
+        max-width: none;
+        width: 40px;
+        height: 40px;
+    }
+
+    header .acoes .usuario-logado i {
+        font-size: 1.3rem;
+    }
+
+    header .acoes > a.menu-configuracoes,
+    header .acoes > .menu-configuracoes {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+
+    /* ícone de login (visitante) */
+    header .acoes > a[href="login.php"] {
+        width: 40px;
+        height: 40px;
+        font-size: 1.6rem;
+    }
+}
+
+
+/* =========================================================
+   Quem pediu menos movimento
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    header .menu,
+    header .menu-links > li.menu-dropdown > a::after {
+        transition: none;
+    }
+}
+
+body.reduzir-animacoes header .menu {
+    transition: none;
+}
+
+
+/* =========================================================
+   MODO APP (quando o ForTEA foi instalado na tela inicial)
+   ========================================================= */
+
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a, button, input, select, textarea, label {
+    touch-action: manipulation; /* tira o atraso do toque duplo */
+}
+
+@media (display-mode: standalone) {
+
+    /* a barra de status do celular fica por cima: empurra o conteúdo */
+    header {
+        padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    footer {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    body {
+        padding-left: env(safe-area-inset-left, 0px);
+        padding-right: env(safe-area-inset-right, 0px);
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    /* textos digitáveis e leitura continuam selecionáveis */
+    input, textarea, p, li, h1, h2, h3 {
+        -webkit-user-select: text;
+        user-select: text;
+    }
+}
